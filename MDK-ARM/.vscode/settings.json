@@ -1,0 +1,25 @@
+{
+    "files.associations": {
+        "font.h": "c",
+        "oled.h": "c",
+        "pwm.h": "c",
+        "stm32g0xx_hal.h": "c",
+        "valuepack.h": "c",
+        "spi.h": "c",
+        "key.h": "c",
+        "main.h": "c",
+        "volt.h": "c",
+        "printf.h": "c",
+        "usart.h": "c",
+        "send.h": "c",
+        "tim.h": "c",
+        "dma.h": "c",
+        "show.h": "c",
+        "function.h": "c",
+        "status.h": "c",
+        "assmain.h": "c",
+        "mode.h": "c",
+        "buzzer.h": "c",
+        "adc.h": "c"
+    }
+}
