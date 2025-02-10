@@ -1,7 +1,7 @@
 /*
  * @Date: 2025-02-04 15:21:24
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-02-05 20:20:23
+ * @LastEditTime: 2025-02-10 23:03:38
  * @FilePath: \MDK-ARMd:\Mein Werk\meine code\stm32projekt\scope\Core\Lib\Inc\volt.h
  */
 
@@ -19,7 +19,7 @@
 #define ADC_CHANNEL_NUM 3
 #define ADC_CHANNEL_Vrefint_index 2
 
-static uint16_t adcValues[ADC_CHANNEL_NUM];
+
 
 // ≥ı ºªØADC∫ÕDMA
 void VOLT_Init(void);

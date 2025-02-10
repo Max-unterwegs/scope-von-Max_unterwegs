@@ -1,7 +1,7 @@
 /*
  * @Date: 2025-02-05 18:02:39
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-02-10 19:40:36
+ * @LastEditTime: 2025-02-10 23:04:33
  * @FilePath: \MDK-ARMd:\Mein Werk\meine code\stm32projekt\scope\Core\App\Inc\function.h
  */
 #ifndef _FUNCTION_H_
@@ -15,6 +15,7 @@
 
 
 extern int dcarr;
+extern float adcValues[ADC_CHANNEL_NUM];
 
 
 void DC_control(char isopen,int arris);

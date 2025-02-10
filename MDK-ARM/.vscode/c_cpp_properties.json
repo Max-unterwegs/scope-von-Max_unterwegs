@@ -10,7 +10,7 @@
                 "d:\\Mein Werk\\meine code\\stm32projekt\\scope\\Drivers\\CMSIS\\Include",
                 "d:\\Mein Werk\\meine code\\stm32projekt\\scope\\Core\\App\\Inc",
                 "d:\\Mein Werk\\meine code\\stm32projekt\\scope\\Core\\Lib\\Inc",
-                "d:\\Mein Werk\\meine code\\stm32projekt\\scope\\Core\\Mode and main\\Inc",
+                "d:\\Mein Werk\\meine code\\stm32projekt\\scope\\Core\\Modeandmain\\Inc",
                 "D:\\Keilv5\\ARM\\ARMCC\\include",
                 "D:\\Keilv5\\ARM\\ARMCC\\include\\rw",
                 "d:\\Mein Werk\\meine code\\stm32projekt\\scope\\MDK-ARM",
@@ -18,7 +18,7 @@
                 "d:\\Mein Werk\\meine code\\stm32projekt\\scope\\Drivers\\STM32G0xx_HAL_Driver\\Src",
                 "d:\\Mein Werk\\meine code\\stm32projekt\\scope\\Core\\Lib\\Src",
                 "d:\\Mein Werk\\meine code\\stm32projekt\\scope\\Core\\App\\Src",
-                "d:\\Mein Werk\\meine code\\stm32projekt\\scope\\Core\\Mode and main\\Src"
+                "d:\\Mein Werk\\meine code\\stm32projekt\\scope\\Core\\Modeandmain\\Src"
             ],
             "defines": [
                 "USE_HAL_DRIVER",

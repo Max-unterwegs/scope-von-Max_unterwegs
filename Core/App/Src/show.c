@@ -1,7 +1,7 @@
 /*
  * @Date: 2025-02-05 17:58:21
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-02-10 19:41:21
+ * @LastEditTime: 2025-02-11 00:03:59
  * @FilePath: \MDK-ARMd:\Mein Werk\meine code\stm32projekt\scope\Core\App\Src\show.c
  */
 #include "show.h"
@@ -11,6 +11,7 @@ char functionshowchar[5][10] = {"DC", "CH", "BUZZER", "LED", "OLED"};
 char paramshowchar[5][10] = {"DCarr", "CH1mv", "CH2mv", "DCv", "CHf"};
 
 void showinit(){
+
     HAL_Delay(20);
     OLED_Init();
 }
@@ -58,7 +59,6 @@ void showshow()
         snprintf(buffer, sizeof(buffer), "Resistor %d: %.2f¦¸", i + 1, res[i]);
         OLED_PrintASCIIString(64, (i + 8) * 12, buffer, &afont12x6, OLED_COLOR_REVERSED);
     }
-
 
 
     OLED_ShowFrame();
