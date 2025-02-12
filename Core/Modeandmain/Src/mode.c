@@ -1,8 +1,8 @@
 /*
  * @Date: 2025-02-06 18:56:18
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-02-10 21:43:59
- * @FilePath: \MDK-ARMd:\Mein Werk\meine code\stm32projekt\scope\Core\Mode and main\Src\mode.c
+ * @LastEditTime: 2025-02-12 22:58:07
+ * @FilePath: \MDK-ARMd:\Mein Werk\meine code\stm32projekt\scope\Core\Modeandmain\Src\mode.c
  */
 #include "mode.h"
 #include "function.h"
@@ -30,8 +30,6 @@ void scope_init(void)
     DC_control(functionshow[0], paramshow[0]); // 示例参数
     // 初始化数据发送
     sendinit();
-    // 初始化状态模式显示
-    showinit();
     // 初始化相关参数调节
     // 初始化其余状态显示
 }
@@ -49,7 +47,7 @@ void scope_main(void)
     // 执行直流电输出
     DC_vcontrol(paramshow[3]); // 示例电压值
     // 执行相关参数调节
-    CH_fcontrol(paramshow[4]);
+    CH_fcontrol(paramshow[4], functionshow[1]);
     // 初始化通道采样
     CH_control(functionshow[1]);
     // 执行通道采样
@@ -75,7 +73,6 @@ void messer_init(void)
     // 初始化数据发送
     sendinit();
     // 初始化状态模式显示
-    showinit();
     // 初始化相关参数调节
     // 初始化其余状态显示
 }
@@ -86,14 +83,15 @@ void messer_init(void)
  */
 void messer_main(void)
 {
-     // 初始化通道采样
-     CH_control(functionshow[1]);
+     
      // 初始化直流电输出
      DC_control(functionshow[0], paramshow[0]); // 示例参数
      // 执行直流电输出
      DC_vcontrol(paramshow[3]); // 示例电压值
      // 执行相关参数调节
-     CH_fcontrol(paramshow[4]);
+     CH_fcontrol(paramshow[4], functionshow[1]);
+     // 初始化通道采样
+     CH_control(functionshow[1]);
      // 执行通道采样
      VOLT_ReadVoltages(voltages);
 

@@ -1,7 +1,7 @@
 /*
  * @Date: 2025-02-04 10:30:55
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-02-10 19:38:48
+ * @LastEditTime: 2025-02-12 21:04:46
  * @FilePath: \MDK-ARMd:\Mein Werk\meine code\stm32projekt\scope\Core\Lib\Inc\key.h
  */
 #ifndef __KEY_H
@@ -11,6 +11,7 @@
 #include "status.h"
 #include "mode.h"
 #include "printf.h"
+#include "tim.h"
 
 // 按键状态结构体，存储几个变量
 typedef struct
@@ -45,16 +46,16 @@ typedef struct
 
 /* 按键多次点击设置 */
 #define    	KEY_1ClICK				KEY_ON  // 单击
-// #define    	KEY_2ClICK				2       // 双击
-// #define    	KEY_3ClICK				3       // 三击
-// #define    	KEY_4ClICK				4       // 四击
-// #define    	KEY_5ClICK				5       // 五击
-// #define     KEY_MAX_MULCLICK			1  // 最大多次点击数
+#define    	KEY_2ClICK				2       // 双击
+#define    	KEY_3ClICK				3       // 三击
+#define    	KEY_4ClICK				4       // 四击
+#define    	KEY_5ClICK				5       // 五击
+#define     KEY_MAX_MULCLICK		KEY_5ClICK  // 最大多次点击数
 
 /* 按键参数设置 */
-#define		HOLD_COUNTS					10000  // 按键保持计数
-#define 	SHAKES_COUNTS				8    // 按键抖动计数
-#define		MULTIPLE_CLICK_COUNTS		20   // 多次点击计数
+#define		HOLD_COUNTS					100  // 按键保持计数
+#define 	SHAKES_COUNTS				3    // 按键抖动计数
+#define		MULTIPLE_CLICK_COUNTS		10   // 多次点击计数
 
 #define		KEY_NUMS		5  // 按键数量
 

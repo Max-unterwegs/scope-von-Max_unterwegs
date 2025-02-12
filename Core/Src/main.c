@@ -30,6 +30,7 @@
 /* USER CODE BEGIN Includes */
 #include "status.h"
 #include "printf.h"
+#include "show.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -103,6 +104,9 @@ int main(void)
   MX_TIM3_Init();
   MX_TIM17_Init();
   /* USER CODE BEGIN 2 */
+  HAL_TIM_Base_Start_IT(&htim17);
+  // 初始化状态模式显示
+  showinit();
   init_status();
   /* USER CODE END 2 */
 

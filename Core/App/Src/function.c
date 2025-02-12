@@ -1,7 +1,7 @@
 /*
  * @Date: 2025-02-05 18:02:21
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-02-10 21:16:41
+ * @LastEditTime: 2025-02-12 22:57:46
  * @FilePath: \MDK-ARMd:\Mein Werk\meine code\stm32projekt\scope\Core\App\Src\function.c
  */
 #include "function.h"
@@ -106,25 +106,29 @@ void CH_vcontrol(char chnum,char chvmode)
     }
 }
 
-void CH_fcontrol(float freq) {
-    HAL_TIM_Base_Stop( &CH_HAL_TIM );
-    HAL_ADC_Stop_DMA( &ADC_handle );
-    uint32_t prescaler = 1;
-    while ((float) HCLK / (float) prescaler / freq > 65535) {
-        do {
-            prescaler++;
-        } while (HCLK % prescaler);
-    }
-    CH_HAL_TIM.Instance->PSC = prescaler - 1;
-    CH_HAL_TIM.Instance->ARR = (uint16_t) ((float) HCLK / (float) prescaler / freq) - 1;
-    
-    for(int i=0;i<ADC_CHANNEL_NUM;i++)
+void CH_fcontrol(float freq ,char isCHopen) {
+    if(isCHopen == 1)
     {
-        adcValues[i] = 0;
-    }
+        HAL_TIM_Base_Stop( &CH_HAL_TIM );
+        HAL_ADC_Stop_DMA( &ADC_handle );
+        uint32_t prescaler = 1;
+        while ((float) HCLK / (float) prescaler / freq > 65535) {
+            do {
+                prescaler++;
+            } while (HCLK % prescaler);
+        }
+        CH_HAL_TIM.Instance->PSC = prescaler - 1;
+        CH_HAL_TIM.Instance->ARR = (uint16_t) ((float) HCLK / (float) prescaler / freq) - 1;
+        
+        for(int i=0;i<ADC_CHANNEL_NUM;i++)
+        {
+            adcValues[i] = 0;
+        }
 
-    HAL_TIM_Base_Start( &CH_HAL_TIM );
-    VOLT_Init();
+        HAL_TIM_Base_Start( &CH_HAL_TIM );
+        VOLT_Init();
+    }
+    
 }
 
 void voltage_map(float* mapbuffer)

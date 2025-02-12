@@ -52,3 +52,8 @@ scope\main.o: ../Core/App/Inc/status.h
 scope\main.o: ../Core/Modeandmain/Inc/mode.h
 scope\main.o: ../Core/Lib/Inc/printf.h
 scope\main.o: D:\Keilv5\ARM\ARMCC\Bin\..\include\stdio.h
+scope\main.o: ../Core/App/Inc/show.h
+scope\main.o: ../Core/Lib/Inc/oled.h
+scope\main.o: ../Core/Lib/Inc/font.h
+scope\main.o: D:\Keilv5\ARM\ARMCC\Bin\..\include\string.h
+scope\main.o: ../Core/Lib/Inc/key.h
