@@ -1,12 +1,12 @@
 /*
  * @Date: 2025-02-05 18:01:42
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-02-10 19:38:00
+ * @LastEditTime: 2025-02-12 10:51:05
  * @FilePath: \MDK-ARMd:\Mein Werk\meine code\stm32projekt\scope\Core\App\Src\status.c
  */
 #include "status.h"
 
-int status = SCOPE_STATUS;
+int status = 1;
 
 void init_status()
 {

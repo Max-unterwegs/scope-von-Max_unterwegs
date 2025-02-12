@@ -1116,12 +1116,12 @@ Section Cross References
     show.o(i.showshow) refers to f2d.o(.text) for __aeabi_f2d
     show.o(i.showshow) refers to printfa.o(i.__0snprintf) for __2snprintf
     show.o(i.showshow) refers to oled.o(i.OLED_ShowFrame) for OLED_ShowFrame
-    show.o(i.showshow) refers to status.o(.data) for status
     show.o(i.showshow) refers to show.o(.data) for .data
-    show.o(i.showshow) refers to font.o(.constdata) for afont12x6
     show.o(i.showshow) refers to key.o(.data) for select
+    show.o(i.showshow) refers to font.o(.constdata) for afont8x6
     show.o(i.showshow) refers to mode.o(.data) for paramshow
     show.o(i.showshow) refers to mode.o(.bss) for voltages
+    show.o(i.showshow) refers to status.o(.data) for status
     status.o(i.init_status) refers to mode.o(i.mu_init) for mu_init
     status.o(i.init_status) refers to mode.o(i.scope_init) for scope_init
     status.o(i.init_status) refers to mode.o(i.messer_init) for messer_init
@@ -2081,7 +2081,7 @@ Removing Unused input sections from the image.
     Removing system_stm32g0xx.o(.rev16_text), (4 bytes).
     Removing system_stm32g0xx.o(.revsh_text), (4 bytes).
     Removing system_stm32g0xx.o(i.SystemCoreClockUpdate), (144 bytes).
-    Removing font.o(.constdata), (552 bytes).
+    Removing font.o(.constdata), (1140 bytes).
     Removing font.o(.constdata), (8 bytes).
     Removing font.o(.constdata), (1520 bytes).
     Removing font.o(.constdata), (8 bytes).
@@ -2140,7 +2140,7 @@ Removing Unused input sections from the image.
     Removing dflti.o(.text), (40 bytes).
     Removing dfixi.o(.text), (72 bytes).
 
-631 unused section(s) (total 58371 bytes) removed from the image.
+631 unused section(s) (total 58959 bytes) removed from the image.
 
 ==============================================================================
 
@@ -2589,12 +2589,12 @@ Image Symbol Table
     i.sendvolt                               0x08005f44   Section        0  send.o(i.sendvolt)
     i.showinit                               0x08005fb4   Section        0  show.o(i.showinit)
     i.showshow                               0x08005fc4   Section        0  show.o(i.showshow)
-    i.voltage_map                            0x08006138   Section        0  function.o(i.voltage_map)
-    .constdata                               0x08006198   Section       24  stm32g0xx_hal_uart.o(.constdata)
-    .constdata                               0x080061b0   Section       64  system_stm32g0xx.o(.constdata)
-    .constdata                               0x080061f0   Section       32  system_stm32g0xx.o(.constdata)
-    .constdata                               0x08006210   Section     1140  font.o(.constdata)
-    .constdata                               0x08006684   Section        8  font.o(.constdata)
+    i.voltage_map                            0x08006144   Section        0  function.o(i.voltage_map)
+    .constdata                               0x080061a4   Section       24  stm32g0xx_hal_uart.o(.constdata)
+    .constdata                               0x080061bc   Section       64  system_stm32g0xx.o(.constdata)
+    .constdata                               0x080061fc   Section       32  system_stm32g0xx.o(.constdata)
+    .constdata                               0x0800621c   Section      552  font.o(.constdata)
+    .constdata                               0x08006444   Section        8  font.o(.constdata)
     .data                                    0x20000000   Section       12  stm32g0xx_hal.o(.data)
     .data                                    0x2000000c   Section        4  system_stm32g0xx.o(.data)
     .data                                    0x20000010   Section       34  key.o(.data)
@@ -2604,20 +2604,20 @@ Image Symbol Table
     temp                                     0x20000035   Data           1  oled.o(.data)
     temp                                     0x20000036   Data           1  oled.o(.data)
     .data                                    0x2000003c   Section        6  volt.o(.data)
-    .data                                    0x20000042   Section      130  show.o(.data)
-    .data                                    0x200000c4   Section        4  status.o(.data)
-    .data                                    0x200000c8   Section       48  mode.o(.data)
-    .data                                    0x200000f8   Section        4  mode.o(.data)
-    .data                                    0x200000fc   Section        4  stdout.o(.data)
-    .bss                                     0x20000100   Section      192  adc.o(.bss)
-    .bss                                     0x200001c0   Section       84  i2c.o(.bss)
-    .bss                                     0x20000214   Section      100  spi.o(.bss)
-    .bss                                     0x20000278   Section      304  tim.o(.bss)
-    .bss                                     0x200003a8   Section      332  usart.o(.bss)
-    .bss                                     0x200004f4   Section     2177  oled.o(.bss)
-    sendBuffer                               0x200004f4   Data         129  oled.o(.bss)
-    .bss                                     0x20000d78   Section       12  mode.o(.bss)
-    STACK                                    0x20000d88   Section     1024  startup_stm32g031xx.o(STACK)
+    .data                                    0x20000042   Section      140  show.o(.data)
+    .data                                    0x200000d0   Section        4  status.o(.data)
+    .data                                    0x200000d4   Section       48  mode.o(.data)
+    .data                                    0x20000104   Section        4  mode.o(.data)
+    .data                                    0x20000108   Section        4  stdout.o(.data)
+    .bss                                     0x2000010c   Section      192  adc.o(.bss)
+    .bss                                     0x200001cc   Section       84  i2c.o(.bss)
+    .bss                                     0x20000220   Section      100  spi.o(.bss)
+    .bss                                     0x20000284   Section      304  tim.o(.bss)
+    .bss                                     0x200003b4   Section      332  usart.o(.bss)
+    .bss                                     0x20000500   Section     2177  oled.o(.bss)
+    sendBuffer                               0x20000500   Data         129  oled.o(.bss)
+    .bss                                     0x20000d84   Section       12  mode.o(.bss)
+    STACK                                    0x20000d90   Section     1024  startup_stm32g031xx.o(STACK)
 
     Global Symbols
 
@@ -2927,14 +2927,14 @@ Image Symbol Table
     sendvolt                                 0x08005f45   Thumb Code    54  send.o(i.sendvolt)
     showinit                                 0x08005fb5   Thumb Code    14  show.o(i.showinit)
     showshow                                 0x08005fc5   Thumb Code   290  show.o(i.showshow)
-    voltage_map                              0x08006139   Thumb Code    84  function.o(i.voltage_map)
-    UARTPrescTable                           0x08006198   Data          24  stm32g0xx_hal_uart.o(.constdata)
-    AHBPrescTable                            0x080061b0   Data          64  system_stm32g0xx.o(.constdata)
-    APBPrescTable                            0x080061f0   Data          32  system_stm32g0xx.o(.constdata)
-    ascii_12x6                               0x08006210   Data        1140  font.o(.constdata)
-    afont12x6                                0x08006684   Data           8  font.o(.constdata)
-    Region$$Table$$Base                      0x0800668c   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x080066ac   Number         0  anon$$obj.o(Region$$Table)
+    voltage_map                              0x08006145   Thumb Code    84  function.o(i.voltage_map)
+    UARTPrescTable                           0x080061a4   Data          24  stm32g0xx_hal_uart.o(.constdata)
+    AHBPrescTable                            0x080061bc   Data          64  system_stm32g0xx.o(.constdata)
+    APBPrescTable                            0x080061fc   Data          32  system_stm32g0xx.o(.constdata)
+    ascii_8x6                                0x0800621c   Data         552  font.o(.constdata)
+    afont8x6                                 0x08006444   Data           8  font.o(.constdata)
+    Region$$Table$$Base                      0x0800644c   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x0800646c   Number         0  anon$$obj.o(Region$$Table)
     uwTickFreq                               0x20000000   Data           1  stm32g0xx_hal.o(.data)
     uwTickPrio                               0x20000004   Data           4  stm32g0xx_hal.o(.data)
     uwTick                                   0x20000008   Data           4  stm32g0xx_hal.o(.data)
@@ -2944,29 +2944,29 @@ Image Symbol Table
     select                                   0x20000012   Data           2  key.o(.data)
     USE_HORIZONTAL                           0x20000038   Data           4  oled.o(.data)
     adcValues                                0x2000003c   Data           6  volt.o(.data)
-    statuschar                               0x20000042   Data          30  show.o(.data)
-    functionshowchar                         0x20000060   Data          50  show.o(.data)
-    paramshowchar                            0x20000092   Data          50  show.o(.data)
-    status                                   0x200000c4   Data           4  status.o(.data)
-    res                                      0x200000c8   Data           8  mode.o(.data)
-    functionshow                             0x200000d0   Data          20  mode.o(.data)
-    paramshow                                0x200000e4   Data          20  mode.o(.data)
-    dcarr                                    0x200000f8   Data           4  mode.o(.data)
-    __stdout                                 0x200000fc   Data           4  stdout.o(.data)
-    hadc1                                    0x20000100   Data         100  adc.o(.bss)
-    hdma_adc1                                0x20000164   Data          92  adc.o(.bss)
-    hi2c2                                    0x200001c0   Data          84  i2c.o(.bss)
-    hspi2                                    0x20000214   Data         100  spi.o(.bss)
-    htim1                                    0x20000278   Data          76  tim.o(.bss)
-    htim2                                    0x200002c4   Data          76  tim.o(.bss)
-    htim3                                    0x20000310   Data          76  tim.o(.bss)
-    htim17                                   0x2000035c   Data          76  tim.o(.bss)
-    huart2                                   0x200003a8   Data         148  usart.o(.bss)
-    hdma_usart2_rx                           0x2000043c   Data          92  usart.o(.bss)
-    hdma_usart2_tx                           0x20000498   Data          92  usart.o(.bss)
-    OLED_GRAM                                0x20000575   Data        2048  oled.o(.bss)
-    voltages                                 0x20000d78   Data          12  mode.o(.bss)
-    __initial_sp                             0x20001188   Data           0  startup_stm32g031xx.o(STACK)
+    statuschar                               0x20000042   Data          40  show.o(.data)
+    functionshowchar                         0x2000006a   Data          50  show.o(.data)
+    paramshowchar                            0x2000009c   Data          50  show.o(.data)
+    status                                   0x200000d0   Data           4  status.o(.data)
+    res                                      0x200000d4   Data           8  mode.o(.data)
+    functionshow                             0x200000dc   Data          20  mode.o(.data)
+    paramshow                                0x200000f0   Data          20  mode.o(.data)
+    dcarr                                    0x20000104   Data           4  mode.o(.data)
+    __stdout                                 0x20000108   Data           4  stdout.o(.data)
+    hadc1                                    0x2000010c   Data         100  adc.o(.bss)
+    hdma_adc1                                0x20000170   Data          92  adc.o(.bss)
+    hi2c2                                    0x200001cc   Data          84  i2c.o(.bss)
+    hspi2                                    0x20000220   Data         100  spi.o(.bss)
+    htim1                                    0x20000284   Data          76  tim.o(.bss)
+    htim2                                    0x200002d0   Data          76  tim.o(.bss)
+    htim3                                    0x2000031c   Data          76  tim.o(.bss)
+    htim17                                   0x20000368   Data          76  tim.o(.bss)
+    huart2                                   0x200003b4   Data         148  usart.o(.bss)
+    hdma_usart2_rx                           0x20000448   Data          92  usart.o(.bss)
+    hdma_usart2_tx                           0x200004a4   Data          92  usart.o(.bss)
+    OLED_GRAM                                0x20000581   Data        2048  oled.o(.bss)
+    voltages                                 0x20000d84   Data          12  mode.o(.bss)
+    __initial_sp                             0x20001190   Data           0  startup_stm32g031xx.o(STACK)
 
 
 
@@ -2976,9 +2976,9 @@ Memory Map of the image
 
   Image Entry point : 0x080000c1
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x000067ac, Max: 0x00010000, ABSOLUTE)
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00006578, Max: 0x00010000, ABSOLUTE)
 
-    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x000066ac, Max: 0x00010000, ABSOLUTE)
+    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x0000646c, Max: 0x00010000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -3248,41 +3248,41 @@ Memory Map of the image
     0x08005f44   0x08005f44   0x00000070   Code   RO         4989    i.sendvolt          send.o
     0x08005fb4   0x08005fb4   0x0000000e   Code   RO         5022    i.showinit          show.o
     0x08005fc2   0x08005fc2   0x00000002   PAD
-    0x08005fc4   0x08005fc4   0x00000174   Code   RO         5023    i.showshow          show.o
-    0x08006138   0x08006138   0x00000060   Code   RO         5090    i.voltage_map       function.o
-    0x08006198   0x08006198   0x00000018   Data   RO         4053    .constdata          stm32g0xx_hal_uart.o
-    0x080061b0   0x080061b0   0x00000040   Data   RO         4516    .constdata          system_stm32g0xx.o
-    0x080061f0   0x080061f0   0x00000020   Data   RO         4517    .constdata          system_stm32g0xx.o
-    0x08006210   0x08006210   0x00000474   Data   RO         4548    .constdata          font.o
-    0x08006684   0x08006684   0x00000008   Data   RO         4549    .constdata          font.o
-    0x0800668c   0x0800668c   0x00000020   Data   RO         5571    Region$$Table       anon$$obj.o
+    0x08005fc4   0x08005fc4   0x00000180   Code   RO         5023    i.showshow          show.o
+    0x08006144   0x08006144   0x00000060   Code   RO         5090    i.voltage_map       function.o
+    0x080061a4   0x080061a4   0x00000018   Data   RO         4053    .constdata          stm32g0xx_hal_uart.o
+    0x080061bc   0x080061bc   0x00000040   Data   RO         4516    .constdata          system_stm32g0xx.o
+    0x080061fc   0x080061fc   0x00000020   Data   RO         4517    .constdata          system_stm32g0xx.o
+    0x0800621c   0x0800621c   0x00000228   Data   RO         4546    .constdata          font.o
+    0x08006444   0x08006444   0x00000008   Data   RO         4547    .constdata          font.o
+    0x0800644c   0x0800644c   0x00000020   Data   RO         5571    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x080066ac, Size: 0x00001188, Max: 0x00002000, ABSOLUTE)
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x0800646c, Size: 0x00001190, Max: 0x00002000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x080066ac   0x0000000c   Data   RW         1854    .data               stm32g0xx_hal.o
-    0x2000000c   0x080066b8   0x00000004   Data   RW         4518    .data               system_stm32g0xx.o
-    0x20000010   0x080066bc   0x00000022   Data   RW         4574    .data               key.o
-    0x20000032   0x080066de   0x00000002   PAD
-    0x20000034   0x080066e0   0x00000008   Data   RW         4642    .data               oled.o
-    0x2000003c   0x080066e8   0x00000006   Data   RW         4957    .data               volt.o
-    0x20000042   0x080066ee   0x00000082   Data   RW         5024    .data               show.o
-    0x200000c4   0x08006770   0x00000004   Data   RW         5063    .data               status.o
-    0x200000c8   0x08006774   0x00000030   Data   RW         5164    .data               mode.o
-    0x200000f8   0x080067a4   0x00000004   Data   RW         5165    .data               mode.o
-    0x200000fc   0x080067a8   0x00000004   Data   RW         5551    .data               mc_p.l(stdout.o)
-    0x20000100        -       0x000000c0   Zero   RW          234    .bss                adc.o
-    0x200001c0        -       0x00000054   Zero   RW          292    .bss                i2c.o
-    0x20000214        -       0x00000064   Zero   RW          330    .bss                spi.o
-    0x20000278        -       0x00000130   Zero   RW          372    .bss                tim.o
-    0x200003a8        -       0x0000014c   Zero   RW          430    .bss                usart.o
-    0x200004f4        -       0x00000881   Zero   RW         4641    .bss                oled.o
-    0x20000d75   0x080067ac   0x00000003   PAD
-    0x20000d78        -       0x0000000c   Zero   RW         5163    .bss                mode.o
-    0x20000d84   0x080067ac   0x00000004   PAD
-    0x20000d88        -       0x00000400   Zero   RW            1    STACK               startup_stm32g031xx.o
+    0x20000000   0x0800646c   0x0000000c   Data   RW         1854    .data               stm32g0xx_hal.o
+    0x2000000c   0x08006478   0x00000004   Data   RW         4518    .data               system_stm32g0xx.o
+    0x20000010   0x0800647c   0x00000022   Data   RW         4574    .data               key.o
+    0x20000032   0x0800649e   0x00000002   PAD
+    0x20000034   0x080064a0   0x00000008   Data   RW         4642    .data               oled.o
+    0x2000003c   0x080064a8   0x00000006   Data   RW         4957    .data               volt.o
+    0x20000042   0x080064ae   0x0000008c   Data   RW         5024    .data               show.o
+    0x200000ce   0x0800653a   0x00000002   PAD
+    0x200000d0   0x0800653c   0x00000004   Data   RW         5063    .data               status.o
+    0x200000d4   0x08006540   0x00000030   Data   RW         5164    .data               mode.o
+    0x20000104   0x08006570   0x00000004   Data   RW         5165    .data               mode.o
+    0x20000108   0x08006574   0x00000004   Data   RW         5551    .data               mc_p.l(stdout.o)
+    0x2000010c        -       0x000000c0   Zero   RW          234    .bss                adc.o
+    0x200001cc        -       0x00000054   Zero   RW          292    .bss                i2c.o
+    0x20000220        -       0x00000064   Zero   RW          330    .bss                spi.o
+    0x20000284        -       0x00000130   Zero   RW          372    .bss                tim.o
+    0x200003b4        -       0x0000014c   Zero   RW          430    .bss                usart.o
+    0x20000500        -       0x00000881   Zero   RW         4641    .bss                oled.o
+    0x20000d81   0x08006578   0x00000003   PAD
+    0x20000d84        -       0x0000000c   Zero   RW         5163    .bss                mode.o
+    0x20000d90        -       0x00000400   Zero   RW            1    STACK               startup_stm32g031xx.o
 
 
 ==============================================================================
@@ -3294,7 +3294,7 @@ Image component sizes
 
        356         44          0          0        192       1775   adc.o
         56          4          0          0          0        722   dma.o
-         0          0       1148          0          0       1486   font.o
+         0          0        560          0          0       1486   font.o
        668         98          0          0          0       3506   function.o
        216         20          0          0          0        931   gpio.o
        200         20          0          0         84       1581   i2c.o
@@ -3305,7 +3305,7 @@ Image component sizes
         28         10          0          0          0       1692   printf.o
        140         18          0          0          0       2360   pwm.o
        174         82          0          0          0       1376   send.o
-       386         82          0        130          0       2010   show.o
+       398         94          0        140          0       2050   show.o
        196         28          0          0        100       1577   spi.o
         28          8        192          0       1024        616   startup_stm32g031xx.o
         80          8          0          4          0       1157   status.o
@@ -3333,9 +3333,9 @@ Image component sizes
        156         28          0          6          0       1660   volt.o
 
     ----------------------------------------------------------------------
-     20046       1512       1492        252       4232     732202   Object Totals
+     20058       1524        904        264       4228     732242   Object Totals
          0          0         32          0          0          0   (incl. Generated)
-        40          0          0          2          7          0   (incl. Padding)
+        40          0          0          4          3          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -3402,15 +3402,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     24792       1674       1492        256       4232     725242   Grand Totals
-     24792       1674       1492        256       4232     725242   ELF Image Totals
-     24792       1674       1492        256          0          0   ROM Totals
+     24804       1686        904        268       4228     725282   Grand Totals
+     24804       1686        904        268       4228     725282   ELF Image Totals
+     24804       1686        904        268          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                26284 (  25.67kB)
-    Total RW  Size (RW Data + ZI Data)              4488 (   4.38kB)
-    Total ROM Size (Code + RO Data + RW Data)      26540 (  25.92kB)
+    Total RO  Size (Code + RO Data)                25708 (  25.11kB)
+    Total RW  Size (RW Data + ZI Data)              4496 (   4.39kB)
+    Total ROM Size (Code + RO Data + RW Data)      25976 (  25.37kB)
 
 ==============================================================================
 
