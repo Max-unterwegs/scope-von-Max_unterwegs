@@ -9,8 +9,7 @@
 #include <QDebug>//用于在控制台输出调试信息
 #include <QTime>//定时器
 #include <QPainter>//坐标系绘图
-
-
+#include <QVector>//数据处理
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -31,10 +30,11 @@ private slots:
 
     void on_pb_openport_clicked();
 
+    QVector<float> movingAverageFilter(const QVector<float>& data, int windowSize);//滑动平均滤波
+
     void AnalyzeData();//数据读取
 
     void setupPlot();//初始化
-
 
 private:
     Ui::scope *ui;

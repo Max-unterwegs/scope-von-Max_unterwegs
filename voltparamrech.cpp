@@ -132,6 +132,15 @@ float getPhaseDifference(const QVector<float>& voltages1, const QVector<float>& 
 // 返回波形的频率
 float getFrequency(const QVector<float>& voltages, float sampling_interval)
 {
+    return 1.0 / getPeriod(voltages, sampling_interval);
+}
+
+// 计算周期（假设波形为正弦波）
+// 参数 voltages 是一个存储电压值的向量
+// 参数 sampling_interval 是采样间隔
+// 返回波形的周期
+float getPeriod(const QVector<float>& voltages, float sampling_interval)
+{
     int zero_crossings = 0;
     // 计算零点交叉的次数
     for (int i = 1; i < voltages.size(); ++i)
@@ -143,16 +152,6 @@ float getFrequency(const QVector<float>& voltages, float sampling_interval)
     }
     // 计算周期
     float period = (zero_crossings / 2) * sampling_interval;
-    // 返回频率
-    return 1.0 / period;
-}
-
-// 计算周期（假设波形为正弦波）
-// 参数 voltages 是一个存储电压值的向量
-// 参数 sampling_interval 是采样间隔
-// 返回波形的周期
-float getPeriod(const QVector<float>& voltages, float sampling_interval)
-{
-    // 返回频率的倒数
-    return 1.0 / getFrequency(voltages, sampling_interval);
+    // 返回周期
+    return period;
 }

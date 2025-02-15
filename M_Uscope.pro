@@ -12,13 +12,11 @@ CONFIG += c++17
 SOURCES += \
     main.cpp \
     qcustomplot.cpp \
-    scope.cpp \
-    voltparamrech.cpp
+    scope.cpp
 
 HEADERS += \
     qcustomplot.h \
-    scope.h \
-    voltparamrech.h
+    scope.h
 
 FORMS += \
     scope.ui
