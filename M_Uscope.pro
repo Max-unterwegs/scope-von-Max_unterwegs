@@ -10,13 +10,21 @@ CONFIG += c++17
 
 
 SOURCES += \
+    fft_transform.cpp \
+    kiss_fft.c \
     main.cpp \
     qcustomplot.cpp \
-    scope.cpp
+    scope.cpp \
+    voltparamrech.cpp
 
 HEADERS += \
+    _kiss_fft_guts.h \
+    fft_transform.h \
+    kiss_fft.h \
+    kiss_fft_log.h \
     qcustomplot.h \
-    scope.h
+    scope.h \
+    voltparamrech.h
 
 FORMS += \
     scope.ui

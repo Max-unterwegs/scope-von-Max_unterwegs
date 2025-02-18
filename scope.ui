@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1252</width>
-    <height>600</height>
+    <height>870</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -25,8 +25,8 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>120</y>
+     <x>30</x>
+     <y>0</y>
      <width>591</width>
      <height>291</height>
     </rect>
@@ -75,7 +75,7 @@
      </widget>
     </item>
     <item row="7" column="3" colspan="2">
-     <widget class="QLineEdit" name="lineRVCH1">
+     <widget class="QLineEdit" name="lineVrmsCH1">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>0</horstretch>
@@ -189,7 +189,7 @@
      </widget>
     </item>
     <item row="7" column="1" colspan="2">
-     <widget class="QLineEdit" name="lineAVCH1">
+     <widget class="QLineEdit" name="lineVavgCH1">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>0</horstretch>
@@ -223,7 +223,7 @@
      </widget>
     </item>
     <item row="5" column="1" colspan="2">
-     <widget class="QLineEdit" name="lineTCH1">
+     <widget class="QLineEdit" name="linePeriodCH1">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>0</horstretch>
@@ -240,7 +240,7 @@
      </widget>
     </item>
     <item row="7" column="5">
-     <widget class="QLineEdit" name="lineAVCH2">
+     <widget class="QLineEdit" name="lineVavgCH2">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>0</horstretch>
@@ -257,7 +257,7 @@
      </widget>
     </item>
     <item row="9" column="4">
-     <widget class="QLineEdit" name="linePWidthCH1">
+     <widget class="QLineEdit" name="linePulseWidthCH1">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>0</horstretch>
@@ -305,22 +305,8 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="5" colspan="3">
-     <widget class="QLabel" name="label_CH2">
-      <property name="font">
-       <font>
-        <family>微软雅黑</family>
-        <pointsize>10</pointsize>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>CH2</string>
-      </property>
-     </widget>
-    </item>
     <item row="5" column="6" colspan="2">
-     <widget class="QLineEdit" name="linefCH1_2">
+     <widget class="QLineEdit" name="lineFrequencyCH2">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>0</horstretch>
@@ -354,7 +340,7 @@
      </widget>
     </item>
     <item row="7" column="6" colspan="2">
-     <widget class="QLineEdit" name="lineRVCH2">
+     <widget class="QLineEdit" name="lineVrmsCH2">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>0</horstretch>
@@ -371,7 +357,7 @@
      </widget>
     </item>
     <item row="5" column="5">
-     <widget class="QLineEdit" name="lineTCH2">
+     <widget class="QLineEdit" name="linePeriodCH2">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>0</horstretch>
@@ -419,7 +405,7 @@
      </widget>
     </item>
     <item row="9" column="7">
-     <widget class="QLineEdit" name="linePWidthCH2">
+     <widget class="QLineEdit" name="linePulseWidthCH2">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>0</horstretch>
@@ -450,7 +436,7 @@
      </widget>
     </item>
     <item row="9" column="5">
-     <widget class="QLineEdit" name="lineDutyCH2">
+     <widget class="QLineEdit" name="lineDutyCycleCH2">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>0</horstretch>
@@ -467,7 +453,7 @@
      </widget>
     </item>
     <item row="9" column="1" colspan="2">
-     <widget class="QLineEdit" name="lineDutyCH1">
+     <widget class="QLineEdit" name="lineDutyCycleCH1">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>0</horstretch>
@@ -484,7 +470,7 @@
      </widget>
     </item>
     <item row="5" column="4">
-     <widget class="QLineEdit" name="linefCH1">
+     <widget class="QLineEdit" name="lineFrequencyCH1">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>0</horstretch>
@@ -515,12 +501,54 @@
       </property>
      </widget>
     </item>
+    <item row="0" column="5" colspan="3">
+     <widget class="QLabel" name="label_CH2">
+      <property name="font">
+       <font>
+        <family>微软雅黑</family>
+        <pointsize>10</pointsize>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>CH2</string>
+      </property>
+     </widget>
+    </item>
    </layout>
+   <zorder>label_Tf</zorder>
+   <zorder>label_VmaxVmin</zorder>
+   <zorder>lineVrmsCH1</zorder>
+   <zorder>label_Vpp</zorder>
+   <zorder>label_Tf_3</zorder>
+   <zorder>lineVminCH1</zorder>
+   <zorder>lineCH1</zorder>
+   <zorder>lineVmaxCH2</zorder>
+   <zorder>lineVmaxCH1</zorder>
+   <zorder>lineVavgCH1</zorder>
+   <zorder>lineVminCH2</zorder>
+   <zorder>linePeriodCH1</zorder>
+   <zorder>lineVavgCH2</zorder>
+   <zorder>linePulseWidthCH1</zorder>
+   <zorder>lineVppCH1</zorder>
+   <zorder>label_CH2</zorder>
+   <zorder>lineFrequencyCH2</zorder>
+   <zorder>lineVppCH2</zorder>
+   <zorder>lineVrmsCH2</zorder>
+   <zorder>linePeriodCH2</zorder>
+   <zorder>label_CH1</zorder>
+   <zorder>lineCH2</zorder>
+   <zorder>linePulseWidthCH2</zorder>
+   <zorder>label_V</zorder>
+   <zorder>lineDutyCycleCH2</zorder>
+   <zorder>lineDutyCycleCH1</zorder>
+   <zorder>lineFrequencyCH1</zorder>
+   <zorder>label_Tf_2</zorder>
   </widget>
   <widget class="QGroupBox" name="groupBox_2">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>640</x>
      <y>10</y>
      <width>181</width>
      <height>91</height>
@@ -592,8 +620,8 @@
   <widget class="QPushButton" name="pb_exti">
    <property name="geometry">
     <rect>
-     <x>510</x>
-     <y>530</y>
+     <x>660</x>
+     <y>130</y>
      <width>61</width>
      <height>31</height>
     </rect>
@@ -610,10 +638,10 @@
   <widget class="QGroupBox" name="groupBox_3">
    <property name="geometry">
     <rect>
-     <x>620</x>
-     <y>30</y>
+     <x>10</x>
+     <y>290</y>
      <width>631</width>
-     <height>381</height>
+     <height>401</height>
     </rect>
    </property>
    <property name="font">
@@ -628,8 +656,8 @@
    <widget class="QCustomPlot" name="scope_plot" native="true">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>30</y>
+      <x>50</x>
+      <y>20</y>
       <width>571</width>
       <height>341</height>
      </rect>
@@ -637,6 +665,41 @@
     <property name="font">
      <font>
       <pointsize>5</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_4">
+   <property name="geometry">
+    <rect>
+     <x>650</x>
+     <y>290</y>
+     <width>631</width>
+     <height>381</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="title">
+    <string>实时fft图</string>
+   </property>
+   <widget class="QCustomPlot" name="fft_plot" native="true">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>581</width>
+      <height>331</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>3</pointsize>
       <bold>true</bold>
      </font>
     </property>

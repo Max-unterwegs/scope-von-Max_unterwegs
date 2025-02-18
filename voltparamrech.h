@@ -3,8 +3,7 @@
 
 #include <QVector>
 
-// 设置电压值
-void setCH_voltage(float voltage1, float voltage2);
+
 
 // 计算最大值
 float getMaxVoltage(const QVector<float>& voltages);

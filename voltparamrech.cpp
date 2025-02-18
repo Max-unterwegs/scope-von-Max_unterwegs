@@ -5,28 +5,11 @@
 #include "voltparamrech.h"
 using namespace std;
 
-// 定义全局变量存储电压值
-QVector<float> CH1_voltages;
-QVector<float> CH2_voltages;
+
 const size_t MAX_CAPACITY = 1000;
 const float is0vstandard = 0.1;
 
-// 设置电压值
-void setCH_voltage(float voltage1, float voltage2)
-{
-    // 如果向量的大小超过最大容量，删除第一个元素
-    if (CH1_voltages.size() >= MAX_CAPACITY)
-    {
-        CH1_voltages.removeFirst();
-    }
-    if (CH2_voltages.size() >= MAX_CAPACITY)
-    {
-        CH2_voltages.removeFirst();
-    }
-    // 添加新的电压值
-    CH1_voltages.append(voltage1);
-    CH2_voltages.append(voltage2);
-}
+
 
 // 计算最大值
 // 参数 voltages 是一个存储电压值的向量

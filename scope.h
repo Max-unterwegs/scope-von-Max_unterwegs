@@ -10,7 +10,7 @@
 #include <QTime>//定时器
 #include <QPainter>//坐标系绘图
 #include <QVector>//数据处理
-
+#include <voltparamrech.h>//用户自定义头文件
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class scope;
@@ -32,6 +32,8 @@ private slots:
 
     QVector<float> movingAverageFilter(const QVector<float>& data, int windowSize);//滑动平均滤波
 
+    void performFFT(const QVector<float>& data, int graphIndex);
+    
     void AnalyzeData();//数据读取
 
     void setupPlot();//初始化
