@@ -1,7 +1,7 @@
 /*
  * @Date: 2025-02-04 15:21:50
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-02-10 23:53:53
+ * @LastEditTime: 2025-02-15 23:09:34
  * @FilePath: \MDK-ARMd:\Mein Werk\meine code\stm32projekt\scope\Core\Lib\Src\volt.c
  */
 
