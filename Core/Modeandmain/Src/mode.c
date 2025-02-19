@@ -1,8 +1,8 @@
 /*
  * @Date: 2025-02-06 18:56:18
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-02-12 22:58:07
- * @FilePath: \MDK-ARMd:\Mein Werk\meine code\stm32projekt\scope\Core\Modeandmain\Src\mode.c
+ * @LastEditTime: 2025-02-19 18:14:12
+ * @FilePath: \MDK-ARMd:\Mein_Werk\meine code\stm32projekt\scope\Core\Modeandmain\Src\mode.c
  */
 #include "mode.h"
 #include "function.h"
@@ -50,6 +50,8 @@ void scope_main(void)
     CH_fcontrol(paramshow[4], functionshow[1]);
     // 初始化通道采样
     CH_control(functionshow[1]);
+    CH_vcontrol(1,(int)paramshow[1]);
+    CH_vcontrol(2,(int)paramshow[2]);
     // 执行通道采样
     VOLT_ReadVoltages(voltages);
     //转换实际电压值
@@ -92,6 +94,8 @@ void messer_main(void)
      CH_fcontrol(paramshow[4], functionshow[1]);
      // 初始化通道采样
      CH_control(functionshow[1]);
+     CH_vcontrol(1,(int)paramshow[1]);
+     CH_vcontrol(2,(int)paramshow[2]);
      // 执行通道采样
      VOLT_ReadVoltages(voltages);
 

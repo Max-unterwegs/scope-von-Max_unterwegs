@@ -1,8 +1,8 @@
 /*
  * @Date: 2025-02-05 18:02:21
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-02-12 22:57:46
- * @FilePath: \MDK-ARMd:\Mein Werk\meine code\stm32projekt\scope\Core\App\Src\function.c
+ * @LastEditTime: 2025-02-19 18:14:33
+ * @FilePath: \MDK-ARMd:\Mein_Werk\meine code\stm32projekt\scope\Core\App\Src\function.c
  */
 #include "function.h"
 
@@ -69,13 +69,11 @@ void CH_vcontrol(char chnum,char chvmode)
             case 2:
                 HAL_GPIO_WritePin(SW1_GPIO_Port,SW1_Pin,GPIO_PIN_RESET);
                 DC_OUT( CH1_TIM ,CH1_CHANNEL,1.1,dcarr);
-                paramshow[1] = 2;
                 break;
             
             case 10:
                 HAL_GPIO_WritePin(SW1_GPIO_Port,SW1_Pin,GPIO_PIN_SET);
                 DC_OUT( CH1_TIM ,CH1_CHANNEL,1.50123,dcarr);
-                paramshow[1] = 10.1;
                 break;
             default:
                 break;
@@ -88,13 +86,11 @@ void CH_vcontrol(char chnum,char chvmode)
             case 2:
                 HAL_GPIO_WritePin(SW2_GPIO_Port,SW2_Pin,GPIO_PIN_RESET);
                 DC_OUT( CH2_TIM ,CH2_CHANNEL,1.1,dcarr);
-                paramshow[2] = 2;
                 break;
             
             case 10:
                 HAL_GPIO_WritePin(SW2_GPIO_Port,SW2_Pin,GPIO_PIN_SET);
                 DC_OUT( CH2_TIM ,CH2_CHANNEL,1.50123,dcarr);
-                paramshow[2] = 10.1;
                 break;
             default:
                 break;

@@ -1,8 +1,8 @@
 /*
  * @Date: 2025-02-04 10:30:55
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-02-05 20:36:24
- * @FilePath: \MDK-ARMd:\Mein Werk\meine code\stm32projekt\scope\Core\Lib\Src\PWM.c
+ * @LastEditTime: 2025-02-19 18:15:42
+ * @FilePath: \MDK-ARMd:\Mein_Werk\meine code\stm32projekt\scope\Core\Lib\Src\PWM.c
  */
 #include "PWM.h"
 #include "main.h"
@@ -20,6 +20,7 @@
 **/
 void PWM_OUT_Init( void )
 {
+  HAL_TIM_Base_Start( &OUT_HAL_TIM );
   HAL_TIM_PWM_Start( &OUT_HAL_TIM ,OUT_CHANNEL);
 }
 void PWM_CH_Init( void )
