@@ -15,6 +15,7 @@ SOURCES += \
     main.cpp \
     qcustomplot.cpp \
     scope.cpp \
+    valuepack.cpp \
     voltparamrech.cpp
 
 HEADERS += \
@@ -24,6 +25,7 @@ HEADERS += \
     kiss_fft_log.h \
     qcustomplot.h \
     scope.h \
+    valuepack.h \
     voltparamrech.h
 
 FORMS += \

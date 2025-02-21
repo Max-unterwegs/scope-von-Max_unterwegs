@@ -1,6 +1,7 @@
 #include "scope.h"
 #include "fft_transform.h"
 #include "ui_scope.h"
+#include "valuepack.h"
 #include <complex>
 
 // 数据缓冲区
@@ -20,6 +21,8 @@ float filteredValue2 = 0.0;
 float sampling_interval = 0.0;
 
 float minY1 , maxY1 , minY2 , maxY2;
+
+RxPack rx_pack;
 
 
 scope::scope(QWidget *parent)
@@ -87,7 +90,7 @@ void scope::performFFT(const QVector<float>& data, int graphIndex) {
 
     // 动态设置 x 轴和 y 轴范围及步长值
     double maxFrequency = sampleRate / 2;
-    double maxMagnitude = *std::max_element(magnitudes.begin(), magnitudes.end());
+    double maxMagnitude = *std::max_element((magnitudes.begin() + 10*(int)(magnitudes.size()/maxFrequency)), magnitudes.end());
 
     ui->fft_plot->xAxis->setLabel("频率 (Hz)");
     ui->fft_plot->yAxis->setLabel("幅度");
@@ -164,10 +167,15 @@ void scope::AnalyzeData()
     showcount = (showcount+1)%showcountmax;
     QByteArray mytemp = myserial->readAll();//定义mytemp为串口读取的所有数据
     qDebug()<<"mytemp:"<<mytemp;
-    QString StrI1=tr(mytemp.mid(mytemp.indexOf("CH1:")+4,mytemp.indexOf("V,")-mytemp.indexOf("CH1:")-4));//自定义了简单协议，通过前面字母读取需要的数据
-    QString StrI2=tr(mytemp.mid(mytemp.indexOf("CH2:")+4,mytemp.indexOf("V.")-mytemp.indexOf("CH2:")-5));
-    float dataI1=StrI1.toFloat();//将字符串转换成float类型进行数据处理
-    float dataI2=StrI2.toFloat();//将字符串转换成float类型进行数据处理
+    // QString StrI1=tr(mytemp.mid(mytemp.indexOf("CH1:")+4,mytemp.indexOf("V,")-mytemp.indexOf("CH1:")-4));//自定义了简单协议，通过前面字母读取需要的数据
+    // QString StrI2=tr(mytemp.mid(mytemp.indexOf("CH2:")+4,mytemp.indexOf("V.")-mytemp.indexOf("CH2:")-5));
+    // float dataI1=StrI1.toFloat();//将字符串转换成float类型进行数据处理
+    // float dataI2=StrI2.toFloat();//将字符串转换成float类型进行数据处理
+    readValuePack(&rx_pack,(unsigned char*)mytemp.data(), mytemp.size());
+    float dataI1 = rx_pack.floats[0];
+    float dataI2 = rx_pack.floats[1];
+    QString StrI1=QString::number(dataI1);//将float类型数据转换成字符串
+    QString StrI2=QString::number(dataI2);//将float类型数据转换成字符串
     // 将数据添加到缓冲区
     buffer1.append(dataI1);
     buffer2.append(dataI2);
@@ -210,7 +218,7 @@ void scope::AnalyzeData()
 
 
 
-    mycurrenttime = QDateTime::currentDateTime();//获取系统时间
+    mycurrenttime = QDateTime::currentMSecsSinceEpoch();//获取系统时间
     timestamps.append(mycurrenttime); // 将时间戳添加到缓冲区
 
     // 计算采样间隔
