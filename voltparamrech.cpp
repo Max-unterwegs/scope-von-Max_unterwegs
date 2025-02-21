@@ -6,7 +6,6 @@
 using namespace std;
 
 
-const size_t MAX_CAPACITY = 1000;
 const float is0vstandard = 0.1;
 
 
@@ -79,12 +78,7 @@ float getDutyCycle(const QVector<float>& voltages)
 // 返回波形的脉冲宽度
 float getPulseWidth(const QVector<float>& voltages, float sampling_interval)
 {
-    // 计算电压值大于0的样本数量
-    int high_count = std::count_if(voltages.begin(), voltages.end(), [](float val) {
-        return val > is0vstandard;
-    });
-    // 返回高电平样本数量乘以采样间隔
-    return high_count * sampling_interval;
+    return getPeriod(voltages, sampling_interval) * getDutyCycle(voltages);
 }
 
 // 计算相位差（假设两个通道的波形为正弦波）
@@ -92,7 +86,7 @@ float getPulseWidth(const QVector<float>& voltages, float sampling_interval)
 // 参数 voltages2 是通道2的电压值向量
 // 参数 frequency 是波形的频率
 // 返回两个波形的相位差
-float getPhaseDifference(const QVector<float>& voltages1, const QVector<float>& voltages2, float frequency)
+float getPhaseDifference(const QVector<float>& voltages1, const QVector<float>& voltages2)
 {
     // 找到两个波形的第一个零点
     auto zero_crossing1 = std::find_if(voltages1.begin(), voltages1.end(), [](float val) {

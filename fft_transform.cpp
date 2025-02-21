@@ -32,7 +32,7 @@ void fft_transform(const QVector<float>& input, QVector<std::complex<float>>& ou
     // 将结果从 KISS FFT 的复数格式转换为 std::complex<float>
     output.resize(nfft);
     for (int i = 0; i < nfft; ++i) {
-        output[i] = std::complex<float>(cout[i].r, cout[i].i);
+        output[i] = std::complex<float>(cout[i].r/nfft, cout[i].i/nfft);
     }
 
     // 释放资源

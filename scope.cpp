@@ -4,22 +4,22 @@
 #include "valuepack.h"
 #include <complex>
 
+
 // 数据缓冲区
 QVector<float> buffer1; // 缓冲区1
 QVector<float> buffer2; // 缓冲区2
 int dataPointsInRange = 1000000; // 在 x 轴范围内的数据点数
 int showcount = 0;
 const int showcountmax = 50;
-QVector<QDateTime> timestamps; // 时间戳缓冲区
 QVector<float> filteredData1;
 QVector<float> filteredData2;
-
+double maxMagnitude[3] = {0.0, 0.0, 0.0};
 // 滤波后的结果变量
 float filteredValue1 = 0.0;
 float filteredValue2 = 0.0;
 // 采样间隔
 float sampling_interval = 0.0;
-
+double frecuncy = 0.0;
 float minY1 , maxY1 , minY2 , maxY2;
 
 RxPack rx_pack;
@@ -74,12 +74,14 @@ void scope::performFFT(const QVector<float>& data, int graphIndex) {
     QVector<double> frequencies(nfft);
     QVector<double> magnitudes(nfft);
 
-    double sampleRate = 1.0 / sampling_interval; // 采样率
     for (int i = 0; i < nfft; ++i) {
-        frequencies[i] = i * sampleRate / nfft;
+        frequencies[i] = i * frecuncy / nfft;
         magnitudes[i] = std::abs(fftOutput[i]);
     }
-
+    // qDebug()<<"nfft:"<<nfft;
+    // for (int i = 0; i < nfft; ++i)
+    //     qDebug()<<"i"<<i<<"fftOutput:"<<fftOutput[i].real()<<"i:"<<fftOutput[i].imag()<<"magnitude:"<<magnitudes[i];
+    // system("pause");
 
     QPen pen;
     pen.setWidth(1); // 设置画笔线条宽度
@@ -89,20 +91,20 @@ void scope::performFFT(const QVector<float>& data, int graphIndex) {
     ui->fft_plot->graph(graphIndex)->setName("CH" + QString::number(graphIndex + 1));
 
     // 动态设置 x 轴和 y 轴范围及步长值
-    double maxFrequency = sampleRate / 2;
-    double maxMagnitude = *std::max_element((magnitudes.begin() + 10*(int)(magnitudes.size()/maxFrequency)), magnitudes.end());
-
+    double maxFrequency = frecuncy / 2;
+    maxMagnitude[graphIndex] = *std::max_element(magnitudes.begin(), magnitudes.end());
+    maxMagnitude[2] = fmax(maxMagnitude[0],maxMagnitude[1]);
     ui->fft_plot->xAxis->setLabel("频率 (Hz)");
     ui->fft_plot->yAxis->setLabel("幅度");
-    ui->fft_plot->xAxis->setRange(0, static_cast<int>(maxFrequency)); // 只显示正频率部分
-    ui->fft_plot->yAxis->setRange(0, static_cast<int>(maxMagnitude));
+    ui->fft_plot->xAxis->setRange(0, static_cast<int>(maxFrequency*3/2)); // 只显示正频率部分
+    ui->fft_plot->yAxis->setRange(0, static_cast<int>(maxMagnitude[2]*2));
 
     QCPAxisTickerFixed *xTicker = new QCPAxisTickerFixed();
-    xTicker->setTickStep(static_cast<int>(maxFrequency / 10)); // 设置 x 轴刻度步长为整数
+    xTicker->setTickStep(static_cast<int>(maxFrequency /10)); // 设置 x 轴刻度步长为整数
     ui->fft_plot->xAxis->setTicker(QSharedPointer<QCPAxisTickerFixed>(xTicker));
 
     QCPAxisTickerFixed *yTicker = new QCPAxisTickerFixed();
-    yTicker->setTickStep(static_cast<int>(maxMagnitude / 10)); // 设置 y 轴刻度步长为整数
+    yTicker->setTickStep(static_cast<int>(maxMagnitude[2] /10)); // 设置 y 轴刻度步长为整数
     ui->fft_plot->yAxis->setTicker(QSharedPointer<QCPAxisTickerFixed>(yTicker));
 
     ui->fft_plot->axisRect()->setupFullAxesBox(true); // 设置缩放，拖拽，设置图表的分类图标显示位置
@@ -125,8 +127,12 @@ void scope::on_pb_openport_clicked()
         myserial->setFlowControl(QSerialPort::NoFlowControl);//非流控制
         if(myserial->open(QIODevice::ReadWrite))
         {
+            //清空图像数据
+            ui->scope_plot->graph(0)->data()->clear();
+            ui->scope_plot->graph(1)->data()->clear();
             connect(myserial,&QSerialPort::readyRead,this,&scope::AnalyzeData);
-            mystarttime = QDateTime::currentDateTime();//图像横坐标初始值参考点，读取初始时间
+            mystarttime = std::chrono::high_resolution_clock::now();//图像横坐标初始值参考点，读取初始时间
+            mycurrenttime = mystarttime;//图像横坐标初始值参考点，读取初始时间
             qDebug()<<"串口打开成功";
         }
         else
@@ -141,9 +147,6 @@ void scope::on_pb_openport_clicked()
     {
         ui->comboBox->setEnabled(true);//串口号下拉按钮使能工作
         myserial->close();
-        //清空图像数据
-        ui->scope_plot->graph(0)->data()->clear();
-        ui->scope_plot->graph(1)->data()->clear();
         ui->pb_openport->setText("打开串口");//按钮显示“打开串口”
         serial_flag = true;//串口标志位置工作
     }
@@ -151,6 +154,7 @@ void scope::on_pb_openport_clicked()
 
 void scope::on_pb_searchport_clicked()
 {
+    ui->comboBox->clear();//清空cmb
     foreach(const QSerialPortInfo &info, QSerialPortInfo::availablePorts())//读取串口信息
     {
         myserial->setPort(info);//这里相当于自动识别串口号之后添加到了cmb，如果要手动选择可以用下面列表的方式添加进去
@@ -217,16 +221,15 @@ void scope::AnalyzeData()
     }
 
 
-
-    mycurrenttime = QDateTime::currentMSecsSinceEpoch();//获取系统时间
-    timestamps.append(mycurrenttime); // 将时间戳添加到缓冲区
+    mylasttime = mycurrenttime;//将当前时间赋值给上一次时间
+    mycurrenttime = std::chrono::high_resolution_clock::now();//获取系统时间
 
     // 计算采样间隔
-    if (timestamps.size() >= 2) {
-        qint64 time_diff = timestamps.last().msecsTo(timestamps[timestamps.size() - 2]);//计算两次采样时间间隔,单位ms
-        sampling_interval = qAbs(time_diff) / 1000.0; // 转换为秒
-    }
-    qDebug()<<"采样频率:"<<1.0 / sampling_interval;
+    auto time_diff  = std::chrono::duration_cast<std::chrono::nanoseconds>(mycurrenttime - mylasttime); // 计算时间差;
+    frecuncy = 1.0e9/time_diff.count(); // 转换为Hz
+    sampling_interval = 1/frecuncy; // 转换为秒
+
+    qDebug()<<"采样频率:"<<frecuncy;
     qDebug()<<"showcount:"<<showcount;
     if(filteredData1.size() > 5 && showcount == 0)
     {
@@ -254,7 +257,10 @@ void scope::AnalyzeData()
 
     }
 
-    double xzb = mystarttime.msecsTo(mycurrenttime)/1000.0;//获取横坐标，相对时间就是从0开始
+
+    // 计算采样间隔
+    auto time_diff_xzb  = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock::now() - mystarttime); // 计算时间差;
+    double xzb = time_diff_xzb.count()/1.0e9;//获取横坐标，相对时间就是从0开始
     ui->scope_plot->graph(0)->addData(xzb,filteredValue1);//添加数据1到曲线1
     ui->scope_plot->graph(1)->addData(xzb,filteredValue2);//添加数据1到曲线1
     if(xzb>30)

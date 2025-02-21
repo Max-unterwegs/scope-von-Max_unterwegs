@@ -27,7 +27,7 @@ float getDutyCycle(const QVector<float>& voltages);
 float getPulseWidth(const QVector<float>& voltages, float sampling_interval);
 
 // 计算相位差
-float getPhaseDifference(const QVector<float>& voltages1, const QVector<float>& voltages2, float frequency);
+float getPhaseDifference(const QVector<float>& voltages1, const QVector<float>& voltages2);
 
 // 计算周期
 float getPeriod(const QVector<float>& voltages, float sampling_interval);

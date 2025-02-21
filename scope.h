@@ -7,7 +7,7 @@
 #include <QtSerialPort/QSerialPort>//串口
 #include <QtSerialPort/QSerialPortInfo>//串口
 #include <QDebug>//用于在控制台输出调试信息
-#include <QTime>//定时器
+#include <chrono>//时间
 #include <QPainter>//坐标系绘图
 #include <QVector>//数据处理
 #include <voltparamrech.h>//用户自定义头文件
@@ -44,8 +44,9 @@ private:
     bool serial_flag,start_flag;//定义两个标志位
     QByteArray alldata;//接收串口数据
     //绘图函数
-    QDateTime mycurrenttime;//系统当前时间
-    QDateTime mystarttime;//系统开始时间
+    std::chrono::high_resolution_clock::time_point mystarttime;
+    std::chrono::high_resolution_clock::time_point mycurrenttime;
+    std::chrono::high_resolution_clock::time_point mylasttime;
 
 };
 #endif // SCOPE_H
