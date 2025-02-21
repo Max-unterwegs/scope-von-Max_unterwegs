@@ -38,6 +38,14 @@ private slots:
 
     void setupPlot();//初始化
 
+    void on_pb_save_clicked();
+
+    void on_pb_mode_clicked();
+
+    void on_pb_CH1_clicked();
+
+    void on_pb_CH2_clicked();
+
 private:
     Ui::scope *ui;
     QSerialPort *myserial;//声明串口类，myserial是QSerialPort的实例

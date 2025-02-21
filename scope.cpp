@@ -36,7 +36,17 @@ scope::scope(QWidget *parent)
     start_flag = true;
     ui->fft_plot->addGraph();//添加一条曲线
     ui->fft_plot->addGraph();//添加一条曲线
+
     setWindowIcon(QIcon(":/icons/favicon.ico"));
+    ui->userimage->setPixmap(QPixmap(":/icons/favicon.ico"));
+    ui->likelabel->setPixmap(QPixmap(":/icons/like.png"));
+    QMovie  * miaohamovie  = new  QMovie( ":/icons/miaoha.gif" );
+    QMovie  * sinmovie  = new  QMovie( ":/icons/scopeimage.gif" );
+    ui->miaohagiflabel-> setMovie(miaohamovie);
+    ui->singiflabel-> setMovie(sinmovie);
+    miaohamovie -> start();
+    sinmovie -> start();
+
     setupPlot();//图形界面初始化函数
 }
 
@@ -205,8 +215,8 @@ void scope::AnalyzeData()
 
     StrI1=QString::number(filteredValue1);//将float类型数据转换成字符串
     StrI2=QString::number(filteredValue2);//将float类型数据转换成字符串
-    ui->lineCH1->setText(StrI1);//显示读取CH1值
-    ui->lineCH2->setText(StrI2);//显示读取CH2值
+    ui->lcdNumberCH1->display(StrI1);//显示读取CH1值
+    ui->lcdNumberCH2->display(StrI2);//显示读取CH2值
 
     // 调整 filteredData 的大小以适应 x 轴的范围
     double xRangeLower = ui->scope_plot->xAxis->range().lower;
@@ -326,3 +336,64 @@ void scope::setupPlot()
 
     ui->scope_plot->replot();
 }
+
+void scope::on_pb_save_clicked()
+{
+    QCustomPlot *savecustomPlot = ui->scope_plot;
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("选择保存数据");
+    msgBox.setText("请选择要保存哪个数据^_^？");
+    msgBox.setIcon(QMessageBox::Question);
+    msgBox.addButton("波形图", QMessageBox::YesRole);
+    msgBox.addButton("FFT图", QMessageBox::ResetRole);
+    msgBox.exec(); // 执行对话框
+    if(msgBox.clickedButton()->text() == "FFT图")
+        savecustomPlot = ui->fft_plot;
+    else
+        savecustomPlot = ui->scope_plot;
+
+    QString filename = QFileDialog::getSaveFileName(nullptr,"保存波形数据",QCoreApplication::applicationDirPath(),"Image Files(*.png *.jpg *.bmp *.pdf)");
+
+    if( filename == "" ){
+        QMessageBox::information(this,"fail","保存失败");
+    }
+    if( filename.endsWith(".png") ){
+        QMessageBox::information(this,"success","成功保存为png文件");
+        savecustomPlot->savePng( filename, savecustomPlot->width(), savecustomPlot->height() );
+
+    }
+    if( filename.endsWith(".jpg")||filename.endsWith(".jpeg") ){
+        QMessageBox::information(this,"success","成功保存为jpg文件");
+        savecustomPlot->saveJpg( filename, savecustomPlot->width(), savecustomPlot->height() );
+
+    }
+    if( filename.endsWith(".bmp") ){
+        QMessageBox::information(this,"success","成功保存为bmp文件");
+        savecustomPlot->saveBmp( filename, savecustomPlot->width(), savecustomPlot->height() );
+
+    }
+    if( filename.endsWith(".pdf") ){
+        QMessageBox::information(this,"success","成功保存为pdf文件");
+        savecustomPlot->savePdf( filename, savecustomPlot->width(), savecustomPlot->height() );
+
+    }
+}
+
+
+void scope::on_pb_mode_clicked()
+{
+
+}
+
+
+void scope::on_pb_CH1_clicked()
+{
+
+}
+
+
+void scope::on_pb_CH2_clicked()
+{
+
+}
+
