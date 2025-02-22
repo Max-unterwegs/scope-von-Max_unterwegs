@@ -11,6 +11,10 @@
 #include <QPainter>//坐标系绘图
 #include <QVector>//数据处理
 #include <voltparamrech.h>//用户自定义头文件
+#include "fft_transform.h"
+#include "ui_scope.h"
+#include "valuepack.h"
+#include <complex>
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class scope;
@@ -26,6 +30,8 @@ public:
     ~scope();
 
 private slots:
+    void mousemove(QMouseEvent *event, QCustomPlot *cmPlot,int graphIndex,QCPItemTracer *tracer,QCPItemText *tracerLabel);
+
     void on_pb_searchport_clicked();
 
     void on_pb_openport_clicked();
@@ -46,6 +52,13 @@ private slots:
 
     void on_pb_CH2_clicked();
 
+    void on_verticalSlider_show_valueChanged(int value);
+
+    void on_verticalSlider_real_valueChanged(int value);
+
+
+    void on_pb_setindex_clicked();
+
 private:
     Ui::scope *ui;
     QSerialPort *myserial;//声明串口类，myserial是QSerialPort的实例
@@ -55,6 +68,26 @@ private:
     std::chrono::high_resolution_clock::time_point mystarttime;
     std::chrono::high_resolution_clock::time_point mycurrenttime;
     std::chrono::high_resolution_clock::time_point mylasttime;
+
+    // 数据缓冲区
+    QVector<float> buffer1; // 缓冲区1
+    QVector<float> buffer2; // 缓冲区2
+    int dataPointsInRange = 1000000; // 在 x 轴范围内的数据点数
+    int showcount = 0 ,realcount = 0 ,showcountmax = 50, realcountmax = 1;
+    QVector<float> filteredData1;
+    QVector<float> filteredData2;
+    double maxMagnitude[3] = {0.0, 0.0, 0.0};
+    // 滤波后的结果变量
+    float filteredValue1 = 0.0;
+    float filteredValue2 = 0.0;
+    // 采样间隔
+    float sampling_interval = 0.0;
+    double frecuncy = 0.0;
+    float minY1 , maxY1 , minY2 , maxY2;
+    bool x_y_flag = false,CH1_flag = true,CH2_flag = true,indexflag = false;
+    RxPack rx_pack;
+    QCPItemTracer *tracer_CH;
+    QCPItemText *tracerLabel_CH;
 
 };
 #endif // SCOPE_H

@@ -1,30 +1,4 @@
 #include "scope.h"
-#include "fft_transform.h"
-#include "ui_scope.h"
-#include "valuepack.h"
-#include <complex>
-
-
-// 数据缓冲区
-QVector<float> buffer1; // 缓冲区1
-QVector<float> buffer2; // 缓冲区2
-int dataPointsInRange = 1000000; // 在 x 轴范围内的数据点数
-int showcount = 0;
-const int showcountmax = 50;
-QVector<float> filteredData1;
-QVector<float> filteredData2;
-double maxMagnitude[3] = {0.0, 0.0, 0.0};
-// 滤波后的结果变量
-float filteredValue1 = 0.0;
-float filteredValue2 = 0.0;
-// 采样间隔
-float sampling_interval = 0.0;
-double frecuncy = 0.0;
-float minY1 , maxY1 , minY2 , maxY2;
-
-RxPack rx_pack;
-
-
 scope::scope(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::scope)
@@ -95,7 +69,7 @@ void scope::performFFT(const QVector<float>& data, int graphIndex) {
 
     QPen pen;
     pen.setWidth(1); // 设置画笔线条宽度
-    pen.setColor(graphIndex == 0 ? Qt::red : Qt::blue); // 设置画笔颜色
+    pen.setColor(graphIndex == 0 ? Qt::blue : Qt::red); // 设置画笔颜色
     ui->fft_plot->graph(graphIndex)->setPen(pen); // 设置画笔颜色
     ui->fft_plot->graph(graphIndex)->setData(frequencies, magnitudes);
     ui->fft_plot->graph(graphIndex)->setName("CH" + QString::number(graphIndex + 1));
@@ -121,6 +95,35 @@ void scope::performFFT(const QVector<float>& data, int graphIndex) {
     ui->fft_plot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes);
     ui->fft_plot->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignTop | Qt::AlignRight); // 图例显示位置右上
     ui->fft_plot->legend->setVisible(true); // 显示图例
+
+    // tracer_fft_CH1 = new QCPItemTracer(ui->fft_plot); //生成游标
+    // tracer_fft_CH1->setPen(QPen(Qt::red));
+    // tracer_fft_CH1->setBrush(QBrush(Qt::red));
+    // tracer_fft_CH1->setStyle(QCPItemTracer::tsCircle);
+    // tracer_fft_CH1->setSize(5);
+    // tracerLabel_fft_CH1 = new QCPItemText(ui->fft_plot);
+    // tracerLabel_fft_CH1->setLayer("overlay");
+    // tracerLabel_fft_CH1->setPen(QPen(Qt::blue));
+    // tracerLabel_fft_CH1->setPositionAlignment(Qt::AlignLeft | Qt::AlignTop);
+    // tracerLabel_fft_CH1->position->setParentAnchor(tracer_fft_CH1->position);
+    // connect(ui->fft_plot, &QCustomPlot::mouseMove, this, [this](QMouseEvent* event) {
+    //     mousemove(event, ui->fft_plot, 0,tracer_fft_CH1,tracerLabel_fft_CH1);
+    // });
+
+    // tracer_CH2 = new QCPItemTracer(ui->fft_plot); //生成游标
+    // tracer_CH2->setPen(QPen(Qt::blue));
+    // tracer_CH2->setBrush(QBrush(Qt::blue));
+    // tracer_CH2->setStyle(QCPItemTracer::tsCircle);
+    // tracer_CH2->setSize(5);
+    // tracerLabel_CH2 = new QCPItemText(ui->fft_plot);
+    // tracerLabel_CH2->setLayer("overlay");
+    // tracerLabel_CH2->setPen(QPen(Qt::blue));
+    // tracerLabel_CH2->setPositionAlignment(Qt::AlignLeft | Qt::AlignTop);
+    // tracerLabel_CH2->position->setParentAnchor(tracer_CH2->position);
+    // connect(ui->fft_plot, &QCustomPlot::mouseMove, this, [this](QMouseEvent* event) {
+    //     mousemove(event, ui->fft_plot, 1,tracer_CH2,tracerLabel_CH2);
+    // });
+
     ui->fft_plot->replot();
 }
 
@@ -176,9 +179,26 @@ void scope::on_pb_searchport_clicked()
     }
 }
 
+void scope::mousemove(QMouseEvent *event, QCustomPlot *cmPlot,int graphIndex,QCPItemTracer *tracer,QCPItemText *tracerLabel)
+{
+    //获得鼠标位置处对应的横坐标数据x
+    double x = cmPlot->xAxis->pixelToCoord(event->pos().x());
+
+    tracer->setGraph(cmPlot->graph(graphIndex)); //将游标和该曲线图层想连接
+    tracer->setGraphKey(x); //将游标横坐标（key）设置成刚获得的横坐标数据x
+    tracer->setInterpolating(true); //游标的纵坐标可以通过曲线数据线性插值自动获得（这就不用手动去计算了）
+    tracer->updatePosition(); //使得刚设置游标的横纵坐标位置生效
+    //以下代码用于更新游标说明的内容
+    double xValue = tracer->position->key();
+    double yValue = tracer->position->value();
+    tracerLabel->setText(QString("x = %1, y = %2").arg(xValue).arg(yValue));
+    cmPlot->replot(); //不要忘了重绘
+}
+
 void scope::AnalyzeData()
 {
     showcount = (showcount+1)%showcountmax;
+    realcount = (realcount+1)%realcountmax;
     QByteArray mytemp = myserial->readAll();//定义mytemp为串口读取的所有数据
     qDebug()<<"mytemp:"<<mytemp;
     // QString StrI1=tr(mytemp.mid(mytemp.indexOf("CH1:")+4,mytemp.indexOf("V,")-mytemp.indexOf("CH1:")-4));//自定义了简单协议，通过前面字母读取需要的数据
@@ -215,8 +235,6 @@ void scope::AnalyzeData()
 
     StrI1=QString::number(filteredValue1);//将float类型数据转换成字符串
     StrI2=QString::number(filteredValue2);//将float类型数据转换成字符串
-    ui->lcdNumberCH1->display(StrI1);//显示读取CH1值
-    ui->lcdNumberCH2->display(StrI2);//显示读取CH2值
 
     // 调整 filteredData 的大小以适应 x 轴的范围
     double xRangeLower = ui->scope_plot->xAxis->range().lower;
@@ -238,6 +256,13 @@ void scope::AnalyzeData()
     auto time_diff  = std::chrono::duration_cast<std::chrono::nanoseconds>(mycurrenttime - mylasttime); // 计算时间差;
     frecuncy = 1.0e9/time_diff.count(); // 转换为Hz
     sampling_interval = 1/frecuncy; // 转换为秒
+
+    if(realcount == 0)
+    {
+        ui->lcdNumberCH1->display(StrI1);//显示读取CH1值
+        ui->lcdNumberCH2->display(StrI2);//显示读取CH2值
+        ui->lcdNumberFrecuncy->display(frecuncy);//显示读取频率
+    }
 
     qDebug()<<"采样频率:"<<frecuncy;
     qDebug()<<"showcount:"<<showcount;
@@ -271,13 +296,22 @@ void scope::AnalyzeData()
     // 计算采样间隔
     auto time_diff_xzb  = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock::now() - mystarttime); // 计算时间差;
     double xzb = time_diff_xzb.count()/1.0e9;//获取横坐标，相对时间就是从0开始
-    ui->scope_plot->graph(0)->addData(xzb,filteredValue1);//添加数据1到曲线1
-    ui->scope_plot->graph(1)->addData(xzb,filteredValue2);//添加数据1到曲线1
-    if(xzb>30)
+    if(x_y_flag)
     {
-        ui->scope_plot->xAxis->setRange((double)qRound(xzb-30),xzb);//设定x轴的范围
+        ui->scope_plot->graph(0)->addData(filteredValue1,filteredValue2);//添加数据1到曲线1
+        ui->scope_plot->graph(1)->addData(xzb,filteredValue2);//添加数据2到曲线1
     }
-    else ui->scope_plot->xAxis->setRange(0,30);//设定x轴的范围
+    else
+    {
+        ui->scope_plot->graph(0)->addData(xzb,filteredValue1);//添加数据1到曲线0
+        ui->scope_plot->graph(1)->addData(xzb,filteredValue2);//添加数据2到曲线1
+        if(xzb>30)
+        {
+            ui->scope_plot->xAxis->setRange((double)qRound(xzb-30),xzb);//设定x轴的范围
+        }
+        else ui->scope_plot->xAxis->setRange(0,30);//设定x轴的范围
+    }
+
     ui->scope_plot->replot();//每次画完曲线一定要更新显示
     if(filteredData1.size() > 5 && showcount == 0)
     {
@@ -304,6 +338,7 @@ void scope::setupPlot()
     ui->scope_plot->graph(0)->setLineStyle((QCPGraph::LineStyle)1);//曲线画笔
     ui->scope_plot->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssNone,5));//曲线形状
 
+    //设置曲线二
     ui->scope_plot->addGraph();//添加一条曲线
     pen.setColor(Qt::red);
     ui->scope_plot->graph(1)->setPen(pen);//设置画笔颜色
@@ -333,6 +368,20 @@ void scope::setupPlot()
     ui->scope_plot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom| QCP::iSelectAxes);
     ui->scope_plot->axisRect()->insetLayout()->setInsetAlignment(0,Qt::AlignTop | Qt::AlignRight);//图例显示位置右上
     ui->scope_plot->legend->setVisible(true);//显示图例
+
+    tracer_CH = new QCPItemTracer(ui->scope_plot); //生成游标
+    tracer_CH->setPen(QPen(Qt::green));
+    tracer_CH->setBrush(QBrush(Qt::green));
+    tracer_CH->setStyle(QCPItemTracer::tsCircle);
+    tracer_CH->setSize(5);
+    tracerLabel_CH = new QCPItemText(ui->scope_plot);
+    tracerLabel_CH->setLayer("overlay");
+    tracerLabel_CH->setPen(QPen(Qt::cyan));
+    tracerLabel_CH->setPositionAlignment(Qt::AlignLeft | Qt::AlignTop);
+    tracerLabel_CH->position->setParentAnchor(tracer_CH->position);
+    connect(ui->scope_plot, &QCustomPlot::mouseMove, this, [this](QMouseEvent* event) {
+        mousemove(event, ui->scope_plot, indexflag,tracer_CH,tracerLabel_CH);
+    });
 
     ui->scope_plot->replot();
 }
@@ -382,18 +431,89 @@ void scope::on_pb_save_clicked()
 
 void scope::on_pb_mode_clicked()
 {
-
+    if(x_y_flag)
+    {
+        //清空图像数据
+        ui->scope_plot->graph(0)->data()->clear();
+        ui->scope_plot->graph(1)->data()->clear();
+        ui->pb_mode->setText("X-T模式");
+        x_y_flag = false;
+    }
+    else
+    {
+        //清空图像数据
+        ui->scope_plot->graph(0)->data()->clear();
+        ui->scope_plot->graph(1)->data()->clear();
+        ui->pb_mode->setText("X-Y模式");
+        x_y_flag = true;
+    }
 }
 
 
 void scope::on_pb_CH1_clicked()
 {
-
+    if(CH1_flag)
+    {
+        ui->scope_plot->graph(0)->setVisible(false);
+        ui->fft_plot->graph(0)->setVisible(false);
+        ui->pb_CH1->setText("CH1：关");
+        CH1_flag = false;
+    }
+    else
+    {
+        ui->scope_plot->graph(0)->setVisible(true);
+        ui->fft_plot->graph(0)->setVisible(true);
+        ui->pb_CH1->setText("CH1：开");
+        CH1_flag = true;
+    }
 }
 
 
 void scope::on_pb_CH2_clicked()
 {
+    if(CH2_flag)
+    {
+        ui->scope_plot->graph(1)->setVisible(false);
+        ui->fft_plot->graph(1)->setVisible(false);
+        ui->pb_CH2->setText("CH2：关");
+        CH2_flag = false;
+    }
+    else
+    {
+        ui->scope_plot->graph(1)->setVisible(true);
+        ui->fft_plot->graph(1)->setVisible(true);
+        ui->pb_CH2->setText("CH2：开");
+        CH2_flag = true;
+    }
+}
 
+
+
+void scope::on_verticalSlider_show_valueChanged(int value)
+{
+    showcountmax = value;
+    ui->label_show->setText(QString::number(value+1));
+}
+
+
+void scope::on_verticalSlider_real_valueChanged(int value)
+{
+    realcountmax = value;
+    ui->label_real->setText(QString::number(value+1));
+}
+
+
+void scope::on_pb_setindex_clicked()
+{
+    if(indexflag)
+    {
+        ui->pb_setindex->setText("游标通道：CH1");
+        indexflag = false;
+    }
+    else
+    {
+        ui->pb_setindex->setText("游标通道：CH2");
+        indexflag = true;
+    }
 }
 

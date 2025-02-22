@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1252</width>
+    <width>1434</width>
     <height>801</height>
    </rect>
   </property>
@@ -561,83 +561,11 @@
    <zorder>label_CH1</zorder>
    <zorder>label_V</zorder>
   </widget>
-  <widget class="QGroupBox" name="groupBox_2">
-   <property name="geometry">
-    <rect>
-     <x>650</x>
-     <y>30</y>
-     <width>181</width>
-     <height>91</height>
-    </rect>
-   </property>
-   <property name="sizePolicy">
-    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-     <horstretch>0</horstretch>
-     <verstretch>0</verstretch>
-    </sizepolicy>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>13</pointsize>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="title">
-    <string>串口设置</string>
-   </property>
-   <layout class="QFormLayout" name="formLayout">
-    <item row="0" column="0">
-     <widget class="QLabel" name="label">
-      <property name="font">
-       <font>
-        <family>楷体</family>
-        <pointsize>16</pointsize>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>端口号：</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QComboBox" name="comboBox"/>
-    </item>
-    <item row="1" column="0">
-     <widget class="QPushButton" name="pb_openport">
-      <property name="font">
-       <font>
-        <family>楷体</family>
-        <pointsize>13</pointsize>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>打开串口</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="QPushButton" name="pb_searchport">
-      <property name="font">
-       <font>
-        <family>楷体</family>
-        <pointsize>13</pointsize>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>搜索串口</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
   <widget class="QGroupBox" name="groupBox_3">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>310</y>
+     <x>30</x>
+     <y>320</y>
      <width>631</width>
      <height>401</height>
     </rect>
@@ -671,8 +599,8 @@
   <widget class="QGroupBox" name="groupBox_4">
    <property name="geometry">
     <rect>
-     <x>650</x>
-     <y>310</y>
+     <x>750</x>
+     <y>320</y>
      <width>631</width>
      <height>401</height>
     </rect>
@@ -690,7 +618,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>40</y>
+      <y>20</y>
       <width>581</width>
       <height>331</height>
      </rect>
@@ -706,8 +634,8 @@
   <widget class="QGroupBox" name="groupBox_5">
    <property name="geometry">
     <rect>
-     <x>840</x>
-     <y>20</y>
+     <x>1070</x>
+     <y>10</y>
      <width>331</width>
      <height>161</height>
     </rect>
@@ -721,7 +649,7 @@
    <property name="title">
     <string>关于</string>
    </property>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -826,7 +754,7 @@
     <rect>
      <x>20</x>
      <y>730</y>
-     <width>761</width>
+     <width>551</width>
      <height>21</height>
     </rect>
    </property>
@@ -838,6 +766,9 @@
    <property name="text">
     <string>&lt;p&gt;如果有任何问题，请联系：&lt;a href=&quot;max_unterwegs@126.com &quot;&gt;max_unterwegs@126.com&lt;/a&gt;&lt;/p&gt;</string>
    </property>
+   <property name="textFormat">
+    <enum>Qt::AutoText</enum>
+   </property>
    <property name="openExternalLinks">
     <bool>true</bool>
    </property>
@@ -845,10 +776,10 @@
   <widget class="QGroupBox" name="groupBox_6">
    <property name="geometry">
     <rect>
-     <x>650</x>
-     <y>130</y>
-     <width>191</width>
-     <height>161</height>
+     <x>630</x>
+     <y>10</y>
+     <width>431</width>
+     <height>301</height>
     </rect>
    </property>
    <property name="font">
@@ -858,51 +789,12 @@
     </font>
    </property>
    <property name="title">
-    <string>示波器设置</string>
+    <string>示波器设置(当前设置）</string>
    </property>
    <layout class="QGridLayout" name="gridLayout_4">
     <property name="sizeConstraint">
      <enum>QLayout::SetDefaultConstraint</enum>
     </property>
-    <item row="0" column="1">
-     <widget class="QPushButton" name="pb_mode">
-      <property name="font">
-       <font>
-        <pointsize>13</pointsize>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>X-T 模式</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0">
-     <widget class="QPushButton" name="pb_CH1">
-      <property name="font">
-       <font>
-        <pointsize>13</pointsize>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>CH1：开</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="1">
-     <widget class="QPushButton" name="pb_CH2">
-      <property name="font">
-       <font>
-        <pointsize>13</pointsize>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>CH2：开</string>
-      </property>
-     </widget>
-    </item>
     <item row="3" column="0">
      <widget class="QPushButton" name="pb_save">
       <property name="font">
@@ -913,6 +805,155 @@
       </property>
       <property name="text">
        <string>保存</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="4" rowspan="4">
+     <widget class="QGroupBox" name="groupBox_7">
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="title">
+       <string>显示速率分频</string>
+      </property>
+      <widget class="QWidget" name="">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>111</width>
+         <height>201</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_5">
+        <item row="2" column="1">
+         <widget class="QSlider" name="verticalSlider_real">
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>200</number>
+          </property>
+          <property name="pageStep">
+           <number>1</number>
+          </property>
+          <property name="value">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="label_12">
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>实时数据</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="label_real">
+          <property name="font">
+           <font>
+            <pointsize>11</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>2</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_show">
+          <property name="font">
+           <font>
+            <pointsize>11</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>50</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_11">
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>计算数据</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QSlider" name="verticalSlider_show">
+          <property name="font">
+           <font>
+            <pointsize>13</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>200</number>
+          </property>
+          <property name="pageStep">
+           <number>1</number>
+          </property>
+          <property name="value">
+           <number>49</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="invertedAppearance">
+           <bool>false</bool>
+          </property>
+          <property name="tickPosition">
+           <enum>QSlider::NoTicks</enum>
+          </property>
+          <property name="tickInterval">
+           <number>0</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QPushButton" name="pb_mode">
+      <property name="font">
+       <font>
+        <pointsize>13</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>X-T 模式</string>
       </property>
      </widget>
     </item>
@@ -929,26 +970,112 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="0">
-     <widget class="QLabel" name="label_8">
+    <item row="2" column="1">
+     <widget class="QPushButton" name="pb_CH2">
       <property name="font">
        <font>
-        <pointsize>12</pointsize>
+        <pointsize>13</pointsize>
         <bold>true</bold>
        </font>
       </property>
       <property name="text">
-       <string>当前模式</string>
+       <string>CH2：开</string>
       </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QPushButton" name="pb_CH1">
+      <property name="font">
+       <font>
+        <pointsize>13</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>CH1：开</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QPushButton" name="pb_setindex">
+      <property name="text">
+       <string>游标通道：CH1</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0" colspan="2">
+     <widget class="QGroupBox" name="groupBox_2">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>13</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="title">
+       <string>串口设置</string>
+      </property>
+      <layout class="QFormLayout" name="formLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="font">
+          <font>
+           <family>楷体</family>
+           <pointsize>16</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>端口号：</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QComboBox" name="comboBox"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QPushButton" name="pb_openport">
+         <property name="font">
+          <font>
+           <family>楷体</family>
+           <pointsize>13</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>打开串口</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QPushButton" name="pb_searchport">
+         <property name="font">
+          <font>
+           <family>楷体</family>
+           <pointsize>13</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>搜索串口</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>850</x>
-     <y>180</y>
+     <x>1070</x>
+     <y>200</y>
      <width>351</width>
      <height>111</height>
     </rect>
@@ -988,6 +1115,62 @@
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QLCDNumber" name="lcdNumberFrecuncy">
+   <property name="geometry">
+    <rect>
+     <x>740</x>
+     <y>730</y>
+     <width>201</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>1</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>0</width>
+     <height>0</height>
+    </size>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="lineWidth">
+    <number>1</number>
+   </property>
+   <property name="smallDecimalPoint">
+    <bool>false</bool>
+   </property>
+   <property name="digitCount">
+    <number>8</number>
+   </property>
+   <property name="segmentStyle">
+    <enum>QLCDNumber::Flat</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_9">
+   <property name="geometry">
+    <rect>
+     <x>520</x>
+     <y>750</y>
+     <width>211</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>实时采样率（HZ）：</string>
+   </property>
   </widget>
  </widget>
  <customwidgets>
