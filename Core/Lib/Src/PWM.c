@@ -1,12 +1,12 @@
 /*
  * @Date: 2025-02-04 10:30:55
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-02-19 18:15:42
+ * @LastEditTime: 2025-02-19 21:15:52
  * @FilePath: \MDK-ARMd:\Mein_Werk\meine code\stm32projekt\scope\Core\Lib\Src\PWM.c
  */
 #include "PWM.h"
 #include "main.h"
-
+#include "printf.h"
 
 
 
@@ -20,11 +20,12 @@
 **/
 void PWM_OUT_Init( void )
 {
-  HAL_TIM_Base_Start( &OUT_HAL_TIM );
+  // printf("PWM_OUT_Init\r\n");
   HAL_TIM_PWM_Start( &OUT_HAL_TIM ,OUT_CHANNEL);
 }
 void PWM_CH_Init( void )
 {
+  // printf("PWM_CH_Init\r\n");
   HAL_TIM_PWM_Start( &CH1_HAL_TIM ,CH1_CHANNEL);
   HAL_TIM_PWM_Start( &CH2_HAL_TIM ,CH2_CHANNEL);
 }
@@ -38,24 +39,25 @@ void PWM_CH_Init( void )
 **/
 void PWM_DutySet( TIM_TypeDef* timx, uint8_t channel, uint16_t duty )
 {
+  // printf("tim: channel:%d,duty:%d\r\n",channel,duty);
   switch( channel )
   {
-    case 1:
+    case TIM_CHANNEL_1:
     {
       timx->CCR1 = duty;
       break;
     }
-    case 2:
+    case TIM_CHANNEL_2:
     {
       timx->CCR2 = duty;
       break;
     }
-    case 3:
+    case TIM_CHANNEL_3:
     {
       timx->CCR3 = duty;
       break;
     }
-    case 4:
+    case TIM_CHANNEL_4:
     {
       timx->CCR4 = duty;
       break;

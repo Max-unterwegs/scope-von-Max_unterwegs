@@ -58,7 +58,7 @@
 extern DMA_HandleTypeDef hdma_adc1;
 extern ADC_HandleTypeDef hadc1;
 extern I2C_HandleTypeDef hi2c2;
-extern TIM_HandleTypeDef htim1;
+extern TIM_HandleTypeDef htim3;
 extern TIM_HandleTypeDef htim17;
 extern DMA_HandleTypeDef hdma_usart2_rx;
 extern DMA_HandleTypeDef hdma_usart2_tx;
@@ -204,17 +204,17 @@ void ADC1_IRQHandler(void)
 }
 
 /**
-  * @brief This function handles TIM1 break, update, trigger and commutation interrupts.
+  * @brief This function handles TIM3 global interrupt.
   */
-void TIM1_BRK_UP_TRG_COM_IRQHandler(void)
+void TIM3_IRQHandler(void)
 {
-  /* USER CODE BEGIN TIM1_BRK_UP_TRG_COM_IRQn 0 */
+  /* USER CODE BEGIN TIM3_IRQn 0 */
 
-  /* USER CODE END TIM1_BRK_UP_TRG_COM_IRQn 0 */
-  HAL_TIM_IRQHandler(&htim1);
-  /* USER CODE BEGIN TIM1_BRK_UP_TRG_COM_IRQn 1 */
+  /* USER CODE END TIM3_IRQn 0 */
+  HAL_TIM_IRQHandler(&htim3);
+  /* USER CODE BEGIN TIM3_IRQn 1 */
 
-  /* USER CODE END TIM1_BRK_UP_TRG_COM_IRQn 1 */
+  /* USER CODE END TIM3_IRQn 1 */
 }
 
 /**

@@ -100,12 +100,11 @@ int main(void)
   MX_SPI2_Init();
   MX_USART2_UART_Init();
   MX_TIM2_Init();
-  MX_TIM1_Init();
   MX_TIM3_Init();
   MX_TIM17_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim17);
-  // 初始化状态模式显示
+  // 锟斤拷始锟斤拷状态模式锟斤拷示
   showinit();
   init_status();
   /* USER CODE END 2 */

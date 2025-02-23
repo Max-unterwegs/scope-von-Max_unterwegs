@@ -43,3 +43,5 @@ scope\pwm.o: ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_uart.h
 scope\pwm.o: ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_uart_ex.h
 scope\pwm.o: ../Core/Inc/tim.h
 scope\pwm.o: ../Core/Inc/main.h
+scope\pwm.o: ../Core/Lib/Inc/printf.h
+scope\pwm.o: D:\Keilv5\ARM\ARMCC\Bin\..\include\stdio.h

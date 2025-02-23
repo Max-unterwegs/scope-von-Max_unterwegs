@@ -14,7 +14,6 @@
 #define HCLK 64000000
 
 
-extern int dcarr;
 extern float adcValues[ADC_CHANNEL_NUM];
 
 

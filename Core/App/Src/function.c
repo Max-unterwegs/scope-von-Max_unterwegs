@@ -1,7 +1,7 @@
 /*
  * @Date: 2025-02-05 18:02:21
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-02-19 18:14:33
+ * @LastEditTime: 2025-02-19 21:03:10
  * @FilePath: \MDK-ARMd:\Mein_Werk\meine code\stm32projekt\scope\Core\App\Src\function.c
  */
 #include "function.h"
@@ -9,20 +9,22 @@
 
 void DC_control(char isopen, int arris)
 {
-    
+    static char ispwmopen = 0;
     if(isopen == 0)
     {
         HAL_TIM_PWM_Stop( &OUT_HAL_TIM ,OUT_CHANNEL);
         HAL_TIM_Base_Stop( &OUT_HAL_TIM );
+        __HAL_TIM_SET_AUTORELOAD(&OUT_HAL_TIM, arris);
+        ispwmopen = 0;
     }
         
     else
     {
-        HAL_TIM_PWM_Stop( &OUT_HAL_TIM ,OUT_CHANNEL);
-        HAL_TIM_Base_Stop( &OUT_HAL_TIM );
-        dcarr = arris;
-        __HAL_TIM_SET_AUTORELOAD(&OUT_HAL_TIM, dcarr);
-        PWM_OUT_Init();
+        if(ispwmopen == 0)
+        {
+            ispwmopen = 1;
+            PWM_OUT_Init();
+        }
     }
         
 }
@@ -32,12 +34,13 @@ void DC_control(char isopen, int arris)
 void DC_vcontrol(float dcvalue)
 {
 
-    DC_OUT( OUT_TIM , OUT_CHANNEL, dcvalue, dcarr);
+    DC_OUT( OUT_TIM , OUT_CHANNEL, dcvalue, paramshow[0]);
     
 }
 
 void CH_control(char isCHopen)
 {
+    static char ischpwmopen = 0;
     if(isCHopen == 0)
     {
         HAL_ADC_Stop_DMA( &ADC_handle );
@@ -46,6 +49,7 @@ void CH_control(char isCHopen)
         HAL_TIM_PWM_Stop( &CH2_HAL_TIM ,CH2_CHANNEL);
         HAL_TIM_Base_Stop( &CH1_HAL_TIM );
         HAL_TIM_Base_Stop( &CH2_HAL_TIM );
+        ischpwmopen = 0;
     }
     else
     {
@@ -53,9 +57,13 @@ void CH_control(char isCHopen)
         {
             adcValues[i] = 0;
         }
-        HAL_TIM_Base_Start( &CH_HAL_TIM );
-        PWM_CH_Init();
-        VOLT_Init();
+        if(ischpwmopen == 0)
+        {
+            ischpwmopen = 1;
+            HAL_TIM_Base_Start( &CH_HAL_TIM );
+            PWM_CH_Init();
+            VOLT_Init();
+        }
     }
 }
 
@@ -68,12 +76,12 @@ void CH_vcontrol(char chnum,char chvmode)
             {
             case 2:
                 HAL_GPIO_WritePin(SW1_GPIO_Port,SW1_Pin,GPIO_PIN_RESET);
-                DC_OUT( CH1_TIM ,CH1_CHANNEL,1.1,dcarr);
+                DC_OUT( CH1_TIM ,CH1_CHANNEL,1.1,paramshow[0]);
                 break;
             
             case 10:
                 HAL_GPIO_WritePin(SW1_GPIO_Port,SW1_Pin,GPIO_PIN_SET);
-                DC_OUT( CH1_TIM ,CH1_CHANNEL,1.50123,dcarr);
+                DC_OUT( CH1_TIM ,CH1_CHANNEL,1.50123,paramshow[0]);
                 break;
             default:
                 break;
@@ -85,12 +93,12 @@ void CH_vcontrol(char chnum,char chvmode)
             {
             case 2:
                 HAL_GPIO_WritePin(SW2_GPIO_Port,SW2_Pin,GPIO_PIN_RESET);
-                DC_OUT( CH2_TIM ,CH2_CHANNEL,1.1,dcarr);
+                DC_OUT( CH2_TIM ,CH2_CHANNEL,1.1,paramshow[0]);
                 break;
             
             case 10:
                 HAL_GPIO_WritePin(SW2_GPIO_Port,SW2_Pin,GPIO_PIN_SET);
-                DC_OUT( CH2_TIM ,CH2_CHANNEL,1.50123,dcarr);
+                DC_OUT( CH2_TIM ,CH2_CHANNEL,1.50123,paramshow[0]);
                 break;
             default:
                 break;
