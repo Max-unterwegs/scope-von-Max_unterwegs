@@ -1,8 +1,8 @@
 /*
  * @Date: 2025-02-04 10:30:55
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-02-12 21:09:29
- * @FilePath: \MDK-ARMd:\Mein Werk\meine code\stm32projekt\scope\Core\Lib\Src\key.c
+ * @LastEditTime: 2025-02-23 16:08:22
+ * @FilePath: \MDK-ARMd:\Mein_Werk\meine code\stm32projekt\scope\Core\Lib\Src\key.c
  */
 #include "key.h"
 
@@ -212,7 +212,13 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
             switch (select.forp)
             {
             case 0:
-                functionshow[select.index] = !functionshow[select.index];
+                if(select.index == 4)
+                {
+                    functionshow[select.index] = (functionshow[select.index] + 1 - 2) % 199 + 2;
+                }
+                    
+                else
+                    functionshow[select.index] = !functionshow[select.index];
                 break;
             case 1:
             {
@@ -250,7 +256,13 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
             switch (select.forp)
             {
             case 0:
-                functionshow[select.index] = !functionshow[select.index];
+                if(select.index == 4)
+                {
+                    functionshow[select.index] = (functionshow[select.index] - 3) % 199 + 2;
+                }
+                    
+                else
+                    functionshow[select.index] = !functionshow[select.index];
                 break;
             case 1:
             {

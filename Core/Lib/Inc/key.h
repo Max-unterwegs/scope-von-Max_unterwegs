@@ -1,8 +1,8 @@
 /*
  * @Date: 2025-02-04 10:30:55
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-02-12 21:04:46
- * @FilePath: \MDK-ARMd:\Mein Werk\meine code\stm32projekt\scope\Core\Lib\Inc\key.h
+ * @LastEditTime: 2025-02-23 14:43:25
+ * @FilePath: \MDK-ARMd:\Mein_Werk\meine code\stm32projekt\scope\Core\Lib\Inc\key.h
  */
 #ifndef __KEY_H
 #define __KEY_H

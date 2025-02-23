@@ -1,8 +1,8 @@
 /*
  * @Date: 2025-02-05 17:58:30
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-02-10 19:36:04
- * @FilePath: \MDK-ARMd:\Mein Werk\meine code\stm32projekt\scope\Core\App\Inc\show.h
+ * @LastEditTime: 2025-02-23 16:07:46
+ * @FilePath: \MDK-ARMd:\Mein_Werk\meine code\stm32projekt\scope\Core\App\Inc\show.h
  */
 #ifndef SHOW_H
 #define SHOW_H

@@ -1,12 +1,13 @@
 /*
  * @Date: 2025-02-05 18:01:42
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-02-12 10:51:05
- * @FilePath: \MDK-ARMd:\Mein Werk\meine code\stm32projekt\scope\Core\App\Src\status.c
+ * @LastEditTime: 2025-02-23 15:01:06
+ * @FilePath: \MDK-ARMd:\Mein_Werk\meine code\stm32projekt\scope\Core\App\Src\status.c
  */
 #include "status.h"
 
 int status = 1;
+
 
 void init_status()
 {

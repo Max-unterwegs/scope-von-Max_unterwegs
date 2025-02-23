@@ -47,7 +47,6 @@
 "scope\show.o"
 "scope\status.o"
 "scope\function.o"
-"scope\assmain.o"
 "scope\mode.o"
 --library_type=microlib --strict --scatter "scope\scope.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
