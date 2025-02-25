@@ -18,6 +18,8 @@ extern float voltages[];
 extern int functionshow[];
 extern float paramshow[];
 extern select_Typedef select;
+extern Image likeImg;
+extern uint8_t likeData[];
 void showinit(void);
 void showshow(void);
 

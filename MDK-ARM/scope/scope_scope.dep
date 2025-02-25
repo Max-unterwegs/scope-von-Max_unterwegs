@@ -53,7 +53,7 @@ I (../Core/App/Inc/status.h)(0x67AC0CA5)
 I (../Core/Modeandmain/Inc/mode.h)(0x67A9E516)
 I (../Core/Lib/Inc/printf.h)(0x67A1D677)
 I (D:\Keilv5\ARM\ARMCC\include\stdio.h)(0x569DEA3A)
-I (../Core/App/Inc/show.h)(0x67BAD752)
+I (../Core/App/Inc/show.h)(0x67BDDB59)
 I (../Core/Lib/Inc/oled.h)(0x67A186DE)
 I (../Core/Lib/Inc/font.h)(0x67853202)
 I (D:\Keilv5\ARM\ARMCC\include\string.h)(0x569DEA3A)
@@ -1389,7 +1389,7 @@ I (../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_tim.h)(0x678532D9)
 I (../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_tim_ex.h)(0x678532D9)
 I (../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_uart.h)(0x678532D9)
 I (../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_uart_ex.h)(0x678532D9)
-F (..\Core\Lib\Src\font.c)(0x67A18441)(--c99 -c --cpu Cortex-M0+ -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G0xx_HAL_Driver/Inc -I ../Drivers/STM32G0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G0xx/Include -I ../Drivers/CMSIS/Include -I ../Core/App/Inc -I ../Core/Lib/Inc -I ../Core/Modeandmain/Inc-I.\RTE\_scope-ID:\Keilv5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-ID:\Keilv5\ARM\PACK\Keil\STM32G0xx_DFP\1.2.0\Drivers\CMSIS\Device\ST\STM32G0xx\Include-D__UVISION_VERSION="525" -D_RTE_ -DSTM32G031xx -DUSE_HAL_DRIVER -DSTM32G031xx-o scope\font.o --omf_browse scope\font.crf --depend scope\font.d)
+F (..\Core\Lib\Src\font.c)(0x67BDDC23)(--c99 -c --cpu Cortex-M0+ -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G0xx_HAL_Driver/Inc -I ../Drivers/STM32G0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G0xx/Include -I ../Drivers/CMSIS/Include -I ../Core/App/Inc -I ../Core/Lib/Inc -I ../Core/Modeandmain/Inc-I.\RTE\_scope-ID:\Keilv5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-ID:\Keilv5\ARM\PACK\Keil\STM32G0xx_DFP\1.2.0\Drivers\CMSIS\Device\ST\STM32G0xx\Include-D__UVISION_VERSION="525" -D_RTE_ -DSTM32G031xx -DUSE_HAL_DRIVER -DSTM32G031xx-o scope\font.o --omf_browse scope\font.crf --depend scope\font.d)
 I (../Core/Lib/Inc/font.h)(0x67853202)
 I (D:\Keilv5\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
 I (D:\Keilv5\ARM\ARMCC\include\string.h)(0x569DEA3A)
@@ -1763,8 +1763,8 @@ I (../Core/Inc/dma.h)(0x67A0DC24)
 I (../Core/Inc/usart.h)(0x67A0DC24)
 I (../Core/Lib/Inc/printf.h)(0x67A1D677)
 I (D:\Keilv5\ARM\ARMCC\include\stdio.h)(0x569DEA3A)
-F (..\Core\App\Src\show.c)(0x67BAD78F)(--c99 -c --cpu Cortex-M0+ -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G0xx_HAL_Driver/Inc -I ../Drivers/STM32G0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G0xx/Include -I ../Drivers/CMSIS/Include -I ../Core/App/Inc -I ../Core/Lib/Inc -I ../Core/Modeandmain/Inc-I.\RTE\_scope-ID:\Keilv5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-ID:\Keilv5\ARM\PACK\Keil\STM32G0xx_DFP\1.2.0\Drivers\CMSIS\Device\ST\STM32G0xx\Include-D__UVISION_VERSION="525" -D_RTE_ -DSTM32G031xx -DUSE_HAL_DRIVER -DSTM32G031xx-o scope\show.o --omf_browse scope\show.crf --depend scope\show.d)
-I (../Core/App/Inc/show.h)(0x67BAD752)
+F (..\Core\App\Src\show.c)(0x67BDDC2A)(--c99 -c --cpu Cortex-M0+ -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G0xx_HAL_Driver/Inc -I ../Drivers/STM32G0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G0xx/Include -I ../Drivers/CMSIS/Include -I ../Core/App/Inc -I ../Core/Lib/Inc -I ../Core/Modeandmain/Inc-I.\RTE\_scope-ID:\Keilv5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-ID:\Keilv5\ARM\PACK\Keil\STM32G0xx_DFP\1.2.0\Drivers\CMSIS\Device\ST\STM32G0xx\Include-D__UVISION_VERSION="525" -D_RTE_ -DSTM32G031xx -DUSE_HAL_DRIVER -DSTM32G031xx-o scope\show.o --omf_browse scope\show.crf --depend scope\show.d)
+I (../Core/App/Inc/show.h)(0x67BDDB59)
 I (../Core/Lib/Inc/oled.h)(0x67A186DE)
 I (../Core/Lib/Inc/font.h)(0x67853202)
 I (D:\Keilv5\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
@@ -1865,7 +1865,7 @@ I (../Core/Inc/tim.h)(0x67B5CE57)
 I (../Core/Inc/main.h)(0x67B5CE57)
 I (../Core/Lib/Inc/volt.h)(0x67AA154A)
 I (../Core/Inc/adc.h)(0x67A0DC23)
-I (../Core/App/Inc/show.h)(0x67BAD752)
+I (../Core/App/Inc/show.h)(0x67BDDB59)
 I (../Core/Lib/Inc/oled.h)(0x67A186DE)
 I (../Core/Lib/Inc/font.h)(0x67853202)
 I (D:\Keilv5\ARM\ARMCC\include\string.h)(0x569DEA3A)
@@ -1922,7 +1922,7 @@ I (../Core/Inc/tim.h)(0x67B5CE57)
 I (../Core/Inc/main.h)(0x67B5CE57)
 I (../Core/Lib/Inc/volt.h)(0x67AA154A)
 I (../Core/Inc/adc.h)(0x67A0DC23)
-I (../Core/App/Inc/show.h)(0x67BAD752)
+I (../Core/App/Inc/show.h)(0x67BDDB59)
 I (../Core/Lib/Inc/oled.h)(0x67A186DE)
 I (../Core/Lib/Inc/font.h)(0x67853202)
 I (D:\Keilv5\ARM\ARMCC\include\string.h)(0x569DEA3A)

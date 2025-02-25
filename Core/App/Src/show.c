@@ -1,7 +1,7 @@
 /*
  * @Date: 2025-02-05 17:58:21
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-02-23 16:08:02
+ * @LastEditTime: 2025-02-25 23:05:14
  * @FilePath: \MDK-ARMd:\Mein_Werk\meine code\stm32projekt\scope\Core\App\Src\show.c
  */
 #include "show.h"
@@ -64,7 +64,7 @@ void showshow()
         snprintf(buffer, sizeof(buffer), "Status: %s", statuschar[status]);
         OLED_PrintASCIIString(0, 0, buffer, &afont8x6, OLED_COLOR_NORMAL);
         OLED_PrintASCIIString(27, 8, "Max-unterwegs^_^", &afont8x6, OLED_COLOR_REVERSED);
-
+        OLED_DrawImage(125-50, 17, &likeImg, OLED_COLOR_NORMAL);
         OLED_ShowFrame();
     
 
