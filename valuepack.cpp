@@ -21,7 +21,9 @@ unsigned char readValuePack(RxPack *pack, unsigned char *buffer, long long len)
                         intValue |= (buffer[i + 2 + k * 4] & 0xff) << 8;
                         intValue |= (buffer[i + 3 + k * 4] & 0xff) << 16;
                         intValue |= (buffer[i + 4 + k * 4] & 0xff) << 24;
-                        pack->floats[k] = *(float *)&intValue;
+                        float tempFloat;
+                        memcpy(&tempFloat, &intValue, sizeof(float));
+                        pack->floats[k] = tempFloat;
                     }
                     return 1;
                 }

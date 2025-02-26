@@ -38,6 +38,8 @@ private slots:
 
     QVector<float> movingAverageFilter(const QVector<float>& data, int windowSize);//滑动平均滤波
 
+    QVector<float> adaptive_filter(QVector<float> *input);//自适应滤波
+
     void performFFT(const QVector<float>& data, int graphIndex);
     
     void AnalyzeData();//数据读取
@@ -58,6 +60,10 @@ private slots:
 
 
     void on_pb_setindex_clicked();
+
+    void on_verticalSlider_alpha_valueChanged(int value);
+
+    void on_verticalSlider_beta_valueChanged(int value);
 
 private:
     Ui::scope *ui;
@@ -85,6 +91,7 @@ private:
     double frecuncy = 0.0;
     float minY1 , maxY1 , minY2 , maxY2;
     bool x_y_flag = false,CH1_flag = true,CH2_flag = true,indexflag = false;
+    float alpha=0.05f,beta=0.05f;
     RxPack rx_pack;
     QCPItemTracer *tracer_CH;
     QCPItemText *tracerLabel_CH;

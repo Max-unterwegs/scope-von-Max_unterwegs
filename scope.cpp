@@ -50,6 +50,21 @@ QVector<float> scope::movingAverageFilter(const QVector<float>& data, int window
     return filteredData;
 }
 
+// 自适应滤波函数
+QVector<float> scope::adaptive_filter(QVector<float> *input) {
+    QVector<float> output;
+    int length = input->size();
+
+    output.resize(length);  // 初始化 output 的大小，使其与 input 相同
+    output[0] = (*input)[0];
+    for (int i = 1; i < length; i++) {
+        float error = (*input)[i] - output[i - 1];
+        output[i] = output[i - 1] + alpha * error + beta * ((*input)[i] - (*input)[i - 1]);
+    }
+    return output;
+}
+
+
 void scope::performFFT(const QVector<float>& data, int graphIndex) {
     int nfft = data.size();
     QVector<std::complex<float>> fftOutput;
@@ -61,6 +76,17 @@ void scope::performFFT(const QVector<float>& data, int graphIndex) {
     for (int i = 0; i < nfft; ++i) {
         frequencies[i] = i * frecuncy / nfft;
         magnitudes[i] = std::abs(fftOutput[i]);
+    }
+    double maxFAtmp = frequencies[std::max_element(magnitudes.begin()+int(0.2*nfft/frecuncy), magnitudes.end())-magnitudes.begin()];
+    if(graphIndex == 0)
+    {
+        ui->lineFrequencyCH1->setText(QString::number(maxFAtmp));//显示CH1频率;
+        ui->linePeriodCH1->setText(QString::number(1/maxFAtmp));//显示CH1周期;
+    }
+    else
+    {
+        ui->lineFrequencyCH2->setText(QString::number(maxFAtmp));//显示CH2频率;
+        ui->linePeriodCH2->setText(QString::number(1/maxFAtmp));//显示CH2周期;
     }
     // qDebug()<<"nfft:"<<nfft;
     // for (int i = 0; i < nfft; ++i)
@@ -224,12 +250,14 @@ void scope::AnalyzeData()
 
     // 滤波处理
     if (buffer1.size() >= 5) { // 确保有足够的数据进行滤波
-        filteredData1 = movingAverageFilter(buffer1, 5); // 使用所有数据进行滤波);
+        // filteredData1 = movingAverageFilter(buffer1, 5); // 使用所有数据进行滤波);
+        filteredData1 = adaptive_filter(&buffer1); // 使用所有数据进行滤波
         filteredValue1 = filteredData1.last(); // 获取最新的滤波结果
     }
 
     if (buffer2.size() >= 5) {
-        filteredData2 = movingAverageFilter(buffer2, 5);
+        //filteredData2 = movingAverageFilter(buffer2, 5);
+        filteredData2 = adaptive_filter(&buffer2); // 使用所有数据进行滤波
         filteredValue2 = filteredData2.last(); // 获取最新的滤波结果
     }
 
@@ -275,8 +303,8 @@ void scope::AnalyzeData()
         ui->lineVrmsCH1->setText(QString::number(getRMSVoltage(filteredData1)));//显示CH1有效值;
         ui->lineDutyCycleCH1->setText(QString::number(getDutyCycle(filteredData1)));//显示CH1占空比;
         ui->linePulseWidthCH1->setText(QString::number(getPulseWidth(filteredData1, sampling_interval)));//显示CH1脉冲宽度;
-        ui->linePeriodCH1->setText(QString::number(getPeriod(filteredData1, sampling_interval)));//显示CH1周期;
-        ui->lineFrequencyCH1->setText(QString::number(getFrequency(filteredData1, sampling_interval)));//显示CH1频率;
+        // ui->linePeriodCH1->setText(QString::number(getPeriod(filteredData1, sampling_interval)));//显示CH1周期;
+        // ui->lineFrequencyCH1->setText(QString::number(getFrequency(filteredData1, sampling_interval)));//显示CH1频率;
     }
     if(filteredData2.size() > 5 && showcount == 0)
     {
@@ -287,8 +315,8 @@ void scope::AnalyzeData()
         ui->lineVrmsCH2->setText(QString::number(getRMSVoltage(filteredData2)));//显示CH2有效值;
         ui->lineDutyCycleCH2->setText(QString::number(getDutyCycle(filteredData2)));//显示CH2占空比;
         ui->linePulseWidthCH2->setText(QString::number(getPulseWidth(filteredData2, sampling_interval)));//显示CH2脉冲宽度;
-        ui->linePeriodCH2->setText(QString::number(getPeriod(filteredData2, sampling_interval)));//显示CH2周期;
-        ui->lineFrequencyCH2->setText(QString::number(getFrequency(filteredData2, sampling_interval)));//显示CH2频率;
+        // ui->linePeriodCH2->setText(QString::number(getPeriod(filteredData2, sampling_interval)));//显示CH2周期;
+        // ui->lineFrequencyCH2->setText(QString::number(getFrequency(filteredData2, sampling_interval)));//显示CH2频率;
 
     }
 
@@ -515,5 +543,19 @@ void scope::on_pb_setindex_clicked()
         ui->pb_setindex->setText("游标通道：CH2");
         indexflag = true;
     }
+}
+
+
+void scope::on_verticalSlider_alpha_valueChanged(int value)
+{
+    alpha = value/100.0;
+    ui->label_alpha->setText("alpha:"+QString::number(alpha));
+}
+
+
+void scope::on_verticalSlider_beta_valueChanged(int value)
+{
+    beta = value/100.0;
+    ui->label_beta->setText("beta:"+QString::number(beta));
 }
 
