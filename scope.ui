@@ -723,7 +723,7 @@
         </font>
        </property>
        <property name="text">
-        <string>&lt;a href=&quot;https://github.com/Max-unterwegs&quot;&gt;该项目代码仓库&lt;/a&gt;</string>
+        <string>&lt;a href=&quot;https://github.com/Max-unterwegs/scope-von-Max_unterwegs/tree/master&quot;&gt;该项目代码仓库&lt;/a&gt;</string>
        </property>
        <property name="openExternalLinks">
         <bool>true</bool>
@@ -1190,7 +1190,7 @@
    <property name="title">
     <string>自适应滤波参数调整与频率过滤调整</string>
    </property>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
