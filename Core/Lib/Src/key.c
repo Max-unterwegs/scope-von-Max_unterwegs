@@ -1,16 +1,20 @@
 /*
  * @Date: 2025-02-04 10:30:55
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-02-23 16:08:22
- * @FilePath: \MDK-ARMd:\Mein_Werk\meine code\stm32projekt\scope\Core\Lib\Src\key.c
+ * @LastEditTime: 2025-03-04 23:12:14
+ * @FilePath: \MDK-ARMd:\Mein_Werk\scope_project\Core\Lib\Src\key.c
  */
 #include "key.h"
+#include "waveform_data.h"
 
 select_Typedef select = {1,0};
 volatile uint8_t EC11_A_Last = 0; // 上一次A相状态
 volatile uint8_t EC11_B_Last = 0; // 上一次B相状态
 int8_t B_level = 0, encoder_value = 0;
 uint8_t paramlist[5] = {3, 1, 2, 0, 4};
+int keycount = 0;
+int sample_index = 0;
+float sample_indexf = 0.0;
 
 /**
  * @brief  按键扫描函数
@@ -216,7 +220,10 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
                 {
                     functionshow[select.index] = (functionshow[select.index] + 1 - 2) % 199 + 2;
                 }
-                    
+                else if(select.index == 2)
+                {
+                    functionshow[select.index] = (functionshow[select.index] + 1) % 50;
+                }
                 else
                     functionshow[select.index] = !functionshow[select.index];
                 break;
@@ -260,7 +267,10 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
                 {
                     functionshow[select.index] = (functionshow[select.index] - 3) % 199 + 2;
                 }
-                    
+                else if(select.index == 2)
+                {
+                    functionshow[select.index] = (functionshow[select.index] + 49) % 50;
+                }
                 else
                     functionshow[select.index] = !functionshow[select.index];
                 break;
@@ -304,7 +314,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
     if (htim == &htim17)
     {
-        
+        keycount = (keycount + 1) % 20;
         // //扫描并通过串口显示各按键状态
         //     uint8_t keyvalue = Key_Scan(key1_GPIO_Port, key1_Pin);
         //     printf("key1: %d\r\n", keyvalue);
@@ -329,24 +339,34 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
         //     default:
         //         break;
         //     }
-            
-        if (Key_Scan(key2_GPIO_Port, key2_Pin) == KEY_ON)
+        if(keycount == 0)    
         {
-            allstop();
-            status = (status + 1) % 3;
-            printf("statusvalue: %d\r\n", status);
-            init_status();
+            if (Key_Scan(key2_GPIO_Port, key2_Pin) == KEY_ON)
+            {
+                allstop();
+                status = (status + 1) % 3;
+                printf("statusvalue: %d\r\n", status);
+                init_status();
+            }
+            if (Key_Scan(key1_GPIO_Port, key1_Pin) == KEY_ON)
+            {
+                select.forp = !select.forp;
+                printf("selectvalue: %d\r\n", select.forp);
+            }
+            if (Key_Scan(key4_GPIO_Port, key4_Pin) == KEY_ON)
+            {
+                select.index = (select.index + 1) % 5;
+                printf("selectindex: %d\r\n", select.index);
+            }
         }
-        if (Key_Scan(key1_GPIO_Port, key1_Pin) == KEY_ON)
-        {
-            select.forp = !select.forp;
-            printf("selectvalue: %d\r\n", select.forp);
-        }
-        if (Key_Scan(key4_GPIO_Port, key4_Pin) == KEY_ON)
-        {
-            select.index = (select.index + 1) % 5;
-            printf("selectindex: %d\r\n", select.index);
-        }
+        // 计算当前采样点
+        float frequency = (float)functionshow[2]/10.0; // 获取频率值
+        int sample_rate = 1000; // 定时器回调频率为1kHz
+        sample_indexf = sample_indexf >SAMPLES_PER_WAVE? 0:(sample_indexf + (float)frequency * (float)SAMPLES_PER_WAVE / (float)sample_rate);
+        sample_index = ((int)sample_indexf) % SAMPLES_PER_WAVE;
+        // printf("sample_index: %d\r\n", sample_index);
+        // printf("sample_indexf: %f\r\n", sample_indexf);
+        paramshow[3] = square_wave[sample_index] * 3.3 / 4095; // 将值转换为电压值
         
         
     }

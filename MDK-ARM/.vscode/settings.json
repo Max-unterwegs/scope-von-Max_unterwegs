@@ -20,6 +20,7 @@
         "assmain.h": "c",
         "mode.h": "c",
         "buzzer.h": "c",
-        "adc.h": "c"
+        "adc.h": "c",
+        "waveform_data.h": "c"
     }
 }

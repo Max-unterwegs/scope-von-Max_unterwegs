@@ -1,8 +1,8 @@
 /*
  * @Date: 2025-02-04 10:54:03
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-02-23 16:10:07
- * @FilePath: \MDK-ARMd:\Mein_Werk\meine code\stm32projekt\scope\Core\App\Src\send.c
+ * @LastEditTime: 2025-03-04 23:05:37
+ * @FilePath: \MDK-ARMd:\Mein_Werk\scope_project\Core\App\Src\send.c
  */
 #include "send.h"
 
