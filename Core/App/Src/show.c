@@ -1,7 +1,7 @@
 /*
  * @Date: 2025-02-05 17:58:21
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-03-05 21:40:23
+ * @LastEditTime: 2025-03-05 21:57:22
  * @FilePath: \MDK-ARMd:\Mein_Werk\scope_project\Core\App\Src\show.c
  */
 #include "show.h"
@@ -9,8 +9,8 @@
 char statuschar[4][10] = {"test123", "SCOPE", "MESSER", "MU"};
 char functionshowchar[5][10] = {"DC", "CH", "Hz*10", "OLED", "SHOW"};
 char paramshowchar[5][10] = {"DCarr", "CH1mv", "CH2mv", "DCv", "CHf"};
-int showparamlist[5] = {3, 1, 2, 0, 4};
-
+int showparamlist[6] = {3, 1, 2, 0, 4,0};
+// int showcount = 0;
 
 void showinit(){
     HAL_Delay(20);
@@ -61,12 +61,13 @@ void showshow()
 
         // ÏÔÊ¾×´Ì¬
         char buffer[20];
+        showparamlist[5] = (showparamlist[5] + 1) % functionshow[4];
         snprintf(buffer, sizeof(buffer), "Status: %s", statuschar[status]);
         OLED_PrintASCIIString(0, 0, buffer, &afont8x6, OLED_COLOR_NORMAL);
         OLED_PrintASCIIString(27, 8, "Max-unterwegs^_^", &afont8x6, OLED_COLOR_REVERSED);
         OLED_DrawImage(125-50, 17, &likeImg, OLED_COLOR_NORMAL);
-        OLED_ShowFrame();
-    
-
-    
+        if(showparamlist[5] == 0)
+        {
+            OLED_ShowFrame();
+        }
 }

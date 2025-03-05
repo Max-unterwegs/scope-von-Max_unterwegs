@@ -3,9 +3,9 @@
 <title>Static Call Graph - [scope\scope.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image scope\scope.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060061: Last Updated: Wed Mar 05 21:46:20 2025
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060061: Last Updated: Wed Mar 05 21:57:49 2025
 <BR><P>
-<H3>Maximum Stack Usage =        276 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =        284 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 main &rArr; main_status &rArr; scope_main &rArr; showshow &rArr; OLED_PrintASCIIString &rArr; OLED_PrintASCIIChar &rArr; OLED_SetBlock &rArr; OLED_SetBits_Fine &rArr; OLED_SetByte_Fine
 <P>
@@ -193,7 +193,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_TIM_PeriodElapsedCallback
+<BR>[Called By]<UL><LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showshow
+<LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_TIM_PeriodElapsedCallback
 <LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_EXTI_Rising_Callback
 </UL>
 
@@ -1845,7 +1846,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[22]"></a>main</STRONG> (Thumb, 64 bytes, Stack size 0 bytes, main.o(i.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 276<LI>Call Chain = main &rArr; main_status &rArr; scope_main &rArr; showshow &rArr; OLED_PrintASCIIString &rArr; OLED_PrintASCIIChar &rArr; OLED_SetBlock &rArr; OLED_SetBits_Fine &rArr; OLED_SetByte_Fine
+<BR><BR>[Stack]<UL><LI>Max Depth = 284<LI>Call Chain = main &rArr; main_status &rArr; scope_main &rArr; showshow &rArr; OLED_PrintASCIIString &rArr; OLED_PrintASCIIChar &rArr; OLED_SetBlock &rArr; OLED_SetBits_Fine &rArr; OLED_SetByte_Fine
 </UL>
 <BR>[Calls]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;showinit
 <LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main_status
@@ -1866,7 +1867,7 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
 </UL>
 <P><STRONG><a name="[10c]"></a>main_status</STRONG> (Thumb, 36 bytes, Stack size 8 bytes, status.o(i.main_status))
-<BR><BR>[Stack]<UL><LI>Max Depth = 276<LI>Call Chain = main_status &rArr; scope_main &rArr; showshow &rArr; OLED_PrintASCIIString &rArr; OLED_PrintASCIIChar &rArr; OLED_SetBlock &rArr; OLED_SetBits_Fine &rArr; OLED_SetByte_Fine
+<BR><BR>[Stack]<UL><LI>Max Depth = 284<LI>Call Chain = main_status &rArr; scope_main &rArr; showshow &rArr; OLED_PrintASCIIString &rArr; OLED_PrintASCIIChar &rArr; OLED_SetBlock &rArr; OLED_SetBits_Fine &rArr; OLED_SetByte_Fine
 </UL>
 <BR>[Calls]<UL><LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scope_main
 <LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mu_main
@@ -1887,7 +1888,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[10f]"></a>messer_main</STRONG> (Thumb, 114 bytes, Stack size 16 bytes, mode.o(i.messer_main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 268<LI>Call Chain = messer_main &rArr; showshow &rArr; OLED_PrintASCIIString &rArr; OLED_PrintASCIIChar &rArr; OLED_SetBlock &rArr; OLED_SetBits_Fine &rArr; OLED_SetByte_Fine
+<BR><BR>[Stack]<UL><LI>Max Depth = 276<LI>Call Chain = messer_main &rArr; showshow &rArr; OLED_PrintASCIIString &rArr; OLED_PrintASCIIChar &rArr; OLED_SetBlock &rArr; OLED_SetBits_Fine &rArr; OLED_SetByte_Fine
 </UL>
 <BR>[Calls]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;voltage_map
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Get_Res
@@ -1925,7 +1926,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[10e]"></a>scope_main</STRONG> (Thumb, 94 bytes, Stack size 16 bytes, mode.o(i.scope_main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 268<LI>Call Chain = scope_main &rArr; showshow &rArr; OLED_PrintASCIIString &rArr; OLED_PrintASCIIChar &rArr; OLED_SetBlock &rArr; OLED_SetBits_Fine &rArr; OLED_SetByte_Fine
+<BR><BR>[Stack]<UL><LI>Max Depth = 276<LI>Call Chain = scope_main &rArr; showshow &rArr; OLED_PrintASCIIString &rArr; OLED_PrintASCIIChar &rArr; OLED_SetBlock &rArr; OLED_SetBits_Fine &rArr; OLED_SetByte_Fine
 </UL>
 <BR>[Calls]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;voltage_map
 <LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DC_vcontrol
@@ -1984,10 +1985,11 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[22]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[114]"></a>showshow</STRONG> (Thumb, 346 bytes, Stack size 80 bytes, show.o(i.showshow))
-<BR><BR>[Stack]<UL><LI>Max Depth = 252<LI>Call Chain = showshow &rArr; OLED_PrintASCIIString &rArr; OLED_PrintASCIIChar &rArr; OLED_SetBlock &rArr; OLED_SetBits_Fine &rArr; OLED_SetByte_Fine
+<P><STRONG><a name="[114]"></a>showshow</STRONG> (Thumb, 368 bytes, Stack size 88 bytes, show.o(i.showshow))
+<BR><BR>[Stack]<UL><LI>Max Depth = 260<LI>Call Chain = showshow &rArr; OLED_PrintASCIIString &rArr; OLED_PrintASCIIChar &rArr; OLED_SetBlock &rArr; OLED_SetBits_Fine &rArr; OLED_SetByte_Fine
 </UL>
-<BR>[Calls]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
+<BR>[Calls]<UL><LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_idivmod
+<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
 <LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_ShowFrame
 <LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_PrintASCIIString
 <LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_NewFrame

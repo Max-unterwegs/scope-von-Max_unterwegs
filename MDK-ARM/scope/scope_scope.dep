@@ -1764,7 +1764,7 @@ I (../Core/Inc/dma.h)(0x67C4194F)
 I (../Core/Inc/usart.h)(0x67C4194F)
 I (../Core/Lib/Inc/printf.h)(0x67C4194F)
 I (D:\Keilv5\ARM\ARMCC\include\stdio.h)(0x569DEA3A)
-F (..\Core\App\Src\show.c)(0x67C85454)(--c99 -c --cpu Cortex-M0+ -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G0xx_HAL_Driver/Inc -I ../Drivers/STM32G0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G0xx/Include -I ../Drivers/CMSIS/Include -I ../Core/App/Inc -I ../Core/Lib/Inc -I ../Core/Modeandmain/Inc-I.\RTE\_scope-ID:\Keilv5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-ID:\Keilv5\ARM\PACK\Keil\STM32G0xx_DFP\1.2.0\Drivers\CMSIS\Device\ST\STM32G0xx\Include-D__UVISION_VERSION="525" -D_RTE_ -DSTM32G031xx -DUSE_HAL_DRIVER -DSTM32G031xx-o scope\show.o --omf_browse scope\show.crf --depend scope\show.d)
+F (..\Core\App\Src\show.c)(0x67C85859)(--c99 -c --cpu Cortex-M0+ -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G0xx_HAL_Driver/Inc -I ../Drivers/STM32G0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G0xx/Include -I ../Drivers/CMSIS/Include -I ../Core/App/Inc -I ../Core/Lib/Inc -I ../Core/Modeandmain/Inc-I.\RTE\_scope-ID:\Keilv5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-ID:\Keilv5\ARM\PACK\Keil\STM32G0xx_DFP\1.2.0\Drivers\CMSIS\Device\ST\STM32G0xx\Include-D__UVISION_VERSION="525" -D_RTE_ -DSTM32G031xx -DUSE_HAL_DRIVER -DSTM32G031xx-o scope\show.o --omf_browse scope\show.crf --depend scope\show.d)
 I (../Core/App/Inc/show.h)(0x67C4194F)
 I (../Core/Lib/Inc/oled.h)(0x67C4194F)
 I (../Core/Lib/Inc/font.h)(0x67C4194F)
