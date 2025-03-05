@@ -432,25 +432,25 @@ void scope::on_pb_save_clicked()
     QString filename = QFileDialog::getSaveFileName(nullptr,"保存波形数据",QCoreApplication::applicationDirPath(),"Image Files(*.png *.jpg *.bmp *.pdf)");
 
     if( filename == "" ){
-        QMessageBox::information(this,"fail","保存失败");
+        QMessageBox::information(this,"取消保存","保存失败");
     }
     if( filename.endsWith(".png") ){
-        QMessageBox::information(this,"success","成功保存为png文件");
+        QMessageBox::information(this,"保存成功","成功保存为png文件");
         savecustomPlot->savePng( filename, savecustomPlot->width(), savecustomPlot->height() );
 
     }
     if( filename.endsWith(".jpg")||filename.endsWith(".jpeg") ){
-        QMessageBox::information(this,"success","成功保存为jpg文件");
+        QMessageBox::information(this,"保存成功","成功保存为jpg文件");
         savecustomPlot->saveJpg( filename, savecustomPlot->width(), savecustomPlot->height() );
 
     }
     if( filename.endsWith(".bmp") ){
-        QMessageBox::information(this,"success","成功保存为bmp文件");
+        QMessageBox::information(this,"保存成功","成功保存为bmp文件");
         savecustomPlot->saveBmp( filename, savecustomPlot->width(), savecustomPlot->height() );
 
     }
     if( filename.endsWith(".pdf") ){
-        QMessageBox::information(this,"success","成功保存为pdf文件");
+        QMessageBox::information(this,"保存成功","成功保存为pdf文件");
         savecustomPlot->savePdf( filename, savecustomPlot->width(), savecustomPlot->height() );
 
     }
