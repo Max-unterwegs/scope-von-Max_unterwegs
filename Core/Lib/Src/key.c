@@ -1,7 +1,7 @@
 /*
  * @Date: 2025-02-04 10:30:55
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-03-05 21:46:18
+ * @LastEditTime: 2025-03-05 22:27:29
  * @FilePath: \MDK-ARMd:\Mein_Werk\scope_project\Core\Lib\Src\key.c
  */
 #include "key.h"
@@ -216,16 +216,21 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
             switch (select.forp)
             {
             case 0:
-                if(select.index == 4)
+                switch (select.index)
                 {
-                    functionshow[select.index] = (functionshow[select.index] + 1 - 2) % 199 + 2;
+                    case 4:
+                        functionshow[select.index] = (functionshow[select.index] + 1 - 2) % 199 + 2;
+                        break;
+                    case 2:
+                        functionshow[select.index] = (functionshow[select.index] + 1) % 500;
+                        break;
+                    case 3:
+                        functionshow[select.index] = (functionshow[select.index] + 3 - 1) % 4;
+                        break;
+                    default:
+                        functionshow[select.index] = !functionshow[select.index];
+                        break;
                 }
-                else if(select.index == 2)
-                {
-                    functionshow[select.index] = (functionshow[select.index] + 1) % 50;
-                }
-                else
-                    functionshow[select.index] = !functionshow[select.index];
                 break;
             case 1:
             {
@@ -263,16 +268,21 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
             switch (select.forp)
             {
             case 0:
-                if(select.index == 4)
+                switch (select.index)
                 {
-                    functionshow[select.index] = (functionshow[select.index] - 3) % 199 + 2;
+                    case 4:
+                        functionshow[select.index] = (functionshow[select.index] - 3) % 199 + 2;
+                        break;
+                    case 2:
+                        functionshow[select.index] = (functionshow[select.index] + 499) % 500;
+                        break;
+                    case 3:
+                        functionshow[select.index] = (functionshow[select.index] + 3) % 4;
+                        break;
+                    default:
+                        functionshow[select.index] = !functionshow[select.index];
+                        break;
                 }
-                else if(select.index == 2)
-                {
-                    functionshow[select.index] = (functionshow[select.index] + 49) % 50;
-                }
-                else
-                    functionshow[select.index] = !functionshow[select.index];
                 break;
             case 1:
             {
@@ -345,18 +355,18 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
             {
                 allstop();
                 status = (status + 1) % 3;
-                printf("statusvalue: %d\r\n", status);
+                // printf("statusvalue: %d\r\n", status);
                 init_status();
             }
             if (Key_Scan(key1_GPIO_Port, key1_Pin) == KEY_ON)
             {
                 select.forp = !select.forp;
-                printf("selectvalue: %d\r\n", select.forp);
+                // printf("selectvalue: %d\r\n", select.forp);
             }
             if (Key_Scan(key4_GPIO_Port, key4_Pin) == KEY_ON)
             {
                 select.index = (select.index + 1) % 5;
-                printf("selectindex: %d\r\n", select.index);
+                // printf("selectindex: %d\r\n", select.index);
             }
         }
         // 计算当前采样点
@@ -366,7 +376,28 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
         sample_index = ((int)sample_indexf) % SAMPLES_PER_WAVE;
         // printf("sample_index: %d\r\n", sample_index);
         // printf("sample_indexf: %f\r\n", sample_indexf);
-        paramshow[3] = square_wave[sample_index] * 3.3 / 4095; // 将值转换为电压值
+        if(status == 1)
+        {
+            switch (functionshow[3])
+            {
+            case 3:
+                paramshow[3] = square_wave[sample_index] * 3.3 / 4095; // 将值转换为电压值
+                break;
+            case 0:
+                paramshow[3] = sine_wave[sample_index] * 3.3 / 4095; // 将值转换为电压值
+                break;
+            case 1:
+                paramshow[3] = triangle_wave[sample_index] * 3.3 / 4095; // 将值转换为电压值
+                break;
+            case 2:
+                paramshow[3] = sawtooth_wave[sample_index] * 3.3 / 4095; // 将值转换为电压值
+                break;
+            default:
+                break;
+            }
+        }
+        
+        
         
         
     }

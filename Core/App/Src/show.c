@@ -1,14 +1,15 @@
 /*
  * @Date: 2025-02-05 17:58:21
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-03-05 21:57:22
+ * @LastEditTime: 2025-03-05 22:25:09
  * @FilePath: \MDK-ARMd:\Mein_Werk\scope_project\Core\App\Src\show.c
  */
 #include "show.h"
 
 char statuschar[4][10] = {"test123", "SCOPE", "MESSER", "MU"};
-char functionshowchar[5][10] = {"DC", "CH", "Hz*10", "OLED", "SHOW"};
+char functionshowchar[5][10] = {"DC", "CH", "Hz", "Wave", "SHOW"};
 char paramshowchar[5][10] = {"DCarr", "CH1mv", "CH2mv", "DCv", "CHf"};
+char waveshowchar[4][10] = {"SIN","TRI","SAW","SQU"};
 int showparamlist[6] = {3, 1, 2, 0, 4,0};
 // int showcount = 0;
 
@@ -26,7 +27,24 @@ void showshow()
         // œ‘ æπ¶ƒ‹
         for (int i = 0; i < 5; i++) {
             char buffer[20];
-            snprintf(buffer, sizeof(buffer), "%s:%d", functionshowchar[i], functionshow[i]);
+            switch(i)
+            {
+                case 0:
+                    snprintf(buffer, sizeof(buffer), "%s:%d", functionshowchar[i], functionshow[i]);
+                    break;
+                case 1:
+                    snprintf(buffer, sizeof(buffer), "%s:%d", functionshowchar[i], functionshow[i]);
+                    break;
+                case 2:
+                    snprintf(buffer, sizeof(buffer), "%s:%.1f", functionshowchar[i], ((float)functionshow[i])/10.0);
+                    break;
+                case 3:
+                    snprintf(buffer, sizeof(buffer), "%s:%s", functionshowchar[i], waveshowchar[functionshow[i]]);
+                    break;
+                case 4:
+                    snprintf(buffer, sizeof(buffer), "%s:%d", functionshowchar[i], functionshow[i]);
+                    break;
+            }
             if (select.forp == 0 && select.index == i) {
                 OLED_PrintASCIIString(0, (i + 1) * 8, buffer, &afont8x6, OLED_COLOR_REVERSED);
             } else {
