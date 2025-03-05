@@ -1,13 +1,13 @@
 /*
  * @Date: 2025-02-05 17:58:21
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-02-25 23:05:14
- * @FilePath: \MDK-ARMd:\Mein_Werk\meine code\stm32projekt\scope\Core\App\Src\show.c
+ * @LastEditTime: 2025-03-05 21:40:23
+ * @FilePath: \MDK-ARMd:\Mein_Werk\scope_project\Core\App\Src\show.c
  */
 #include "show.h"
 
 char statuschar[4][10] = {"test123", "SCOPE", "MESSER", "MU"};
-char functionshowchar[5][10] = {"DC", "CH", "BUZZER", "OLED", "SHOW"};
+char functionshowchar[5][10] = {"DC", "CH", "Hz*10", "OLED", "SHOW"};
 char paramshowchar[5][10] = {"DCarr", "CH1mv", "CH2mv", "DCv", "CHf"};
 int showparamlist[5] = {3, 1, 2, 0, 4};
 

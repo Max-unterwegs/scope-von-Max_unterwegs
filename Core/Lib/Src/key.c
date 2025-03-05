@@ -1,7 +1,7 @@
 /*
  * @Date: 2025-02-04 10:30:55
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-03-04 23:12:14
+ * @LastEditTime: 2025-03-05 21:46:18
  * @FilePath: \MDK-ARMd:\Mein_Werk\scope_project\Core\Lib\Src\key.c
  */
 #include "key.h"
@@ -241,7 +241,7 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
                     paramshow[2] = (paramshow[2] == (float)10.1) ? 2 : 10.1;
                     break;
                 case 3:
-                    paramshow[3] = (float)(((int)(paramshow[3] * 10 + 1)) % 33) / 10.0;
+                    paramshow[3] = (float)(((int)(paramshow[3] * 10 + 1)) % 34) / 10.0;
                     break;
                 case 4:
                     paramshow[4] = paramshow[4] + 100000;
@@ -279,7 +279,7 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
                 switch (paramlist[select.index])
                 {
                 case 0:
-                    paramshow[0] = paramshow[0] - 100;
+                    paramshow[0]= paramshow[0] == 100?100:(paramshow[0]- 100);
                     break;
                 case 1:
                     paramshow[1] = (paramshow[1] == (float)2) ? 10.1 : 2;
@@ -288,10 +288,10 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
                     paramshow[2] = (paramshow[2] == (float)2) ? 10.1 : 2;
                     break;
                 case 3:
-                    paramshow[3] = (float)(((int)(paramshow[3] * 10 - 1 + 33)) % 33) / 10.0;
+                    paramshow[3] = (float)(((int)(paramshow[3] * 10 - 1 + 34)) % 34) / 10.0;
                     break;
                 case 4:
-                    paramshow[4] = paramshow[4] - 100000;
+                    paramshow[4] = paramshow[4] == 100000?100000:(paramshow[4] - 100000);
                     break;
 
                 default:

@@ -1,7 +1,7 @@
 /*
  * @Date: 2025-02-06 18:56:18
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-03-04 23:08:58
+ * @LastEditTime: 2025-03-05 21:40:10
  * @FilePath: \MDK-ARMd:\Mein_Werk\scope_project\Core\Modeandmain\Src\mode.c
  */
 #include "mode.h"
@@ -13,7 +13,7 @@
 
 float voltages[3];
 float res[2];
-int functionshow[5] = {1, 1, 10,1,3};//0:DC 1:CH 2:BUZZER 3:OLED 4:SHOW
+int functionshow[5] = {1, 1, 10,1,3};//0:DC 1:CH 2:Hz*10 3:OLED 4:SHOW
 float paramshow[5] = {100, 10.1, 10.1, 3.3, 1000000};//0:DCarr 1:CH1mv 2:CH2mv 3:DCv 4:CHf
 
 
