@@ -57,3 +57,4 @@ scope\main.o: ../Core/Lib/Inc/oled.h
 scope\main.o: ../Core/Lib/Inc/font.h
 scope\main.o: D:\Keilv5\ARM\ARMCC\Bin\..\include\string.h
 scope\main.o: ../Core/Lib/Inc/key.h
+scope\main.o: ../Core/Lib/Inc/buzzer.h

@@ -55,3 +55,4 @@ scope\function.o: ../Core/Modeandmain/Inc/mode.h
 scope\function.o: ../Core/Lib/Inc/key.h
 scope\function.o: ../Core/Lib/Inc/printf.h
 scope\function.o: D:\Keilv5\ARM\ARMCC\Bin\..\include\stdio.h
+scope\function.o: ../Core/Lib/Inc/buzzer.h

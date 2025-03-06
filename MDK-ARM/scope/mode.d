@@ -55,6 +55,7 @@ scope\mode.o: ../Core/App/Inc/status.h
 scope\mode.o: ../Core/Lib/Inc/key.h
 scope\mode.o: ../Core/Lib/Inc/printf.h
 scope\mode.o: D:\Keilv5\ARM\ARMCC\Bin\..\include\stdio.h
+scope\mode.o: ../Core/Lib/Inc/buzzer.h
 scope\mode.o: ../Core/App/Inc/send.h
 scope\mode.o: ../Core/Lib/Inc/valuepack.h
 scope\mode.o: ../Core/Inc/dma.h

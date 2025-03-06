@@ -47,4 +47,5 @@ scope\key.o: ../Core/Modeandmain/Inc/mode.h
 scope\key.o: ../Core/Lib/Inc/printf.h
 scope\key.o: D:\Keilv5\ARM\ARMCC\Bin\..\include\stdio.h
 scope\key.o: ../Core/Inc/tim.h
+scope\key.o: ../Core/Lib/Inc/buzzer.h
 scope\key.o: ..\Core\Lib\Src\waveform_data.h

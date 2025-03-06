@@ -1,8 +1,8 @@
 /*
  * @Date: 2025-02-04 10:30:55
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-02-23 14:43:25
- * @FilePath: \MDK-ARMd:\Mein_Werk\meine code\stm32projekt\scope\Core\Lib\Inc\key.h
+ * @LastEditTime: 2025-03-06 22:58:42
+ * @FilePath: \scope_project\Core\Lib\Inc\key.h
  */
 #ifndef __KEY_H
 #define __KEY_H
@@ -12,6 +12,7 @@
 #include "mode.h"
 #include "printf.h"
 #include "tim.h"
+#include "buzzer.h"
 
 
 // 按键状态结构体，存储几个变量

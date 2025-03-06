@@ -51,3 +51,4 @@ scope\show.o: ../Core/Lib/Inc/key.h
 scope\show.o: ../Core/Lib/Inc/printf.h
 scope\show.o: D:\Keilv5\ARM\ARMCC\Bin\..\include\stdio.h
 scope\show.o: ../Core/Inc/tim.h
+scope\show.o: ../Core/Lib/Inc/buzzer.h

@@ -1,8 +1,8 @@
 /*
  * @Date: 2025-02-04 10:30:55
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-03-05 22:27:29
- * @FilePath: \MDK-ARMd:\Mein_Werk\scope_project\Core\Lib\Src\key.c
+ * @LastEditTime: 2025-03-06 22:59:01
+ * @FilePath: \scope_project\Core\Lib\Src\key.c
  */
 #include "key.h"
 #include "waveform_data.h"
@@ -198,14 +198,17 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
 
         if(B_level==1 && HAL_GPIO_ReadPin(key5_GPIO_Port,key5_Pin) == 0) 
 		{
+            buzzer_on();
 			encoder_value = 1;//正转
 		}
 		else if(B_level==0 && HAL_GPIO_ReadPin(key5_GPIO_Port,key5_Pin) == 1)
 		{
+            buzzer_on();
 			encoder_value = -1;//反转
         }
         else
         {
+            buzzer_off();
             encoder_value = 0;//无效
 		}	 
     
@@ -349,10 +352,12 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
         //     default:
         //         break;
         //     }
+        buzzer_off();
         if(keycount == 0)    
         {
             if (Key_Scan(key2_GPIO_Port, key2_Pin) == KEY_ON)
             {
+                buzzer_on();
                 allstop();
                 status = (status + 1) % 3;
                 // printf("statusvalue: %d\r\n", status);
@@ -360,11 +365,13 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
             }
             if (Key_Scan(key1_GPIO_Port, key1_Pin) == KEY_ON)
             {
+                buzzer_on();
                 select.forp = !select.forp;
                 // printf("selectvalue: %d\r\n", select.forp);
             }
             if (Key_Scan(key4_GPIO_Port, key4_Pin) == KEY_ON)
             {
+                buzzer_on();
                 select.index = (select.index + 1) % 5;
                 // printf("selectindex: %d\r\n", select.index);
             }
