@@ -1,6 +1,15 @@
 #include "valuepack.h"
 #include <cstring>
 #include <QDebug>
+/**
+ * @brief readValuePack 读取数据包
+ * @param pack 数据包
+ * @param buffer 缓冲区
+ * @param len 缓冲区长度
+ * @details 读取数据包，解析数据包，返回解析结果
+ * @author Max_unterwegs
+ * @return 解析结果
+ */
 unsigned char readValuePack(RxPack *pack, unsigned char *buffer, long long len)
 {
     for (long long i = 0; i < len; ++i) {

@@ -11,10 +11,10 @@
 #include <QPainter>//坐标系绘图
 #include <QVector>//数据处理
 #include <voltparamrech.h>//用户自定义头文件
-#include "fft_transform.h"
-#include "ui_scope.h"
-#include "valuepack.h"
-#include <complex>
+#include "fft_transform.h"//FFT变换
+#include "ui_scope.h"//UI界面
+#include "valuepack.h"//数据包
+#include <complex>//复数
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class scope;
@@ -70,31 +70,31 @@ private:
     QSerialPort *myserial;//声明串口类，myserial是QSerialPort的实例
     bool serial_flag,start_flag;//定义两个标志位
     QByteArray alldata;//接收串口数据
-    //绘图函数
-    std::chrono::high_resolution_clock::time_point mystarttime;
-    std::chrono::high_resolution_clock::time_point mycurrenttime;
-    std::chrono::high_resolution_clock::time_point mylasttime;
+
+    std::chrono::high_resolution_clock::time_point mystarttime;//开始时间
+    std::chrono::high_resolution_clock::time_point mycurrenttime;//当前时间
+    std::chrono::high_resolution_clock::time_point mylasttime;//上一次时间
 
     // 数据缓冲区
     QVector<float> buffer1; // 缓冲区1
     QVector<float> buffer2; // 缓冲区2
     int dataPointsInRange = 1000000; // 在 x 轴范围内的数据点数
-    int showcount = 0 ,realcount = 0 ,showcountmax = 50, realcountmax = 1;
-    QVector<float> filteredData1;
-    QVector<float> filteredData2;
-    double maxMagnitude[3] = {0.0, 0.0, 0.0};
+    int showcount = 0 ,realcount = 0 ,showcountmax = 50, realcountmax = 1;//显示数据分频，实际数据分频
+    QVector<float> filteredData1;//滤波后的数据1
+    QVector<float> filteredData2;//滤波后的数据2
+    double maxMagnitude[3] = {0.0, 0.0, 0.0};//最大幅值
     // 滤波后的结果变量
     float filteredValue1 = 0.0;
     float filteredValue2 = 0.0;
     // 采样间隔
     float sampling_interval = 0.0;
-    double frecuncy = 0.0;
-    float minY1 , maxY1 , minY2 , maxY2;
-    bool x_y_flag = false,CH1_flag = true,CH2_flag = true,indexflag = false;
-    float alpha=0.05f,beta=0.05f;
-    RxPack rx_pack;
-    QCPItemTracer *tracer_CH;
-    QCPItemText *tracerLabel_CH;
+    double frecuncy = 0.0;//频率
+    float minY1 , maxY1 , minY2 , maxY2;//最大最小值
+    bool x_y_flag = false,CH1_flag = true,CH2_flag = true,indexflag = false;//标志位
+    float alpha=0.05f,beta=0.05f;//滤波参数
+    RxPack rx_pack;//数据包
+    QCPItemTracer *tracer_CH;//游标
+    QCPItemText *tracerLabel_CH;//游标标签
 
 };
 #endif // SCOPE_H

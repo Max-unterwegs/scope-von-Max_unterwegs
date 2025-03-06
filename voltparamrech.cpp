@@ -1,3 +1,10 @@
+/**
+ * @file voltparamrech.cpp
+ * @brief 波形参数计算函数实现
+ * @date 2025-02-17
+ * @Author  Max-unterwegs
+ * @details 波形参数计算函数实现
+ */
 #include <QtMath>
 #include <QVector>
 #include <algorithm>

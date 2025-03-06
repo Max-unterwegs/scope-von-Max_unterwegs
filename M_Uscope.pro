@@ -42,3 +42,6 @@ DISTFILES +=
 
 RESOURCES += \
     icos.qrc
+
+RC_ICONS = favicon.ico
+

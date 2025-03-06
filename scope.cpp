@@ -1,4 +1,47 @@
+/*
+ *                        _oo0oo_
+ *                       o8888888o
+ *                       88" . "88
+ *                       (| -_- |)
+ *                       0\  =  /0
+ *                     ___/`---'\___
+ *                   .' \\|     |// '.
+ *                  / \\|||  :  |||// \
+ *                 / _||||| -:- |||||- \
+ *                |   | \\\  - /// |   |
+ *                | \_|  ''\---/''  |_/ |
+ *                \  .-\__  '-'  ___/-. /
+ *              ___'. .'  /--.--\  `. .'___
+ *           ."" '<  `.___\_<|>_/___.' >' "".
+ *          | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+ *          \  \ `_.   \_ __\ /__ _/   .-` /  /
+ *      =====`-.____`.___ \_____/___.-`___.-'=====
+ *                        `=---='
+ * 
+ * 
+ *      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * 
+ *            佛祖保佑     永不宕机     永无BUG
+ */
+
 #include "scope.h"
+/***********************************************************************************************
+ * @Date: 2025-02-17 20:07:53
+ * @LastEditors: Max-unterwegs
+ * @LastEditTime: 2025-02-17 20:24:32
+ * @FilePath: \M_Uscope\scope.cpp
+ * @Description:scope功能实现主程序
+ * *********************************************************************************************/
+
+/**************************************构造函数和析构函数部分**************************************/
+
+/**
+ * @brief scope::scope 构造函数，初始化示波器界面
+ * @param parent 父窗口指针
+ * @return 无
+ * @details 初始化UI组件，设置窗口标题和图标，初始化串口，添加图形与动画，调用setupPlot函数初始化图形界面
+ * @author Max_unterwegs
+ */
 scope::scope(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::scope)
@@ -24,135 +67,102 @@ scope::scope(QWidget *parent)
     setupPlot();//图形界面初始化函数
 }
 
+/**
+ * @brief scope::~scope 析构函数，释放内存
+ * @param 无
+ * @return 无
+ * @details 删除示波器指针，释放内存空间，关闭串口，释放串口指针，关闭示波器界面，释放示波器界面指针，释放UI界面指针，释放UI界面指针指向的内存空间
+ * @author Max_unterwegs
+ */
+
 scope::~scope()
 {
     delete ui;
 }
 
-// 滑动平均滤波函数
-QVector<float> scope::movingAverageFilter(const QVector<float>& data, int windowSize) {
-    QVector<float> filteredData;
-    for (int i = 0; i < data.size(); ++i) {
-        float sum = 0.0;
-        int count = 0;
-        for (int j = -windowSize / 2; j <= windowSize / 2; ++j) {
-            int index = i + j;
-            if (index >= 0 && index < data.size()) {
-                sum += data[index];
-                ++count;
-            }
-        }
-        filteredData.append(sum / count);
-        if (filteredData.size() > data.size()) {
-            filteredData.removeFirst();
-        }
-    }
-    return filteredData;
-}
+/**************************************初始化图形设置函数**************************************/
 
-// 自适应滤波函数
-QVector<float> scope::adaptive_filter(QVector<float> *input) {
-    QVector<float> output;
-    int length = input->size();
+/**
+ * @brief scope::setupPlot 初始化图形界面函数
+ * @param 无
+ * @return 无
+ * @details 设置曲线一，设置曲线二，设置x轴，设置y轴，设置图表，设置游标，设置游标标签，连接鼠标移动事件，重绘图表
+ * @note 无
+ * @author Max_unterwegs
+ */
 
-    output.resize(length);  // 初始化 output 的大小，使其与 input 相同
-    output[0] = (*input)[0];
-    for (int i = 1; i < length; i++) {
-        float error = (*input)[i] - output[i - 1];
-        output[i] = output[i - 1] + alpha * error + beta * ((*input)[i] - (*input)[i - 1]);
-    }
-    return output;
-}
-
-
-void scope::performFFT(const QVector<float>& data, int graphIndex) {
-    int nfft = data.size();
-    QVector<std::complex<float>> fftOutput;
-    fft_transform(data, fftOutput, nfft);
-
-    QVector<double> frequencies(nfft);
-    QVector<double> magnitudes(nfft);
-
-    for (int i = 0; i < nfft; ++i) {
-        frequencies[i] = i * frecuncy / nfft;
-        magnitudes[i] = std::abs(fftOutput[i]);
-    }
-    double maxFAtmp = frequencies[std::max_element(magnitudes.begin()+int(0.2*nfft/frecuncy), magnitudes.end())-magnitudes.begin()];
-    if(graphIndex == 0)
-    {
-        ui->lineFrequencyCH1->setText(QString::number(maxFAtmp));//显示CH1频率;
-        ui->linePeriodCH1->setText(QString::number(1/maxFAtmp));//显示CH1周期;
-    }
-    else
-    {
-        ui->lineFrequencyCH2->setText(QString::number(maxFAtmp));//显示CH2频率;
-        ui->linePeriodCH2->setText(QString::number(1/maxFAtmp));//显示CH2周期;
-    }
-    // qDebug()<<"nfft:"<<nfft;
-    // for (int i = 0; i < nfft; ++i)
-    //     qDebug()<<"i"<<i<<"fftOutput:"<<fftOutput[i].real()<<"i:"<<fftOutput[i].imag()<<"magnitude:"<<magnitudes[i];
-    // system("pause");
-
+void scope::setupPlot()
+{
+    //设置曲线一
+    ui->scope_plot->addGraph();//添加一条曲线
     QPen pen;
-    pen.setWidth(1); // 设置画笔线条宽度
-    pen.setColor(graphIndex == 0 ? Qt::blue : Qt::red); // 设置画笔颜色
-    ui->fft_plot->graph(graphIndex)->setPen(pen); // 设置画笔颜色
-    ui->fft_plot->graph(graphIndex)->setData(frequencies, magnitudes);
-    ui->fft_plot->graph(graphIndex)->setName("CH" + QString::number(graphIndex + 1));
+    pen.setWidth(1);//设置画笔线条宽度
+    pen.setColor(Qt::blue);
+    ui->scope_plot->graph(0)->setPen(pen);//设置画笔颜色
+    ui->scope_plot->graph(0)->setBrush(QBrush(QColor(0, 0, 255, 20))); //设置曲线画刷背景
+    ui->scope_plot->graph(0)->setName("CH1");
+    ui->scope_plot->graph(0)->setAntialiasedFill(false);
+    ui->scope_plot->graph(0)->setLineStyle((QCPGraph::LineStyle)1);//曲线画笔
+    ui->scope_plot->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssNone,5));//曲线形状
 
-    // 动态设置 x 轴和 y 轴范围及步长值
-    double maxFrequency = frecuncy / 2;
-    maxMagnitude[graphIndex] = *std::max_element(magnitudes.begin(), magnitudes.end());
-    maxMagnitude[2] = fmax(maxMagnitude[0],maxMagnitude[1]);
-    ui->fft_plot->xAxis->setLabel("频率 (Hz)");
-    ui->fft_plot->yAxis->setLabel("幅度");
-    ui->fft_plot->xAxis->setRange(0, static_cast<int>(maxFrequency*3/2)); // 只显示正频率部分
-    ui->fft_plot->yAxis->setRange(0, static_cast<int>(maxMagnitude[2]*2));
+    //设置曲线二
+    ui->scope_plot->addGraph();//添加一条曲线
+    pen.setColor(Qt::red);
+    ui->scope_plot->graph(1)->setPen(pen);//设置画笔颜色
+    ui->scope_plot->graph(1)->setBrush(QBrush(QColor(0, 0, 255, 20))); //设置曲线画刷背景
+    ui->scope_plot->graph(1)->setName("CH2");
+    ui->scope_plot->graph(1)->setAntialiasedFill(false);
+    ui->scope_plot->graph(1)->setLineStyle((QCPGraph::LineStyle)1);//曲线画笔
+    ui->scope_plot->graph(1)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssNone,5));//曲线形状
 
-    QCPAxisTickerFixed *xTicker = new QCPAxisTickerFixed();
-    xTicker->setTickStep(static_cast<int>(maxFrequency /10)); // 设置 x 轴刻度步长为整数
-    ui->fft_plot->xAxis->setTicker(QSharedPointer<QCPAxisTickerFixed>(xTicker));
+    QCPAxisTickerFixed *xticker = new QCPAxisTickerFixed();
+    xticker->setTickStep(2);  // 设置刻度步长为2
+    QCPAxisTickerFixed *yticker = new QCPAxisTickerFixed();
+    yticker->setTickStep(1);  // 设置刻度步长为10
 
-    QCPAxisTickerFixed *yTicker = new QCPAxisTickerFixed();
-    yTicker->setTickStep(static_cast<int>(maxMagnitude[2] /10)); // 设置 y 轴刻度步长为整数
-    ui->fft_plot->yAxis->setTicker(QSharedPointer<QCPAxisTickerFixed>(yTicker));
+    //设置图表
+    ui->scope_plot->xAxis->setLabel(QStringLiteral("时间/s"));//设置x坐标轴名称
+    ui->scope_plot->xAxis->setLabelColor(QColor(20,20,20));//设置x坐标轴名称颜色
+    ui->scope_plot->xAxis->setTicker(QSharedPointer<QCPAxisTicker>(xticker));
+    ui->scope_plot->xAxis->setRange(0,30);//设定x轴的范围
 
-    ui->fft_plot->axisRect()->setupFullAxesBox(true); // 设置缩放，拖拽，设置图表的分类图标显示位置
-    ui->fft_plot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes);
-    ui->fft_plot->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignTop | Qt::AlignRight); // 图例显示位置右上
-    ui->fft_plot->legend->setVisible(true); // 显示图例
+    ui->scope_plot->yAxis->setLabel(QStringLiteral("电压/V"));//设置y坐标轴名称
+    ui->scope_plot->yAxis->setLabelColor(QColor(20,20,20));//设置y坐标轴名称颜色
+    ui->scope_plot->yAxis->setTicker(QSharedPointer<QCPAxisTicker>(yticker));
+    ui->scope_plot->yAxis->setRange(qMin(minY1, minY2), qMax(maxY1, maxY2));//设定y轴范围
 
-    // tracer_fft_CH1 = new QCPItemTracer(ui->fft_plot); //生成游标
-    // tracer_fft_CH1->setPen(QPen(Qt::red));
-    // tracer_fft_CH1->setBrush(QBrush(Qt::red));
-    // tracer_fft_CH1->setStyle(QCPItemTracer::tsCircle);
-    // tracer_fft_CH1->setSize(5);
-    // tracerLabel_fft_CH1 = new QCPItemText(ui->fft_plot);
-    // tracerLabel_fft_CH1->setLayer("overlay");
-    // tracerLabel_fft_CH1->setPen(QPen(Qt::blue));
-    // tracerLabel_fft_CH1->setPositionAlignment(Qt::AlignLeft | Qt::AlignTop);
-    // tracerLabel_fft_CH1->position->setParentAnchor(tracer_fft_CH1->position);
-    // connect(ui->fft_plot, &QCustomPlot::mouseMove, this, [this](QMouseEvent* event) {
-    //     mousemove(event, ui->fft_plot, 0,tracer_fft_CH1,tracerLabel_fft_CH1);
-    // });
+    ui->scope_plot->axisRect()->setupFullAxesBox(true);//设置缩放，拖拽，设置图表的分类图标显示位置
+    ui->scope_plot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom| QCP::iSelectAxes);
+    ui->scope_plot->axisRect()->insetLayout()->setInsetAlignment(0,Qt::AlignTop | Qt::AlignRight);//图例显示位置右上
+    ui->scope_plot->legend->setVisible(true);//显示图例
 
-    // tracer_CH2 = new QCPItemTracer(ui->fft_plot); //生成游标
-    // tracer_CH2->setPen(QPen(Qt::blue));
-    // tracer_CH2->setBrush(QBrush(Qt::blue));
-    // tracer_CH2->setStyle(QCPItemTracer::tsCircle);
-    // tracer_CH2->setSize(5);
-    // tracerLabel_CH2 = new QCPItemText(ui->fft_plot);
-    // tracerLabel_CH2->setLayer("overlay");
-    // tracerLabel_CH2->setPen(QPen(Qt::blue));
-    // tracerLabel_CH2->setPositionAlignment(Qt::AlignLeft | Qt::AlignTop);
-    // tracerLabel_CH2->position->setParentAnchor(tracer_CH2->position);
-    // connect(ui->fft_plot, &QCustomPlot::mouseMove, this, [this](QMouseEvent* event) {
-    //     mousemove(event, ui->fft_plot, 1,tracer_CH2,tracerLabel_CH2);
-    // });
+    tracer_CH = new QCPItemTracer(ui->scope_plot); //生成游标
+    tracer_CH->setPen(QPen(Qt::green));
+    tracer_CH->setBrush(QBrush(Qt::green));
+    tracer_CH->setStyle(QCPItemTracer::tsCircle);
+    tracer_CH->setSize(5);
+    tracerLabel_CH = new QCPItemText(ui->scope_plot);
+    tracerLabel_CH->setLayer("overlay");
+    tracerLabel_CH->setPen(QPen(Qt::cyan));
+    tracerLabel_CH->setPositionAlignment(Qt::AlignLeft | Qt::AlignTop);
+    tracerLabel_CH->position->setParentAnchor(tracer_CH->position);
+    connect(ui->scope_plot, &QCustomPlot::mouseMove, this, [this](QMouseEvent* event) {
+        mousemove(event, ui->scope_plot, indexflag,tracer_CH,tracerLabel_CH);
+    });
 
-    ui->fft_plot->replot();
+    ui->scope_plot->replot();
 }
 
+/**************************************串口相关槽函数部分**************************************/
+
+/**
+ * @brief scope::on_pb_openport_clicked 打开串口按钮点击事件
+ * @param 无
+ * @return 无
+ * @details 打开串口，设置串口参数，连接串口信号与槽函数，初始化时间，清空图像数据，设置串口标志位为false，设置按钮文本为“关闭串口”，串口标志位为false
+ * @note 无
+ * @author Max_unterwegs
+ */
 void scope::on_pb_openport_clicked()
 {
     if(serial_flag)
@@ -190,7 +200,14 @@ void scope::on_pb_openport_clicked()
         serial_flag = true;//串口标志位置工作
     }
 }
-
+/**
+ * @brief scope::on_pb_searchport_clicked 搜索串口按钮点击事件
+ * @param 无
+ * @return 无
+ * @details 清空串口号下拉框，遍历可用串口，将串口号添加到串口号下拉框中
+ * @note 无
+ * @author Max_unterwegs
+ */
 void scope::on_pb_searchport_clicked()
 {
     ui->comboBox->clear();//清空cmb
@@ -205,21 +222,16 @@ void scope::on_pb_searchport_clicked()
     }
 }
 
-void scope::mousemove(QMouseEvent *event, QCustomPlot *cmPlot,int graphIndex,QCPItemTracer *tracer,QCPItemText *tracerLabel)
-{
-    //获得鼠标位置处对应的横坐标数据x
-    double x = cmPlot->xAxis->pixelToCoord(event->pos().x());
+/**************************************数据处理相关函数部分**************************************/
 
-    tracer->setGraph(cmPlot->graph(graphIndex)); //将游标和该曲线图层想连接
-    tracer->setGraphKey(x); //将游标横坐标（key）设置成刚获得的横坐标数据x
-    tracer->setInterpolating(true); //游标的纵坐标可以通过曲线数据线性插值自动获得（这就不用手动去计算了）
-    tracer->updatePosition(); //使得刚设置游标的横纵坐标位置生效
-    //以下代码用于更新游标说明的内容
-    double xValue = tracer->position->key();
-    double yValue = tracer->position->value();
-    tracerLabel->setText(QString("x = %1, y = %2").arg(xValue).arg(yValue));
-    cmPlot->replot(); //不要忘了重绘
-}
+/**
+ * @brief scope::AnalyzeData 分析数据函数
+ * @param 无
+ * @return 无
+ * @details 读取串口数据，解析数据，显示数据，滤波处理，显示滤波后的数据，计算采样间隔，显示采样频率，显示数据统计信息，调整数据缓冲区大小，显示数据，绘制波形图，显示数据统计信息，绘制波形图，执行FFT变换，显示FFT图
+ * @note 无
+ * @author Max_unterwegs
+ */
 
 void scope::AnalyzeData()
 {
@@ -352,67 +364,193 @@ void scope::AnalyzeData()
 
 }
 
-void scope::setupPlot()
-{
-    //设置曲线一
-    ui->scope_plot->addGraph();//添加一条曲线
-    QPen pen;
-    pen.setWidth(1);//设置画笔线条宽度
-    pen.setColor(Qt::blue);
-    ui->scope_plot->graph(0)->setPen(pen);//设置画笔颜色
-    ui->scope_plot->graph(0)->setBrush(QBrush(QColor(0, 0, 255, 20))); //设置曲线画刷背景
-    ui->scope_plot->graph(0)->setName("CH1");
-    ui->scope_plot->graph(0)->setAntialiasedFill(false);
-    ui->scope_plot->graph(0)->setLineStyle((QCPGraph::LineStyle)1);//曲线画笔
-    ui->scope_plot->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssNone,5));//曲线形状
-
-    //设置曲线二
-    ui->scope_plot->addGraph();//添加一条曲线
-    pen.setColor(Qt::red);
-    ui->scope_plot->graph(1)->setPen(pen);//设置画笔颜色
-    ui->scope_plot->graph(1)->setBrush(QBrush(QColor(0, 0, 255, 20))); //设置曲线画刷背景
-    ui->scope_plot->graph(1)->setName("CH2");
-    ui->scope_plot->graph(1)->setAntialiasedFill(false);
-    ui->scope_plot->graph(1)->setLineStyle((QCPGraph::LineStyle)1);//曲线画笔
-    ui->scope_plot->graph(1)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssNone,5));//曲线形状
-
-    QCPAxisTickerFixed *xticker = new QCPAxisTickerFixed();
-    xticker->setTickStep(2);  // 设置刻度步长为2
-    QCPAxisTickerFixed *yticker = new QCPAxisTickerFixed();
-    yticker->setTickStep(1);  // 设置刻度步长为10
-
-    //设置图表
-    ui->scope_plot->xAxis->setLabel(QStringLiteral("时间/s"));//设置x坐标轴名称
-    ui->scope_plot->xAxis->setLabelColor(QColor(20,20,20));//设置x坐标轴名称颜色
-    ui->scope_plot->xAxis->setTicker(QSharedPointer<QCPAxisTicker>(xticker));
-    ui->scope_plot->xAxis->setRange(0,30);//设定x轴的范围
-
-    ui->scope_plot->yAxis->setLabel(QStringLiteral("电压/V"));//设置y坐标轴名称
-    ui->scope_plot->yAxis->setLabelColor(QColor(20,20,20));//设置y坐标轴名称颜色
-    ui->scope_plot->yAxis->setTicker(QSharedPointer<QCPAxisTicker>(yticker));
-    ui->scope_plot->yAxis->setRange(qMin(minY1, minY2), qMax(maxY1, maxY2));//设定y轴范围
-
-    ui->scope_plot->axisRect()->setupFullAxesBox(true);//设置缩放，拖拽，设置图表的分类图标显示位置
-    ui->scope_plot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom| QCP::iSelectAxes);
-    ui->scope_plot->axisRect()->insetLayout()->setInsetAlignment(0,Qt::AlignTop | Qt::AlignRight);//图例显示位置右上
-    ui->scope_plot->legend->setVisible(true);//显示图例
-
-    tracer_CH = new QCPItemTracer(ui->scope_plot); //生成游标
-    tracer_CH->setPen(QPen(Qt::green));
-    tracer_CH->setBrush(QBrush(Qt::green));
-    tracer_CH->setStyle(QCPItemTracer::tsCircle);
-    tracer_CH->setSize(5);
-    tracerLabel_CH = new QCPItemText(ui->scope_plot);
-    tracerLabel_CH->setLayer("overlay");
-    tracerLabel_CH->setPen(QPen(Qt::cyan));
-    tracerLabel_CH->setPositionAlignment(Qt::AlignLeft | Qt::AlignTop);
-    tracerLabel_CH->position->setParentAnchor(tracer_CH->position);
-    connect(ui->scope_plot, &QCustomPlot::mouseMove, this, [this](QMouseEvent* event) {
-        mousemove(event, ui->scope_plot, indexflag,tracer_CH,tracerLabel_CH);
-    });
-
-    ui->scope_plot->replot();
+/**
+ * @brief scope::movingAverageFilter 移动平均滤波函数
+ * @param data 输入数据
+ * @param windowSize 窗口大小
+ * @return QVector<float> 滤波后的数据
+ * @details 通过窗口大小对数据进行滤波，返回滤波后的数据
+ * @note 可以用，但未用上
+ * @author Max_unterwegs
+ */
+QVector<float> scope::movingAverageFilter(const QVector<float>& data, int windowSize) {
+    QVector<float> filteredData;
+    for (int i = 0; i < data.size(); ++i) {
+        float sum = 0.0;
+        int count = 0;
+        for (int j = -windowSize / 2; j <= windowSize / 2; ++j) {
+            int index = i + j;
+            if (index >= 0 && index < data.size()) {
+                sum += data[index];
+                ++count;
+            }
+        }
+        filteredData.append(sum / count);
+        if (filteredData.size() > data.size()) {
+            filteredData.removeFirst();
+        }
+    }
+    return filteredData;
 }
+
+/**
+ * @brief scope::adaptive_filter 自适应滤波函数
+ * @param input 输入数据
+ * @return QVector<float> 滤波后的数据
+ * @details 通过自适应滤波对数据进行滤波，返回滤波后的数据
+ * @note alpha和beta为滤波器的参数，可以根据实际情况调整
+ * @author Max_unterwegs
+ */
+QVector<float> scope::adaptive_filter(QVector<float> *input) {
+    QVector<float> output;
+    int length = input->size();
+
+    output.resize(length);  // 初始化 output 的大小，使其与 input 相同
+    output[0] = (*input)[0];
+    for (int i = 1; i < length; i++) {
+        float error = (*input)[i] - output[i - 1];
+        output[i] = output[i - 1] + alpha * error + beta * ((*input)[i] - (*input)[i - 1]);
+    }
+    return output;
+}
+
+/**
+ * @brief scope::performFFT 执行FFT变换函数
+ * @param data 输入数据
+ * @param graphIndex 图形索引
+ * @return 无
+ * @details 执行FFT变换，计算频率和幅度，绘制频谱图
+ * @note 无
+ * @author Max_unterwegs
+ */
+void scope::performFFT(const QVector<float>& data, int graphIndex) {
+    int nfft = data.size();
+    QVector<std::complex<float>> fftOutput;
+    fft_transform(data, fftOutput, nfft);
+
+    QVector<double> frequencies(nfft);
+    QVector<double> magnitudes(nfft);
+
+    for (int i = 0; i < nfft; ++i) {
+        frequencies[i] = i * frecuncy / nfft;
+        magnitudes[i] = std::abs(fftOutput[i]);
+    }
+    double maxFAtmp = frequencies[std::max_element(magnitudes.begin()+int(0.2*nfft/frecuncy), magnitudes.end())-magnitudes.begin()];
+    if(graphIndex == 0)
+    {
+        ui->lineFrequencyCH1->setText(QString::number(maxFAtmp));//显示CH1频率;
+        ui->linePeriodCH1->setText(QString::number(1/maxFAtmp));//显示CH1周期;
+    }
+    else
+    {
+        ui->lineFrequencyCH2->setText(QString::number(maxFAtmp));//显示CH2频率;
+        ui->linePeriodCH2->setText(QString::number(1/maxFAtmp));//显示CH2周期;
+    }
+    // qDebug()<<"nfft:"<<nfft;
+    // for (int i = 0; i < nfft; ++i)
+    //     qDebug()<<"i"<<i<<"fftOutput:"<<fftOutput[i].real()<<"i:"<<fftOutput[i].imag()<<"magnitude:"<<magnitudes[i];
+    // system("pause");
+
+    QPen pen;
+    pen.setWidth(1); // 设置画笔线条宽度
+    pen.setColor(graphIndex == 0 ? Qt::blue : Qt::red); // 设置画笔颜色
+    ui->fft_plot->graph(graphIndex)->setPen(pen); // 设置画笔颜色
+    ui->fft_plot->graph(graphIndex)->setData(frequencies, magnitudes);
+    ui->fft_plot->graph(graphIndex)->setName("CH" + QString::number(graphIndex + 1));
+
+    // 动态设置 x 轴和 y 轴范围及步长值
+    double maxFrequency = frecuncy / 2;
+    maxMagnitude[graphIndex] = *std::max_element(magnitudes.begin(), magnitudes.end());
+    maxMagnitude[2] = fmax(maxMagnitude[0],maxMagnitude[1]);
+    ui->fft_plot->xAxis->setLabel("频率 (Hz)");
+    ui->fft_plot->yAxis->setLabel("幅度");
+    ui->fft_plot->xAxis->setRange(0, static_cast<int>(maxFrequency*3/2)); // 只显示正频率部分
+    ui->fft_plot->yAxis->setRange(0, static_cast<int>(maxMagnitude[2]*2));
+
+    QCPAxisTickerFixed *xTicker = new QCPAxisTickerFixed();
+    xTicker->setTickStep(static_cast<int>(maxFrequency /10)); // 设置 x 轴刻度步长为整数
+    ui->fft_plot->xAxis->setTicker(QSharedPointer<QCPAxisTickerFixed>(xTicker));
+
+    QCPAxisTickerFixed *yTicker = new QCPAxisTickerFixed();
+    yTicker->setTickStep(static_cast<int>(maxMagnitude[2] /10)); // 设置 y 轴刻度步长为整数
+    ui->fft_plot->yAxis->setTicker(QSharedPointer<QCPAxisTickerFixed>(yTicker));
+
+    ui->fft_plot->axisRect()->setupFullAxesBox(true); // 设置缩放，拖拽，设置图表的分类图标显示位置
+    ui->fft_plot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes);
+    ui->fft_plot->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignTop | Qt::AlignRight); // 图例显示位置右上
+    ui->fft_plot->legend->setVisible(true); // 显示图例
+
+    // tracer_fft_CH1 = new QCPItemTracer(ui->fft_plot); //生成游标
+    // tracer_fft_CH1->setPen(QPen(Qt::red));
+    // tracer_fft_CH1->setBrush(QBrush(Qt::red));
+    // tracer_fft_CH1->setStyle(QCPItemTracer::tsCircle);
+    // tracer_fft_CH1->setSize(5);
+    // tracerLabel_fft_CH1 = new QCPItemText(ui->fft_plot);
+    // tracerLabel_fft_CH1->setLayer("overlay");
+    // tracerLabel_fft_CH1->setPen(QPen(Qt::blue));
+    // tracerLabel_fft_CH1->setPositionAlignment(Qt::AlignLeft | Qt::AlignTop);
+    // tracerLabel_fft_CH1->position->setParentAnchor(tracer_fft_CH1->position);
+    // connect(ui->fft_plot, &QCustomPlot::mouseMove, this, [this](QMouseEvent* event) {
+    //     mousemove(event, ui->fft_plot, 0,tracer_fft_CH1,tracerLabel_fft_CH1);
+    // });
+
+    // tracer_CH2 = new QCPItemTracer(ui->fft_plot); //生成游标
+    // tracer_CH2->setPen(QPen(Qt::blue));
+    // tracer_CH2->setBrush(QBrush(Qt::blue));
+    // tracer_CH2->setStyle(QCPItemTracer::tsCircle);
+    // tracer_CH2->setSize(5);
+    // tracerLabel_CH2 = new QCPItemText(ui->fft_plot);
+    // tracerLabel_CH2->setLayer("overlay");
+    // tracerLabel_CH2->setPen(QPen(Qt::blue));
+    // tracerLabel_CH2->setPositionAlignment(Qt::AlignLeft | Qt::AlignTop);
+    // tracerLabel_CH2->position->setParentAnchor(tracer_CH2->position);
+    // connect(ui->fft_plot, &QCustomPlot::mouseMove, this, [this](QMouseEvent* event) {
+    //     mousemove(event, ui->fft_plot, 1,tracer_CH2,tracerLabel_CH2);
+    // });
+
+    ui->fft_plot->replot();
+}
+
+/**************************************图形界面交互/参数调整与数据保存相关槽函数部分**************************************/
+
+/**
+ * @brief scope::mousemove 鼠标移动事件
+ * @param event 鼠标事件
+ * @param cmPlot 图形
+ * @param graphIndex 图形索引
+ * @param tracer 游标
+ * @param tracerLabel 游标标签
+ * @return 无
+ * @details 鼠标移动事件，获取鼠标位置处对应的横坐标数据x，将游标和该曲线图层相连接，将游标横坐标设置成刚获得的横坐标数据x，使得刚设置游标的横纵坐标位置生效，更新游标说明的内容，重绘游标
+ * @note 无
+ * @author Max_unterwegs
+ */
+
+void scope::mousemove(QMouseEvent *event, QCustomPlot *cmPlot,int graphIndex,QCPItemTracer *tracer,QCPItemText *tracerLabel)
+{
+    //获得鼠标位置处对应的横坐标数据x
+    double x = cmPlot->xAxis->pixelToCoord(event->pos().x());
+
+    tracer->setGraph(cmPlot->graph(graphIndex)); //将游标和该曲线图层想连接
+    tracer->setGraphKey(x); //将游标横坐标（key）设置成刚获得的横坐标数据x
+    tracer->setInterpolating(true); //游标的纵坐标可以通过曲线数据线性插值自动获得（这就不用手动去计算了）
+    tracer->updatePosition(); //使得刚设置游标的横纵坐标位置生效
+    //以下代码用于更新游标说明的内容
+    double xValue = tracer->position->key();
+    double yValue = tracer->position->value();
+    tracerLabel->setText(QString("x = %1, y = %2").arg(xValue).arg(yValue));
+    cmPlot->replot(); //不要忘了重绘
+}
+
+/**
+ * @brief scope::on_pb_save_clicked 保存数据按钮点击事件
+ * @param 无
+ * @return 无
+ * @details 选择保存数据，选择保存数据类型，选择保存文件类型，保存数据
+ * @note 无
+ * @author Max_unterwegs
+ */
+
 
 void scope::on_pb_save_clicked()
 {
@@ -456,6 +594,14 @@ void scope::on_pb_save_clicked()
     }
 }
 
+/**
+ * @brief scope::on_pb_mode_clicked 模式按钮点击事件
+ * @param 无
+ * @return 无
+ * @details 清空图像数据，切换模式，设置按钮文本
+ * @note 无
+ * @note 无
+ */
 
 void scope::on_pb_mode_clicked()
 {
@@ -477,6 +623,13 @@ void scope::on_pb_mode_clicked()
     }
 }
 
+/**
+ * @brief scope::on_pb_CH1_clicked CH1按钮点击事件
+ * @param 无
+ * @return 无
+ * @details 切换CH1显示，设置按钮文本
+ * @note 无
+ */
 
 void scope::on_pb_CH1_clicked()
 {
@@ -496,6 +649,13 @@ void scope::on_pb_CH1_clicked()
     }
 }
 
+/**
+ * @brief scope::on_pb_CH2_clicked CH2按钮点击事件
+ * @param 无
+ * @return 无
+ * @details 切换CH2显示，设置按钮文本
+ * @note 无
+ */
 
 void scope::on_pb_CH2_clicked()
 {
@@ -515,6 +675,13 @@ void scope::on_pb_CH2_clicked()
     }
 }
 
+/**
+ * @brief scope::on_verticalSlider_show_valueChanged 显示数据滑动条数值改变事件
+ * @param value
+ * @return 无
+ * @details 设置显示数据分频
+ * @note 无
+ */
 
 
 void scope::on_verticalSlider_show_valueChanged(int value)
@@ -523,14 +690,26 @@ void scope::on_verticalSlider_show_valueChanged(int value)
     ui->label_show->setText(QString::number(value+1));
 }
 
-
+/**
+ * @brief scope::on_verticalSlider_real_valueChanged 实际数据滑动条数值改变事件
+ * @param value
+ * @return 无
+ * @details 设置实际数据分频
+ * @note 无
+ */
 void scope::on_verticalSlider_real_valueChanged(int value)
 {
     realcountmax = value;
     ui->label_real->setText(QString::number(value+1));
 }
 
-
+/**
+ * @brief scope::on_pb_setindex_clicked 游标按钮点击事件
+ * @param 无
+ * @return 无
+ * @details 切换游标显示，设置按钮文本
+ * @note 无
+ */
 void scope::on_pb_setindex_clicked()
 {
     if(indexflag)
@@ -545,17 +724,30 @@ void scope::on_pb_setindex_clicked()
     }
 }
 
-
+/**
+ * @brief scope::on_verticalSlider_alpha_valueChanged alpha滑动条数值改变事件
+ * @param value
+ * @return 无
+ * @details 设置alpha值
+ * @note 无
+ */
 void scope::on_verticalSlider_alpha_valueChanged(int value)
 {
     alpha = value/100.0;
     ui->label_alpha->setText("alpha:"+QString::number(alpha));
 }
 
-
+/**
+ * @brief scope::on_verticalSlider_beta_valueChanged beta滑动条数值改变事件
+ * @param value
+ * @return 无
+ * @details 设置beta值
+ * @note 无
+ */
 void scope::on_verticalSlider_beta_valueChanged(int value)
 {
     beta = value/100.0;
     ui->label_beta->setText("beta:"+QString::number(beta));
 }
+
 
