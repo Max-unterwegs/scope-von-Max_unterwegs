@@ -2,9 +2,9 @@
  * @Author: Max-unterwegs 14068827+max_unterwegs@user.noreply.gitee.com
  * @Date: 2025-01-18 22:26:44
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-02-04 16:57:39
- * @FilePath: \MDK-ARMd:\Mein Werk\meine code\stm32projekt\scope\Core\Lib\Src\printf.c
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ * @LastEditTime: 2025-03-07 20:07:21
+ * @FilePath: \MDK-ARMd:\Mein_Werk\scope_project\Core\Lib\Src\printf.c
+ * @Description: 重定向printf函数到串口
  */
 #include <stdio.h>
 #include <stdint.h>

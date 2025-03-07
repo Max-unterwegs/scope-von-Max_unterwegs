@@ -2132,7 +2132,6 @@ Removing Unused input sections from the image.
     Removing buzzer.o(.revsh_text), (4 bytes).
     Removing volt.o(.rev16_text), (4 bytes).
     Removing volt.o(.revsh_text), (4 bytes).
-    Removing volt.o(.data), (4 bytes).
     Removing send.o(.rev16_text), (4 bytes).
     Removing send.o(.revsh_text), (4 bytes).
     Removing show.o(.rev16_text), (4 bytes).
@@ -2143,7 +2142,7 @@ Removing Unused input sections from the image.
     Removing mode.o(.revsh_text), (4 bytes).
     Removing dfixi.o(.text), (72 bytes).
 
-616 unused section(s) (total 57534 bytes) removed from the image.
+615 unused section(s) (total 57530 bytes) removed from the image.
 
 ==============================================================================
 
@@ -3056,47 +3055,47 @@ Memory Map of the image
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x08000000   0x08000000   0x000000c0   Data   RO            3    RESET               startup_stm32g031xx.o
-    0x080000c0   0x080000c0   0x00000000   Code   RO         5231  * .ARM.Collect$$$$00000000  mc_p.l(entry.o)
-    0x080000c0   0x080000c0   0x00000004   Code   RO         5541    .ARM.Collect$$$$00000001  mc_p.l(entry2.o)
-    0x080000c4   0x080000c4   0x00000004   Code   RO         5544    .ARM.Collect$$$$00000004  mc_p.l(entry5.o)
-    0x080000c8   0x080000c8   0x00000000   Code   RO         5546    .ARM.Collect$$$$00000008  mc_p.l(entry7b.o)
-    0x080000c8   0x080000c8   0x00000000   Code   RO         5548    .ARM.Collect$$$$0000000A  mc_p.l(entry8b.o)
-    0x080000c8   0x080000c8   0x00000008   Code   RO         5549    .ARM.Collect$$$$0000000B  mc_p.l(entry9a.o)
-    0x080000d0   0x080000d0   0x00000000   Code   RO         5551    .ARM.Collect$$$$0000000D  mc_p.l(entry10a.o)
-    0x080000d0   0x080000d0   0x00000000   Code   RO         5553    .ARM.Collect$$$$0000000F  mc_p.l(entry11a.o)
-    0x080000d0   0x080000d0   0x00000004   Code   RO         5542    .ARM.Collect$$$$00002712  mc_p.l(entry2.o)
+    0x080000c0   0x080000c0   0x00000000   Code   RO         5230  * .ARM.Collect$$$$00000000  mc_p.l(entry.o)
+    0x080000c0   0x080000c0   0x00000004   Code   RO         5540    .ARM.Collect$$$$00000001  mc_p.l(entry2.o)
+    0x080000c4   0x080000c4   0x00000004   Code   RO         5543    .ARM.Collect$$$$00000004  mc_p.l(entry5.o)
+    0x080000c8   0x080000c8   0x00000000   Code   RO         5545    .ARM.Collect$$$$00000008  mc_p.l(entry7b.o)
+    0x080000c8   0x080000c8   0x00000000   Code   RO         5547    .ARM.Collect$$$$0000000A  mc_p.l(entry8b.o)
+    0x080000c8   0x080000c8   0x00000008   Code   RO         5548    .ARM.Collect$$$$0000000B  mc_p.l(entry9a.o)
+    0x080000d0   0x080000d0   0x00000000   Code   RO         5550    .ARM.Collect$$$$0000000D  mc_p.l(entry10a.o)
+    0x080000d0   0x080000d0   0x00000000   Code   RO         5552    .ARM.Collect$$$$0000000F  mc_p.l(entry11a.o)
+    0x080000d0   0x080000d0   0x00000004   Code   RO         5541    .ARM.Collect$$$$00002712  mc_p.l(entry2.o)
     0x080000d4   0x080000d4   0x0000001c   Code   RO            4    .text               startup_stm32g031xx.o
-    0x080000f0   0x080000f0   0x0000002c   Code   RO         5234    .text               mc_p.l(uidiv.o)
-    0x0800011c   0x0800011c   0x00000028   Code   RO         5236    .text               mc_p.l(idiv.o)
-    0x08000144   0x08000144   0x00000060   Code   RO         5238    .text               mc_p.l(uldiv.o)
-    0x080001a4   0x080001a4   0x00000024   Code   RO         5240    .text               mc_p.l(memcpya.o)
-    0x080001c8   0x080001c8   0x00000024   Code   RO         5242    .text               mc_p.l(memseta.o)
-    0x080001ec   0x080001ec   0x000000b2   Code   RO         5509    .text               mf_p.l(fadd.o)
-    0x0800029e   0x0800029e   0x0000007a   Code   RO         5511    .text               mf_p.l(fmul.o)
-    0x08000318   0x08000318   0x0000007c   Code   RO         5513    .text               mf_p.l(fdiv.o)
-    0x08000394   0x08000394   0x00000164   Code   RO         5515    .text               mf_p.l(dadd.o)
-    0x080004f8   0x080004f8   0x000000d0   Code   RO         5517    .text               mf_p.l(dmul.o)
-    0x080005c8   0x080005c8   0x000000f0   Code   RO         5519    .text               mf_p.l(ddiv.o)
-    0x080006b8   0x080006b8   0x00000016   Code   RO         5521    .text               mf_p.l(fflti.o)
-    0x080006ce   0x080006ce   0x0000000e   Code   RO         5523    .text               mf_p.l(ffltui.o)
-    0x080006dc   0x080006dc   0x00000028   Code   RO         5525    .text               mf_p.l(dflti.o)
-    0x08000704   0x08000704   0x0000001c   Code   RO         5527    .text               mf_p.l(dfltui.o)
-    0x08000720   0x08000720   0x00000032   Code   RO         5529    .text               mf_p.l(ffixi.o)
-    0x08000752   0x08000752   0x00000028   Code   RO         5531    .text               mf_p.l(ffixui.o)
+    0x080000f0   0x080000f0   0x0000002c   Code   RO         5233    .text               mc_p.l(uidiv.o)
+    0x0800011c   0x0800011c   0x00000028   Code   RO         5235    .text               mc_p.l(idiv.o)
+    0x08000144   0x08000144   0x00000060   Code   RO         5237    .text               mc_p.l(uldiv.o)
+    0x080001a4   0x080001a4   0x00000024   Code   RO         5239    .text               mc_p.l(memcpya.o)
+    0x080001c8   0x080001c8   0x00000024   Code   RO         5241    .text               mc_p.l(memseta.o)
+    0x080001ec   0x080001ec   0x000000b2   Code   RO         5508    .text               mf_p.l(fadd.o)
+    0x0800029e   0x0800029e   0x0000007a   Code   RO         5510    .text               mf_p.l(fmul.o)
+    0x08000318   0x08000318   0x0000007c   Code   RO         5512    .text               mf_p.l(fdiv.o)
+    0x08000394   0x08000394   0x00000164   Code   RO         5514    .text               mf_p.l(dadd.o)
+    0x080004f8   0x080004f8   0x000000d0   Code   RO         5516    .text               mf_p.l(dmul.o)
+    0x080005c8   0x080005c8   0x000000f0   Code   RO         5518    .text               mf_p.l(ddiv.o)
+    0x080006b8   0x080006b8   0x00000016   Code   RO         5520    .text               mf_p.l(fflti.o)
+    0x080006ce   0x080006ce   0x0000000e   Code   RO         5522    .text               mf_p.l(ffltui.o)
+    0x080006dc   0x080006dc   0x00000028   Code   RO         5524    .text               mf_p.l(dflti.o)
+    0x08000704   0x08000704   0x0000001c   Code   RO         5526    .text               mf_p.l(dfltui.o)
+    0x08000720   0x08000720   0x00000032   Code   RO         5528    .text               mf_p.l(ffixi.o)
+    0x08000752   0x08000752   0x00000028   Code   RO         5530    .text               mf_p.l(ffixui.o)
     0x0800077a   0x0800077a   0x00000002   PAD
-    0x0800077c   0x0800077c   0x0000003c   Code   RO         5535    .text               mf_p.l(dfixui.o)
-    0x080007b8   0x080007b8   0x00000028   Code   RO         5537    .text               mf_p.l(f2d.o)
-    0x080007e0   0x080007e0   0x00000038   Code   RO         5539    .text               mf_p.l(d2f.o)
-    0x08000818   0x08000818   0x00000020   Code   RO         5556    .text               mc_p.l(llshl.o)
-    0x08000838   0x08000838   0x00000022   Code   RO         5558    .text               mc_p.l(llushr.o)
-    0x0800085a   0x0800085a   0x00000026   Code   RO         5560    .text               mc_p.l(llsshr.o)
-    0x08000880   0x08000880   0x00000000   Code   RO         5562    .text               mc_p.l(iusefp.o)
-    0x08000880   0x08000880   0x00000082   Code   RO         5563    .text               mf_p.l(fepilogue.o)
-    0x08000902   0x08000902   0x000000be   Code   RO         5565    .text               mf_p.l(depilogue.o)
-    0x080009c0   0x080009c0   0x00000040   Code   RO         5569    .text               mf_p.l(dfixul.o)
-    0x08000a00   0x08000a00   0x00000028   Code   RO         5571    .text               mf_p.l(cdrcmple.o)
-    0x08000a28   0x08000a28   0x00000024   Code   RO         5573    .text               mc_p.l(init.o)
-    0x08000a4c   0x08000a4c   0x00000056   Code   RO         5583    .text               mc_p.l(__dczerorl2.o)
+    0x0800077c   0x0800077c   0x0000003c   Code   RO         5534    .text               mf_p.l(dfixui.o)
+    0x080007b8   0x080007b8   0x00000028   Code   RO         5536    .text               mf_p.l(f2d.o)
+    0x080007e0   0x080007e0   0x00000038   Code   RO         5538    .text               mf_p.l(d2f.o)
+    0x08000818   0x08000818   0x00000020   Code   RO         5555    .text               mc_p.l(llshl.o)
+    0x08000838   0x08000838   0x00000022   Code   RO         5557    .text               mc_p.l(llushr.o)
+    0x0800085a   0x0800085a   0x00000026   Code   RO         5559    .text               mc_p.l(llsshr.o)
+    0x08000880   0x08000880   0x00000000   Code   RO         5561    .text               mc_p.l(iusefp.o)
+    0x08000880   0x08000880   0x00000082   Code   RO         5562    .text               mf_p.l(fepilogue.o)
+    0x08000902   0x08000902   0x000000be   Code   RO         5564    .text               mf_p.l(depilogue.o)
+    0x080009c0   0x080009c0   0x00000040   Code   RO         5568    .text               mf_p.l(dfixul.o)
+    0x08000a00   0x08000a00   0x00000028   Code   RO         5570    .text               mf_p.l(cdrcmple.o)
+    0x08000a28   0x08000a28   0x00000024   Code   RO         5572    .text               mc_p.l(init.o)
+    0x08000a4c   0x08000a4c   0x00000056   Code   RO         5582    .text               mc_p.l(__dczerorl2.o)
     0x08000aa2   0x08000aa2   0x00000002   PAD
     0x08000aa4   0x08000aa4   0x00000010   Code   RO          480    i.ADC1_IRQHandler   stm32g0xx_it.o
     0x08000ab4   0x08000ab4   0x00000060   Code   RO          590    i.ADC_ConversionStop  stm32g0xx_hal_adc.o
@@ -3105,12 +3104,12 @@ Memory Map of the image
     0x08000bae   0x08000bae   0x0000000a   Code   RO          593    i.ADC_DMAHalfConvCplt  stm32g0xx_hal_adc.o
     0x08000bb8   0x08000bb8   0x00000074   Code   RO          594    i.ADC_Disable       stm32g0xx_hal_adc.o
     0x08000c2c   0x08000c2c   0x000000b4   Code   RO          595    i.ADC_Enable        stm32g0xx_hal_adc.o
-    0x08000ce0   0x08000ce0   0x00000074   Code   RO         5104    i.CH_control        function.o
-    0x08000d54   0x08000d54   0x000000a0   Code   RO         5105    i.CH_fcontrol       function.o
-    0x08000df4   0x08000df4   0x0000009c   Code   RO         5106    i.CH_vcontrol       function.o
+    0x08000ce0   0x08000ce0   0x00000074   Code   RO         5103    i.CH_control        function.o
+    0x08000d54   0x08000d54   0x000000a0   Code   RO         5104    i.CH_fcontrol       function.o
+    0x08000df4   0x08000df4   0x0000009c   Code   RO         5105    i.CH_vcontrol       function.o
     0x08000e90   0x08000e90   0x00000044   Code   RO         4870    i.DC_OUT            pwm.o
-    0x08000ed4   0x08000ed4   0x00000040   Code   RO         5107    i.DC_control        function.o
-    0x08000f14   0x08000f14   0x00000024   Code   RO         5108    i.DC_vcontrol       function.o
+    0x08000ed4   0x08000ed4   0x00000040   Code   RO         5106    i.DC_control        function.o
+    0x08000f14   0x08000f14   0x00000024   Code   RO         5107    i.DC_vcontrol       function.o
     0x08000f38   0x08000f38   0x00000010   Code   RO          481    i.DMA1_Channel1_IRQHandler  stm32g0xx_it.o
     0x08000f48   0x08000f48   0x00000018   Code   RO          482    i.DMA1_Channel2_3_IRQHandler  stm32g0xx_it.o
     0x08000f60   0x08000f60   0x00000030   Code   RO         1308    i.DMA_CalcDMAMUXChannelBaseAndMask  stm32g0xx_hal_dma.o
@@ -3118,7 +3117,7 @@ Memory Map of the image
     0x08000fb8   0x08000fb8   0x00000048   Code   RO         1310    i.DMA_SetConfig     stm32g0xx_hal_dma.o
     0x08001000   0x08001000   0x0000000c   Code   RO          483    i.EXTI4_15_IRQHandler  stm32g0xx_it.o
     0x0800100c   0x0800100c   0x00000014   Code   RO           12    i.Error_Handler     main.o
-    0x08001020   0x08001020   0x000000f4   Code   RO         5109    i.Get_Res           function.o
+    0x08001020   0x08001020   0x000000f4   Code   RO         5108    i.Get_Res           function.o
     0x08001114   0x08001114   0x00000160   Code   RO          804    i.HAL_ADCEx_Calibration_Start  stm32g0xx_hal_adc_ex.o
     0x08001274   0x08001274   0x00000002   Code   RO          805    i.HAL_ADCEx_ChannelConfigReadyCallback  stm32g0xx_hal_adc_ex.o
     0x08001276   0x08001276   0x00000002   Code   RO          807    i.HAL_ADCEx_EndOfSamplingCallback  stm32g0xx_hal_adc_ex.o
@@ -3302,43 +3301,43 @@ Memory Map of the image
     0x080053fc   0x080053fc   0x00000090   Code   RO         4073    i.UART_WaitOnFlagUntilTimeout  stm32g0xx_hal_uart.o
     0x0800548c   0x0800548c   0x0000002c   Code   RO         4979    i.VOLT_Init         volt.o
     0x080054b8   0x080054b8   0x00000070   Code   RO         4980    i.VOLT_ReadVoltages  volt.o
-    0x08005528   0x08005528   0x00000020   Code   RO         5481    i.__0printf         mc_p.l(printfa.o)
-    0x08005548   0x08005548   0x0000002c   Code   RO         5482    i.__0snprintf       mc_p.l(printfa.o)
-    0x08005574   0x08005574   0x0000002e   Code   RO         5567    i.__ARM_clz         mf_p.l(depilogue.o)
+    0x08005528   0x08005528   0x00000020   Code   RO         5480    i.__0printf         mc_p.l(printfa.o)
+    0x08005548   0x08005548   0x0000002c   Code   RO         5481    i.__0snprintf       mc_p.l(printfa.o)
+    0x08005574   0x08005574   0x0000002e   Code   RO         5566    i.__ARM_clz         mf_p.l(depilogue.o)
     0x080055a2   0x080055a2   0x0000001a   Code   RO         1404    i.__ARM_common_switch8  stm32g0xx_hal_dma.o
     0x080055bc   0x080055bc   0x00000044   Code   RO         1734    i.__NVIC_SetPriority  stm32g0xx_hal_cortex.o
-    0x08005600   0x08005600   0x0000000e   Code   RO         5577    i.__scatterload_copy  mc_p.l(handlers.o)
-    0x0800560e   0x0800560e   0x00000002   Code   RO         5578    i.__scatterload_null  mc_p.l(handlers.o)
-    0x08005610   0x08005610   0x0000000e   Code   RO         5579    i.__scatterload_zeroinit  mc_p.l(handlers.o)
+    0x08005600   0x08005600   0x0000000e   Code   RO         5576    i.__scatterload_copy  mc_p.l(handlers.o)
+    0x0800560e   0x0800560e   0x00000002   Code   RO         5577    i.__scatterload_null  mc_p.l(handlers.o)
+    0x08005610   0x08005610   0x0000000e   Code   RO         5578    i.__scatterload_zeroinit  mc_p.l(handlers.o)
     0x0800561e   0x0800561e   0x00000002   PAD
-    0x08005620   0x08005620   0x00000158   Code   RO         5488    i._fp_digits        mc_p.l(printfa.o)
-    0x08005778   0x08005778   0x000006ec   Code   RO         5489    i._printf_core      mc_p.l(printfa.o)
-    0x08005e64   0x08005e64   0x00000020   Code   RO         5490    i._printf_post_padding  mc_p.l(printfa.o)
-    0x08005e84   0x08005e84   0x0000002c   Code   RO         5491    i._printf_pre_padding  mc_p.l(printfa.o)
-    0x08005eb0   0x08005eb0   0x00000016   Code   RO         5492    i._snputc           mc_p.l(printfa.o)
+    0x08005620   0x08005620   0x00000158   Code   RO         5487    i._fp_digits        mc_p.l(printfa.o)
+    0x08005778   0x08005778   0x000006ec   Code   RO         5488    i._printf_core      mc_p.l(printfa.o)
+    0x08005e64   0x08005e64   0x00000020   Code   RO         5489    i._printf_post_padding  mc_p.l(printfa.o)
+    0x08005e84   0x08005e84   0x0000002c   Code   RO         5490    i._printf_pre_padding  mc_p.l(printfa.o)
+    0x08005eb0   0x08005eb0   0x00000016   Code   RO         5491    i._snputc           mc_p.l(printfa.o)
     0x08005ec6   0x08005ec6   0x00000002   PAD
-    0x08005ec8   0x08005ec8   0x00000048   Code   RO         5165    i.allstop           mode.o
+    0x08005ec8   0x08005ec8   0x00000048   Code   RO         5164    i.allstop           mode.o
     0x08005f10   0x08005f10   0x00000014   Code   RO         4953    i.buzzer_off        buzzer.o
     0x08005f24   0x08005f24   0x00000014   Code   RO         4954    i.buzzer_on         buzzer.o
     0x08005f38   0x08005f38   0x0000001c   Code   RO         4838    i.fputc             printf.o
-    0x08005f54   0x08005f54   0x00000028   Code   RO         5081    i.init_status       status.o
+    0x08005f54   0x08005f54   0x00000028   Code   RO         5080    i.init_status       status.o
     0x08005f7c   0x08005f7c   0x00000044   Code   RO           14    i.main              main.o
-    0x08005fc0   0x08005fc0   0x00000028   Code   RO         5082    i.main_status       status.o
-    0x08005fe8   0x08005fe8   0x00000028   Code   RO         5166    i.messer_init       mode.o
-    0x08006010   0x08006010   0x0000007c   Code   RO         5167    i.messer_main       mode.o
-    0x0800608c   0x0800608c   0x00000002   Code   RO         5168    i.mu_init           mode.o
-    0x0800608e   0x0800608e   0x00000002   Code   RO         5169    i.mu_main           mode.o
-    0x08006090   0x08006090   0x00000028   Code   RO         5170    i.scope_init        mode.o
-    0x080060b8   0x080060b8   0x00000068   Code   RO         5171    i.scope_main        mode.o
+    0x08005fc0   0x08005fc0   0x00000028   Code   RO         5081    i.main_status       status.o
+    0x08005fe8   0x08005fe8   0x00000028   Code   RO         5165    i.messer_init       mode.o
+    0x08006010   0x08006010   0x0000007c   Code   RO         5166    i.messer_main       mode.o
+    0x0800608c   0x0800608c   0x00000002   Code   RO         5167    i.mu_init           mode.o
+    0x0800608e   0x0800608e   0x00000002   Code   RO         5168    i.mu_main           mode.o
+    0x08006090   0x08006090   0x00000028   Code   RO         5169    i.scope_init        mode.o
+    0x080060b8   0x080060b8   0x00000068   Code   RO         5170    i.scope_main        mode.o
     0x08006120   0x08006120   0x00000014   Code   RO         4912    i.sendBuffer        valuepack.o
     0x08006134   0x08006134   0x00000068   Code   RO         4913    i.sendValuePack     valuepack.o
-    0x0800619c   0x0800619c   0x00000002   Code   RO         5012    i.sendinit          send.o
-    0x0800619e   0x0800619e   0x00000002   Code   RO         5013    i.sendres           send.o
-    0x080061a0   0x080061a0   0x00000018   Code   RO         5014    i.sendvolt          send.o
-    0x080061b8   0x080061b8   0x0000000e   Code   RO         5050    i.showinit          show.o
+    0x0800619c   0x0800619c   0x00000002   Code   RO         5011    i.sendinit          send.o
+    0x0800619e   0x0800619e   0x00000002   Code   RO         5012    i.sendres           send.o
+    0x080061a0   0x080061a0   0x00000018   Code   RO         5013    i.sendvolt          send.o
+    0x080061b8   0x080061b8   0x0000000e   Code   RO         5049    i.showinit          show.o
     0x080061c6   0x080061c6   0x00000002   PAD
-    0x080061c8   0x080061c8   0x00000268   Code   RO         5051    i.showshow          show.o
-    0x08006430   0x08006430   0x00000060   Code   RO         5110    i.voltage_map       function.o
+    0x080061c8   0x080061c8   0x00000268   Code   RO         5050    i.showshow          show.o
+    0x08006430   0x08006430   0x00000060   Code   RO         5109    i.voltage_map       function.o
     0x08006490   0x08006490   0x00000018   Data   RO         4074    .constdata          stm32g0xx_hal_uart.o
     0x080064a8   0x080064a8   0x00000040   Data   RO         4537    .constdata          system_stm32g0xx.o
     0x080064e8   0x080064e8   0x00000020   Data   RO         4538    .constdata          system_stm32g0xx.o
@@ -3347,7 +3346,7 @@ Memory Map of the image
     0x08006738   0x08006738   0x00000190   Data   RO         4575    .constdata          font.o
     0x080068c8   0x080068c8   0x00000008   Data   RO         4576    .constdata          font.o
     0x080068d0   0x080068d0   0x00000640   Data   RO         4598    .constdata          key.o
-    0x08006f10   0x08006f10   0x00000020   Data   RO         5575    Region$$Table       anon$$obj.o
+    0x08006f10   0x08006f10   0x00000020   Data   RO         5574    Region$$Table       anon$$obj.o
 
 
     Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x08006f30, Size: 0x000015d0, Max: 0x00002000, ABSOLUTE, COMPRESSED[0x00000090])
@@ -3360,14 +3359,14 @@ Memory Map of the image
     0x20000043   COMPRESSED   0x00000001   PAD
     0x20000044   COMPRESSED   0x00000008   Data   RW         4677    .data               oled.o
     0x2000004c   COMPRESSED   0x00000024   Data   RW         4917    .data               valuepack.o
-    0x20000070   COMPRESSED   0x00000006   Data   RW         4982    .data               volt.o
+    0x20000070   COMPRESSED   0x00000006   Data   RW         4981    .data               volt.o
     0x20000076   COMPRESSED   0x00000002   PAD
-    0x20000078   COMPRESSED   0x000000cc   Data   RW         5052    .data               show.o
-    0x20000144   COMPRESSED   0x00000004   Data   RW         5083    .data               status.o
-    0x20000148   COMPRESSED   0x00000002   Data   RW         5111    .data               function.o
+    0x20000078   COMPRESSED   0x000000cc   Data   RW         5051    .data               show.o
+    0x20000144   COMPRESSED   0x00000004   Data   RW         5082    .data               status.o
+    0x20000148   COMPRESSED   0x00000002   Data   RW         5110    .data               function.o
     0x2000014a   COMPRESSED   0x00000002   PAD
-    0x2000014c   COMPRESSED   0x00000030   Data   RW         5173    .data               mode.o
-    0x2000017c   COMPRESSED   0x00000004   Data   RW         5555    .data               mc_p.l(stdout.o)
+    0x2000014c   COMPRESSED   0x00000030   Data   RW         5172    .data               mode.o
+    0x2000017c   COMPRESSED   0x00000004   Data   RW         5554    .data               mc_p.l(stdout.o)
     0x20000180        -       0x000000c0   Zero   RW          255    .bss                adc.o
     0x20000240        -       0x00000054   Zero   RW          313    .bss                i2c.o
     0x20000294        -       0x00000064   Zero   RW          351    .bss                spi.o
@@ -3375,8 +3374,8 @@ Memory Map of the image
     0x200003dc        -       0x0000014c   Zero   RW          445    .bss                usart.o
     0x20000528        -       0x00000881   Zero   RW         4676    .bss                oled.o
     0x20000da9        -       0x0000040b   Zero   RW         4914    .bss                valuepack.o
-    0x200011b4        -       0x0000000c   Zero   RW         5015    .bss                send.o
-    0x200011c0        -       0x0000000c   Zero   RW         5172    .bss                mode.o
+    0x200011b4        -       0x0000000c   Zero   RW         5014    .bss                send.o
+    0x200011c0        -       0x0000000c   Zero   RW         5171    .bss                mode.o
     0x200011cc   COMPRESSED   0x00000004   PAD
     0x200011d0        -       0x00000400   Zero   RW            1    STACK               startup_stm32g031xx.o
 
@@ -3392,12 +3391,12 @@ Image component sizes
         40         10          0          0          0        817   buzzer.o
         56          4          0          0          0        694   dma.o
          0          0        968          0          0       1523   font.o
-       872        128          0          2          0       4192   function.o
+       872        128          0          2          0       4196   function.o
        252         18          0          0          0        915   gpio.o
        200         20          0          0         84       1517   i2c.o
-      1152        140       1600         51          0       5395   key.o
+      1152        140       1600         51          0       5391   key.o
        194         14          0          0          0     446977   main.o
-       384         46          0         48         12       3730   mode.o
+       384         46          0         48         12       3734   mode.o
        872         52          0          8       2177       9845   oled.o
         28         10          0          0          0       1676   printf.o
        140         18          0          0          0       2296   pwm.o
@@ -3427,10 +3426,10 @@ Image component sizes
        644         50          0          0        228       3476   tim.o
        260         28          0          0        332       1708   usart.o
        124         16          0         36       1035       3484   valuepack.o
-       156         28          0          6          0       1596   volt.o
+       156         28          0          6          0       1564   volt.o
 
     ----------------------------------------------------------------------
-     20678       1564       2912        380       5200     732916   Object Totals
+     20678       1564       2912        380       5200     732888   Object Totals
          0          0         32          0          0          0   (incl. Generated)
         36          0          0          5          4          0   (incl. Padding)
 
@@ -3501,8 +3500,8 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     25552       1732       2912        384       5200     725392   Grand Totals
-     25552       1732       2912        144       5200     725392   ELF Image Totals (compressed)
+     25552       1732       2912        384       5200     725364   Grand Totals
+     25552       1732       2912        144       5200     725364   ELF Image Totals (compressed)
      25552       1732       2912        144          0          0   ROM Totals
 
 ==============================================================================

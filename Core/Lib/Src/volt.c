@@ -1,19 +1,26 @@
 /*
  * @Date: 2025-02-04 15:21:50
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-02-15 23:09:34
- * @FilePath: \MDK-ARMd:\Mein Werk\meine code\stm32projekt\scope\Core\Lib\Src\volt.c
+ * @LastEditTime: 2025-03-07 20:05:53
+ * @FilePath: \MDK-ARMd:\Mein_Werk\scope_project\Core\Lib\Src\volt.c
+ * @Description: 电压采样相关函数
  */
 
 #include "volt.h"
 #include "printf.h"
 #include "tim.h"
-// 存储ADC读取值的数组
 
-int tmp;
-uint16_t adcValues[ADC_CHANNEL_NUM];
 
-// 初始化ADC和DMA
+uint16_t adcValues[ADC_CHANNEL_NUM];//ADC采样值
+
+/**
+ * @brief 电压采样初始化
+ * @param void
+ * @return void
+ * @note 初始化ADC采样
+ * @attention 无
+ * @author Max_unterwegs
+ */
 void VOLT_Init(void)
 {
     //关闭DMA1中断
@@ -24,7 +31,14 @@ void VOLT_Init(void)
     HAL_ADC_Start_DMA( &ADC_handle , (uint32_t*)adcValues, ADC_CHANNEL_NUM);
 }
 
-// 读取电压值并存储在传入的数组中
+/**
+ * @brief 读取电压值
+ * @param voltages: 电压值数组
+ * @return void
+ * @note 读取ADC采样值并计算电压值
+ * @attention 无
+ * @author Max_unterwegs
+ */
 void VOLT_ReadVoltages(float* voltages)
 {
     
@@ -39,15 +53,5 @@ void VOLT_ReadVoltages(float* voltages)
     }
 }
 
-// // 用户自定义的 ADC 转换完成回调函数
-// void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
-// {
-//     if (hadc == &hadc1) {
-//         // 处理ADC转换结果
-//         // 例如：打印采样值
-//         printf("ADC Value 0: %d\n", adcValues[0]);
-//         printf("ADC Value 1: %d\n", adcValues[1]);
-//         printf("ADC Value 2: %d\n", adcValues[2]);
-//     }
-// }
+
 

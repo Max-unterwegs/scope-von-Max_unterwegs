@@ -1,26 +1,30 @@
 /*
  * @Date: 2025-02-04 10:30:55
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-03-06 22:59:01
- * @FilePath: \scope_project\Core\Lib\Src\key.c
+ * @LastEditTime: 2025-03-07 20:23:24
+ * @FilePath: \MDK-ARMd:\Mein_Werk\scope_project\Core\Lib\Src\key.c
+ * @Description: 按键与编码器扫描相关函数，波形生成相关代码
  */
 #include "key.h"
-#include "waveform_data.h"
+#include "waveform_data.h"//波形数据
 
-select_Typedef select = {1,0};
+select_Typedef select = {1,0};//选择状态
 volatile uint8_t EC11_A_Last = 0; // 上一次A相状态
 volatile uint8_t EC11_B_Last = 0; // 上一次B相状态
-int8_t B_level = 0, encoder_value = 0;
-uint8_t paramlist[5] = {3, 1, 2, 0, 4};
-int keycount = 0;
-int sample_index = 0;
-float sample_indexf = 0.0;
+int8_t B_level = 0, encoder_value = 0;//编码器值
+uint8_t paramlist[5] = {3, 1, 2, 0, 4};//参数顺序列表
+int keycount = 0;//按键计数
+int sample_index = 0;//波形索引
+float sample_indexf = 0.0;//波形频率时间计数
 
 /**
  * @brief  按键扫描函数
  * @param  GPIOx：x 可以是 A，B，C，D或者 E
  * @param  GPIO_Pin：待读取的端口位
- * @retval KEY_OFF(没按下按键)、KEY_ON（按下按键）
+ * @return KEY_OFF(没按下按键)、KEY_ON（按下按键）、KEY_HOLD（长按按键）、KEY_IDLE（空闲状态）
+ * @note   按键扫描函数，通过状态机的方式实现，参考博客https://blog.csdn.net/m0_46704668/article/details/113360878
+ * @attention 无
+ * @author Max_unterwegs
  */
 uint8_t Key_Scan(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
 {
@@ -187,12 +191,26 @@ uint8_t Key_Scan(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
     return KEY_ERROR; // 返回错误状态
 }
 
-
+/**
+ * @brief 编码器下降沿中断回调函数
+ * @param GPIO_Pin: 引脚号
+ * @return void
+ * @note 编码器下降沿中断回调函数，用于检测编码器旋转方向
+ * @attention 无
+ * @author Max_unterwegs
+ */
 void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
 {
     B_level = HAL_GPIO_ReadPin(key5_GPIO_Port, key5_Pin);
 }
-
+/**
+ * @brief 编码器上升沿中断回调函数
+ * @param GPIO_Pin: 引脚号
+ * @return void
+ * @note 编码器上升沿中断回调函数，用于检测编码器旋转方向
+ * @attention 无
+ * @author Max_unterwegs
+ */
 void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
 {
 
@@ -322,36 +340,19 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
             break;
         }
 }
-
+/**
+ * @brief 定时器回调函数
+ * @param htim: 定时器句柄
+ * @return void
+ * @note 定时器回调函数，用于按键扫描，波形生成
+ * @attention 无
+ * @author Max_unterwegs
+ */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
     if (htim == &htim17)
     {
         keycount = (keycount + 1) % 20;
-        // //扫描并通过串口显示各按键状态
-        //     uint8_t keyvalue = Key_Scan(key1_GPIO_Port, key1_Pin);
-        //     printf("key1: %d\r\n", keyvalue);
-        //     keyvalue = Key_Scan(key2_GPIO_Port, key2_Pin);
-        //     printf("key2: %d\r\n", keyvalue);
-        //     keyvalue = Key_Scan(key3_GPIO_Port, key3_Pin);
-        //     printf("key3: %d\r\n", keyvalue);
-        //     keyvalue = Key_Scan(key4_GPIO_Port, key4_Pin);
-        //     printf("key4: %d\r\n", keyvalue);
-        //     keyvalue = Key_Scan(key5_GPIO_Port, key5_Pin);
-        //     printf("key5: %d\r\n", keyvalue);
-        //     //扫描编码器状态
-        //     uint8_t encoder_value = Encoder_Scan(Key_Scan(key3_GPIO_Port, key3_Pin), Key_Scan(key5_GPIO_Port, key5_Pin));
-        //     switch (encoder_value)
-        //     {
-        //     case 1:
-        //         printf("encoder: 1\r\n");
-        //         break;
-        //     case -1:
-        //         printf("encoder: -1\r\n");
-        //         break;
-        //     default:
-        //         break;
-        //     }
         buzzer_off();
         if(keycount == 0)    
         {

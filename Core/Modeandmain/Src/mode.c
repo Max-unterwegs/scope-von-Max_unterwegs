@@ -1,7 +1,7 @@
 /*
  * @Date: 2025-02-06 18:56:18
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-03-05 22:26:04
+ * @LastEditTime: 2025-03-07 19:45:44
  * @FilePath: \MDK-ARMd:\Mein_Werk\scope_project\Core\Modeandmain\Src\mode.c
  */
 #include "mode.h"
@@ -11,15 +11,18 @@
 #include "send.h"
 
 
-float voltages[3];
-float res[2];
-int functionshow[5] = {1, 1, 10,0,3};//0:DC 1:CH 2:Hz*10 3:wave 4:SHOW
+float voltages[3];//0:CH1 1:CH2 2:Verfint
+float res[2];//0:R1 1:R2
+int functionshow[5] = {1, 1, 10,0,3};//0:DC 1:CH 2:Hz 3:wave 4:SHOW
 float paramshow[5] = {100, 10.1, 10.1, 3.3, 1000000};//0:DCarr 1:CH1mv 2:CH2mv 3:DCv 4:CHf
 
 
 /**
  * @brief 采样与输出模式初始化
- * 功能包括通道采样，直流电输出，数据发送与状态模式显示，相关参数调节，其余状态显示
+ * @param void
+ * @return void
+ * @note 功能包括通道采样，交流电输出，数据发送与状态模式显示，相关参数调节，其余状态显示
+ * @author Max_unterwegs
  */
 void scope_init(void)
 {
@@ -29,16 +32,15 @@ void scope_init(void)
     DC_control(functionshow[0], paramshow[0]); // 示例参数
     // 初始化数据发送
     sendinit();
-    // 初始化相关参数调节
-    // 初始化其余状态显示
 }
 
 /**
  * @brief 采样与输出模式主函数
- * 功能包括通道采样，直流电输出，数据发送与状态模式显示，相关参数调节，其余状态显示
+ * @param void
+ * @return void
+ * @note 功能包括通道采样，交流电输出，数据发送与状态模式显示，相关参数调节，其余状态显示
+ * @author Max_unterwegs
  */
-
-
 void scope_main(void)
 {
     // 初始化直流电输出
@@ -63,7 +65,10 @@ void scope_main(void)
 
 /**
  * @brief 万用表模式初始化
- * 功能包括电压测量，电阻测量，通断测量，数据发送与状态显示，相关参数调节
+ * @note 功能包括电压测量，电阻测量，通断测量，直流电输出，数据发送与状态显示，相关参数调节
+ * @param void
+ * @return void
+ * @author Max_unterwegs
  */
 void messer_init(void)
 {
@@ -73,14 +78,15 @@ void messer_init(void)
     DC_control(functionshow[0], paramshow[0]); // 示例参数
     // 初始化数据发送
     sendinit();
-    // 初始化状态模式显示
-    // 初始化相关参数调节
-    // 初始化其余状态显示
 }
 
 /**
  * @brief 万用表模式主函数
- * 功能包括电压测量，电阻测量，通断测量，数据发送与状态显示，相关参数调节
+ * @note 功能包括电压测量，电阻测量，通断测量，数据发送与状态显示，相关参数调节
+ * @bug 电阻测量功能有问题
+ * @param void
+ * @return void
+ * @author Max_unterwegs
  */
 void messer_main(void)
 {
@@ -115,7 +121,10 @@ void messer_main(void)
 
 /**
  * @brief 自定义整活模式初始化
- * 目前没有功能
+ * @param void
+ * @return void
+ * @note 目前没有功能
+ * @author Max_unterwegs
  */
 void mu_init(void)
 {
@@ -124,13 +133,22 @@ void mu_init(void)
 
 /**
  * @brief 自定义整活模式主函数
- * 目前没有功能
+ * @param void
+ * @return void
+ * @note 目前没有功能
+ * @author Max_unterwegs
  */
 void mu_main(void)
 {
     // 预留主函数代码
 }
-
+/**
+ * @brief 停止所有功能
+ * @param void
+ * @return void
+ * @note 停止所有功能，包括通道采样，交流电输出，数据发送与状态模式显示，相关参数调节，其余状态显示
+ * @author Max_unterwegs
+ */
 void allstop()
 {
         // 停止通道采样

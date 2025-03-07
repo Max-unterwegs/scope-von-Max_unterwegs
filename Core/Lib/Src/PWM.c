@@ -1,8 +1,9 @@
 /*
  * @Date: 2025-02-04 10:30:55
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-02-19 21:15:52
- * @FilePath: \MDK-ARMd:\Mein_Werk\meine code\stm32projekt\scope\Core\Lib\Src\PWM.c
+ * @LastEditTime: 2025-03-07 20:08:54
+ * @FilePath: \MDK-ARMd:\Mein_Werk\scope_project\Core\Lib\Src\PWM.c
+ * @Description: PWM直流电压输出相关函数
  */
 #include "PWM.h"
 #include "main.h"
@@ -11,18 +12,26 @@
 
 
 /**
-************************************************************************************************
-* @brief    PWM初始化函数
-* @param    None
-* @return   None
-* @author   None
-************************************************************************************************
-**/
+ * @brief OUTPWM输出初始化
+ * @param void
+ * @return void
+ * @note 初始化PWM输出
+ * @attention 无
+ * @author Max_unterwegs
+ */
 void PWM_OUT_Init( void )
 {
   // printf("PWM_OUT_Init\r\n");
   HAL_TIM_PWM_Start( &OUT_HAL_TIM ,OUT_CHANNEL);
 }
+/**
+ * @brief CHPWM输出初始化
+ * @param void
+ * @return void
+ * @note 初始化PWM输出
+ * @attention 无
+ * @author Max_unterwegs
+ */
 void PWM_CH_Init( void )
 {
   // printf("PWM_CH_Init\r\n");
@@ -30,13 +39,15 @@ void PWM_CH_Init( void )
   HAL_TIM_PWM_Start( &CH2_HAL_TIM ,CH2_CHANNEL);
 }
 /**
-************************************************************************************************
-* @brief    PWM占空比设置函数
-* @param    timx: 定时器 channel: 通道 duty: 占空比
-* @return   None
-* @author   None
-************************************************************************************************
-**/
+ * @brief PWM占空比设置
+ * @param timx: 定时器
+ * @param channel: 通道
+ * @param duty: 占空比
+ * @return void
+ * @note 设置PWM占空比
+ * @attention 无
+ * @author Max_unterwegs
+ */
 void PWM_DutySet( TIM_TypeDef* timx, uint8_t channel, uint16_t duty )
 {
   // printf("tim: channel:%d,duty:%d\r\n",channel,duty);
@@ -64,7 +75,17 @@ void PWM_DutySet( TIM_TypeDef* timx, uint8_t channel, uint16_t duty )
     }
   }
 }
-
+/**
+ * @brief 直流电输出
+ * @param timx: 定时器
+ * @param channel: 通道
+ * @param value: 电压值
+ * @param arr: 自动重装载值
+ * @return void
+ * @note 直流电输出
+ * @attention 无
+ * @author Max_unterwegs
+ */
 void DC_OUT(TIM_TypeDef* timx, uint8_t channel, float value, uint16_t arr)
 {
   PWM_DutySet(timx,channel,(uint16_t)((value/3.3)*arr));

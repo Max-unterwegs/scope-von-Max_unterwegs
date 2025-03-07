@@ -1,25 +1,36 @@
 /*
  * @Date: 2025-02-05 17:58:21
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-03-05 22:25:09
+ * @LastEditTime: 2025-03-07 20:23:52
  * @FilePath: \MDK-ARMd:\Mein_Werk\scope_project\Core\App\Src\show.c
+ * @Description: 显示相关应用函数集
  */
 #include "show.h"
 
-char statuschar[4][10] = {"test123", "SCOPE", "MESSER", "MU"};
-char functionshowchar[5][10] = {"DC", "CH", "Hz", "Wave", "SHOW"};
-char paramshowchar[5][10] = {"DCarr", "CH1mv", "CH2mv", "DCv", "CHf"};
-char waveshowchar[4][10] = {"SIN","TRI","SAW","SQU"};
-int showparamlist[6] = {3, 1, 2, 0, 4,0};
-// int showcount = 0;
+char statuschar[4][10] = {"test123", "SCOPE", "MESSER", "MU"};//状态显示用
+char functionshowchar[5][10] = {"DC", "CH", "Hz", "Wave", "SHOW"};//功能显示用
+char paramshowchar[5][10] = {"DCarr", "CH1mv", "CH2mv", "DCv", "CHf"};//参数显示用
+char waveshowchar[4][10] = {"SIN","TRI","SAW","SQU"};//波形显示用
+int showparamlist[6] = {3, 1, 2, 0, 4,0};//显示参数顺序列表,其中最后一个为显示分频
 
+/**
+ * @brief 显示初始化函数
+ * @param void
+ * @return void
+ * @note OLED初始化
+ * @author Max_unterwegs
+ */
 void showinit(){
     HAL_Delay(20);
     OLED_Init();
 }
 
 /**
- * @brief 显示电压、电阻、状态、模式、参数等信息
+ * @brief 显示应用函数
+ * @param void
+ * @return void
+ * @note 显示电压、电阻、状态、模式、参数等信息
+ * @author Max_unterwegs
  */
 void showshow()
 {

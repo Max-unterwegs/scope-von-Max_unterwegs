@@ -1,12 +1,20 @@
 /*
  * @Date: 2025-02-05 18:02:21
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-02-23 17:26:29
- * @FilePath: \MDK-ARMd:\Mein_Werk\meine code\stm32projekt\scope\Core\App\Src\function.c
+ * @LastEditTime: 2025-03-07 19:55:28
+ * @FilePath: \MDK-ARMd:\Mein_Werk\scope_project\Core\App\Src\function.c
+ * @Description: ??????????????
  */
 #include "function.h"
 
-
+/**
+ * @brief ???????
+ * @param isopen: 0-?? 1-??
+ * @param arris: ??????
+ * @return void
+ * @note ???????????????pwm??????
+ * @author Max_unterwegs
+ */
 void DC_control(char isopen, int arris)
 {
     static char ispwmopen = 0;
@@ -30,14 +38,27 @@ void DC_control(char isopen, int arris)
 }
 
 
-
+/**
+ * @brief ?????????
+ * @param dcvalue: ?????
+ * @return void
+ * @note ???????????
+ * @attention ?????0-3.3V
+ * @author Max_unterwegs
+ */
 void DC_vcontrol(float dcvalue)
 {
 
     DC_OUT( OUT_TIM , OUT_CHANNEL, dcvalue, paramshow[0]);
     
 }
-
+/**
+ * @brief ??????
+ * @param isCHopen: 0-?? 1-??
+ * @return void
+ * @note ????????????????????pwm???adc??
+ * @author Max_unterwegs
+ */
 void CH_control(char isCHopen)
 {
     static char ischpwmopen = 0;
@@ -66,7 +87,14 @@ void CH_control(char isCHopen)
         }
     }
 }
-
+/**
+ * @brief ??????
+ * @param chnum: ???
+ * @param chvmode: 2:2??±3.3V?? 10:10??±16.65V??
+ * @return void
+ * @note ???????
+ * @author Max_unterwegs
+ */
 void CH_vcontrol(char chnum,char chvmode)
 {
     switch (chnum)
@@ -109,7 +137,14 @@ void CH_vcontrol(char chnum,char chvmode)
             break;
     }
 }
-
+/**
+ * @brief ????????
+ * @param freq: ??????
+ * @param isCHopen: 0-?? 1-??
+ * @return void
+ * @note ?????????
+ * @author Max_unterwegs
+ */
 void CH_fcontrol(float freq ,char isCHopen) {
     if(isCHopen == 1)
     {
@@ -134,25 +169,37 @@ void CH_fcontrol(float freq ,char isCHopen) {
     }
     
 }
-
+/**
+ * @brief ?????
+ * @param mapbuffer: ?????
+ * @return void
+ * @note ??????????????
+ * @author Max_unterwegs
+ */
 void voltage_map(float* mapbuffer)
 {
     mapbuffer[0] = (1.65 - mapbuffer[0])*paramshow[1];
     mapbuffer[1] = (1.65 - mapbuffer[1])*paramshow[2];
 }
-
+/**
+ * @brief ?????
+ * @param vsvalue: ???
+ * @param resbuffer: ?????
+ * @param mapbuffer: ?????
+ * @return void
+ * @note ?????
+ * @author Max_unterwegs
+ */
 void Get_Res(float vsvalue,float* resbuffer,float* mapbuffer)
 {
     resbuffer[0] = vsvalue*(1000000.0/paramshow[1])/(1.65-mapbuffer[0])-1000000.0;
     resbuffer[1] = vsvalue*(1000000.0/paramshow[2])/(1.65-mapbuffer[1])-1000000.0;
     if(resbuffer[0] < 70)
     {
-        //Çý¶¯·äÃùÆ÷
         functionshow[2] = 1;   
     }
     if(resbuffer[1] < 70)
     {
-        //Çý¶¯·äÃùÆ÷
         functionshow[2] = 1;   
     }
     resbuffer[0] = resbuffer[0] > 1000000? 1000000 : resbuffer[0];
