@@ -1,7 +1,7 @@
 /*
  * @Date: 2025-02-05 17:58:21
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-03-07 20:23:52
+ * @LastEditTime: 2025-03-08 10:54:33
  * @FilePath: \MDK-ARMd:\Mein_Werk\scope_project\Core\App\Src\show.c
  * @Description: 显示相关应用函数集
  */
@@ -9,9 +9,9 @@
 
 char statuschar[4][10] = {"test123", "SCOPE", "MESSER", "MU"};//状态显示用
 char functionshowchar[5][10] = {"DC", "CH", "Hz", "Wave", "SHOW"};//功能显示用
-char paramshowchar[5][10] = {"DCarr", "CH1mv", "CH2mv", "DCv", "CHf"};//参数显示用
+char paramshowchar[7][10] = {"DCarr", "CH1mv", "CH2mv", "DCv", "CHf","A","V"};//参数显示用
 char waveshowchar[4][10] = {"SIN","TRI","SAW","SQU"};//波形显示用
-int showparamlist[6] = {3, 1, 2, 0, 4,0};//显示参数顺序列表,其中最后一个为显示分频
+int showparamlist[8] = {3, 1, 2, 0, 4, 5, 6,0};//显示参数顺序列表,其中最后一个为显示分频
 
 /**
  * @brief 显示初始化函数
@@ -64,13 +64,22 @@ void showshow()
         }
 
         // 显示参数
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 7; i++) {
             char buffer[20];
+            int oledcolor = OLED_COLOR_NORMAL;
             snprintf(buffer, sizeof(buffer), "%s:%.2f", paramshowchar[showparamlist[i]], paramshow[showparamlist[i]]);
             if (select.forp == 1 && select.index == i) {
-                OLED_PrintASCIIString(0, (i + 6) * 8, buffer, &afont8x6, OLED_COLOR_REVERSED);
+                oledcolor = OLED_COLOR_REVERSED;
             } else {
-                OLED_PrintASCIIString(0, (i + 6) * 8, buffer, &afont8x6, OLED_COLOR_NORMAL);
+                oledcolor = OLED_COLOR_NORMAL;
+            }
+            if(i <= 4)
+            {
+                OLED_PrintASCIIString(0, (i + 6) * 8, buffer, &afont8x6, oledcolor);
+            }
+            else
+            {
+                OLED_PrintASCIIString(37, (i-3) * 8, buffer, &afont8x6, oledcolor);
             }
         }
 
@@ -90,12 +99,12 @@ void showshow()
 
         // 显示状态
         char buffer[20];
-        showparamlist[5] = (showparamlist[5] + 1) % functionshow[4];
+        showparamlist[7] = (showparamlist[7] + 1) % functionshow[4];
         snprintf(buffer, sizeof(buffer), "Status: %s", statuschar[status]);
         OLED_PrintASCIIString(0, 0, buffer, &afont8x6, OLED_COLOR_NORMAL);
         OLED_PrintASCIIString(27, 8, "Max-unterwegs^_^", &afont8x6, OLED_COLOR_REVERSED);
         OLED_DrawImage(125-50, 17, &likeImg, OLED_COLOR_NORMAL);
-        if(showparamlist[5] == 0)
+        if(showparamlist[7] == 0)
         {
             OLED_ShowFrame();
         }

@@ -1,8 +1,8 @@
 /*
  * @Date: 2025-02-06 18:56:18
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-03-07 19:45:44
- * @FilePath: \MDK-ARMd:\Mein_Werk\scope_project\Core\Modeandmain\Src\mode.c
+ * @LastEditTime: 2025-03-08 10:32:27
+ * @FilePath: \scope_project\Core\Modeandmain\Src\mode.c
  */
 #include "mode.h"
 #include "function.h"
@@ -14,7 +14,7 @@
 float voltages[3];//0:CH1 1:CH2 2:Verfint
 float res[2];//0:R1 1:R2
 int functionshow[5] = {1, 1, 10,0,3};//0:DC 1:CH 2:Hz 3:wave 4:SHOW
-float paramshow[5] = {100, 10.1, 10.1, 3.3, 1000000};//0:DCarr 1:CH1mv 2:CH2mv 3:DCv 4:CHf
+float paramshow[7] = {100, 10.1, 10.1, 3.3, 1000000,3.3,0};//0:DCarr 1:CH1mv 2:CH2mv 3:DCv 4:CHf 5:ACA 6:ACV
 
 
 /**

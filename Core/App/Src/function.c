@@ -1,18 +1,18 @@
 /*
  * @Date: 2025-02-05 18:02:21
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-03-07 19:55:28
+ * @LastEditTime: 2025-03-08 11:02:02
  * @FilePath: \MDK-ARMd:\Mein_Werk\scope_project\Core\App\Src\function.c
- * @Description: ??????????????
+ * @Description: 功能应用函数封装
  */
 #include "function.h"
 
 /**
- * @brief ???????
- * @param isopen: 0-?? 1-??
- * @param arris: ??????
+ * @brief 直流电压开关频率控制
+ * @param isopen: 0-关闭 1-打开
+ * @param arris: 自动重装载值
  * @return void
- * @note ???????????????pwm??????
+ * @note 控制直流电压pwm输出
  * @author Max_unterwegs
  */
 void DC_control(char isopen, int arris)
@@ -22,12 +22,13 @@ void DC_control(char isopen, int arris)
     {
         HAL_TIM_PWM_Stop( &OUT_HAL_TIM ,OUT_CHANNEL);
         HAL_TIM_Base_Stop( &OUT_HAL_TIM );
-        __HAL_TIM_SET_AUTORELOAD(&OUT_HAL_TIM, arris);
         ispwmopen = 0;
     }
         
     else
     {
+        __HAL_TIM_SET_AUTORELOAD(&OUT_HAL_TIM, arris);
+        OUT_HAL_TIM.Instance->CNT = 0;
         if(ispwmopen == 0)
         {
             ispwmopen = 1;
@@ -39,11 +40,11 @@ void DC_control(char isopen, int arris)
 
 
 /**
- * @brief ?????????
- * @param dcvalue: ?????
+ * @brief 直流电压控制
+ * @param dcvalue: 电压值
  * @return void
- * @note ???????????
- * @attention ?????0-3.3V
+ * @note 控制直流电压输出
+ * @attention dcvalue范围0-3.3V
  * @author Max_unterwegs
  */
 void DC_vcontrol(float dcvalue)
@@ -53,10 +54,10 @@ void DC_vcontrol(float dcvalue)
     
 }
 /**
- * @brief ??????
- * @param isCHopen: 0-?? 1-??
+ * @brief 交流电压开关频率控制
+ * @param isCHopen: 0-关闭 1-打开
  * @return void
- * @note ????????????????????pwm???adc??
+ * @note 控制交流电压输入开关，更新模式
  * @author Max_unterwegs
  */
 void CH_control(char isCHopen)
@@ -88,11 +89,11 @@ void CH_control(char isCHopen)
     }
 }
 /**
- * @brief ??????
- * @param chnum: ???
- * @param chvmode: 2:2??�3.3V?? 10:10??�16.65V??
+ * @brief 通道量程控制
+ * @param chnum: 1-CH1 2-CH2
+ * @param chvmode: 2-2倍 ±3.3V 10-10倍 ±16.65V
  * @return void
- * @note ???????
+ * @note 控制通道量程
  * @author Max_unterwegs
  */
 void CH_vcontrol(char chnum,char chvmode)
@@ -138,11 +139,11 @@ void CH_vcontrol(char chnum,char chvmode)
     }
 }
 /**
- * @brief ????????
- * @param freq: ??????
- * @param isCHopen: 0-?? 1-??
+ * @brief 通道采样率控制
+ * @param freq: 采样率
+ * @param isCHopen: 0-关闭 1-打开
  * @return void
- * @note ?????????
+ * @note 控制通道采样率
  * @author Max_unterwegs
  */
 void CH_fcontrol(float freq ,char isCHopen) {
@@ -170,10 +171,10 @@ void CH_fcontrol(float freq ,char isCHopen) {
     
 }
 /**
- * @brief ?????
- * @param mapbuffer: ?????
+ * @brief 电压映射
+ * @param mapbuffer: 映射缓存
  * @return void
- * @note ??????????????
+ * @note 将读取的电压值映射到实际电压值
  * @author Max_unterwegs
  */
 void voltage_map(float* mapbuffer)
@@ -182,12 +183,12 @@ void voltage_map(float* mapbuffer)
     mapbuffer[1] = (1.65 - mapbuffer[1])*paramshow[2];
 }
 /**
- * @brief ?????
- * @param vsvalue: ???
- * @param resbuffer: ?????
- * @param mapbuffer: ?????
+ * @brief 电阻计算
+ * @param vsvalue: 直流输入电压值
+ * @param resbuffer: 电阻缓存
+ * @param mapbuffer: 映射缓存
  * @return void
- * @note ?????
+ * @note 计算电阻值
  * @author Max_unterwegs
  */
 void Get_Res(float vsvalue,float* resbuffer,float* mapbuffer)

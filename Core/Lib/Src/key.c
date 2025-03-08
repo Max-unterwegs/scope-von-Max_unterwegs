@@ -1,7 +1,7 @@
 /*
  * @Date: 2025-02-04 10:30:55
  * @LastEditors: Max-unterwegs && max_unterwegs@126.com 
- * @LastEditTime: 2025-03-07 20:23:24
+ * @LastEditTime: 2025-03-08 11:04:38
  * @FilePath: \MDK-ARMd:\Mein_Werk\scope_project\Core\Lib\Src\key.c
  * @Description: 按键与编码器扫描相关函数，波形生成相关代码
  */
@@ -12,7 +12,7 @@ select_Typedef select = {1,0};//选择状态
 volatile uint8_t EC11_A_Last = 0; // 上一次A相状态
 volatile uint8_t EC11_B_Last = 0; // 上一次B相状态
 int8_t B_level = 0, encoder_value = 0;//编码器值
-uint8_t paramlist[5] = {3, 1, 2, 0, 4};//参数顺序列表
+uint8_t paramlist[7] = {3, 1, 2, 0, 4, 5, 6};//参数顺序列表
 int keycount = 0;//按键计数
 int sample_index = 0;//波形索引
 float sample_indexf = 0.0;//波形频率时间计数
@@ -246,7 +246,7 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
                         functionshow[select.index] = (functionshow[select.index] + 1) % 500;
                         break;
                     case 3:
-                        functionshow[select.index] = (functionshow[select.index] + 3 - 1) % 4;
+                        functionshow[select.index] = (functionshow[select.index] + 1) % 4;
                         break;
                     default:
                         functionshow[select.index] = !functionshow[select.index];
@@ -272,7 +272,12 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
                 case 4:
                     paramshow[4] = paramshow[4] + 100000;
                     break;
-
+                case 5:
+                    paramshow[5] = paramshow[5] == 3.3? 3.3:(paramshow[5]+0.1);
+                    break;
+                case 6:
+                    paramshow[6] = (paramshow[6]+paramshow[5] > 3.3)? paramshow[6]:(paramshow[6]+0.1);
+                    break;
                 default:
                     break;
                 }
@@ -324,7 +329,12 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
                 case 4:
                     paramshow[4] = paramshow[4] == 100000?100000:(paramshow[4] - 100000);
                     break;
-
+                case 5:
+                    paramshow[5] = paramshow[5] == 0.0? 0.0:(paramshow[5]-0.1);
+                    break;
+                case 6:
+                    paramshow[6] = (paramshow[6] == 0.0)? 0.0:(paramshow[6]-0.1);
+                    break;
                 default:
                     break;
                 }
@@ -373,8 +383,16 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
             if (Key_Scan(key4_GPIO_Port, key4_Pin) == KEY_ON)
             {
                 buzzer_on();
-                select.index = (select.index + 1) % 5;
-                // printf("selectindex: %d\r\n", select.index);
+                if(select.forp == 0)
+                {
+                    select.index = (select.index + 1) % 5;
+                    // printf("selectindex: %d\r\n", select.index);
+                }
+                else
+                {
+                    select.index = (select.index + 1) % 7;
+                    // printf("selectindex: %d\r\n", select.index);
+                }
             }
         }
         // 计算当前采样点
@@ -389,16 +407,16 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
             switch (functionshow[3])
             {
             case 3:
-                paramshow[3] = square_wave[sample_index] * 3.3 / 4095; // 将值转换为电压值
+                paramshow[3] = square_wave[sample_index] * paramshow[5] / 4095 + paramshow[6]; // 将值转换为电压值
                 break;
             case 0:
-                paramshow[3] = sine_wave[sample_index] * 3.3 / 4095; // 将值转换为电压值
+                paramshow[3] = sine_wave[sample_index] * paramshow[5] / 4095 + paramshow[6]; // 将值转换为电压值
                 break;
             case 1:
-                paramshow[3] = triangle_wave[sample_index] * 3.3 / 4095; // 将值转换为电压值
+                paramshow[3] = triangle_wave[sample_index] * paramshow[5] / 4095 + paramshow[6]; // 将值转换为电压值
                 break;
             case 2:
-                paramshow[3] = sawtooth_wave[sample_index] * 3.3 / 4095; // 将值转换为电压值
+                paramshow[3] = sawtooth_wave[sample_index] * paramshow[5] / 4095 + paramshow[6]; // 将值转换为电压值
                 break;
             default:
                 break;

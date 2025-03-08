@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "waveform_data.h": "c"
+        "waveform_data.h": "c",
+        "chrono": "c",
+        "variant": "c"
     }
 }
